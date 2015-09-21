@@ -8,7 +8,8 @@ module.exports = {
         },
         externals: {
             "react": "React",
-            "whatwg-fetch": "fetch"
+            "whatwg-fetch": "fetch",
+            "markdown": "Markdown"
         },
         module: {
             loaders: [

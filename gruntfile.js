@@ -10,7 +10,7 @@ module.exports = function(grunt) {
         eslint: require("./grunt-tasks/eslint"), 
     });
 
-    grunt.registerTask("lib", ["copy:react", "copy:sortablejs", "copy:fetch"]);
+    grunt.registerTask("lib", ["copy:react", "copy:sortablejs", "copy:fetch", "copy:markdown"]);
     grunt.registerTask("backend", ["copy:backend"]);
     grunt.registerTask("js", ["clean:js", "eslint", "webpack:dev"]);
     grunt.registerTask("css", ["clean:less", "less"]);

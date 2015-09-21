@@ -29,4 +29,9 @@ module.exports =    {
             {expand: true, flatten: true, src: ["node_modules/whatwg-fetch/fetch.js", "node_modules/sortablejs/Sortable.min.js"], dest: "dist/web/lib/"}
         ]
     },
+    markdown: {
+        files: [
+            {expand: true, flatten: true, src: ["node_modules/markdown/lib/markdown.js"], dest: "dist/web/lib/"}
+        ]
+    },
 };
