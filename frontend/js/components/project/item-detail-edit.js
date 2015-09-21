@@ -1,4 +1,5 @@
 import React from "react";
+import ConfirmButton from "../shared/confirmButton";
 
 export default React.createClass({
     getInitialState() {
@@ -41,7 +42,7 @@ export default React.createClass({
             </div>
             <div className="buttons">
                 <button onClick={this.onClickSave} className="pure-button pure-button-primary">save</button>
-                <button onClick={this.onClickDelete} className="pure-button button-error">delete</button>
+                <ConfirmButton onConfirm={this.onClickDelete} className="pure-button button-error" text="delete" />
                 <button onClick={this.onClickCancel} className="pure-button">cancel</button>
             </div>
         </div>;
