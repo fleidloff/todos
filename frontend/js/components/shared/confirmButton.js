@@ -18,7 +18,6 @@ export default React.createClass({
         }, 3000);
     },
     componentWillUnmount() {
-        console.log("component will unmount");
         clearTimeout(t);
     },
     render() {
