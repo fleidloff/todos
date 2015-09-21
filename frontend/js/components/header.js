@@ -2,7 +2,6 @@ import React from "react";
 
 
 export default React.createClass({
-
     onClickNew() {
         this.props.app.trigger("new:item");
     },
