@@ -13,9 +13,13 @@ export default React.createClass({
             return this.props.onConfirm();
         }
         this.setState({clicked: true});
-        setTimeout(() => {
+        t = setTimeout(() => {
             this.setState({clicked: false});
         }, 3000);
+    },
+    componentWillUnmount() {
+        console.log("component will unmount");
+        clearTimeout(t);
     },
     render() {
         const text = this.state.clicked ? `confirm ${this.props.text}` : this.props.text
