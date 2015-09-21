@@ -1,0 +1,55 @@
+.drop-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.1) {
+    -webkit-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+    -moz-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+    box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+}
+.arrow-right {
+    width: 0; 
+    height: 0; 
+    border-top: 2*@spacing solid transparent;
+    border-bottom: 2*@spacing solid transparent;
+    
+    border-left: 2*@spacing solid #fff;
+}
+.align-right {
+    text-align: right;
+}
+.pointer {
+    cursor: pointer;
+}
+.button-success,
+.button-error,
+.button-warning,
+.button-secondary {
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.button-success {
+    background: rgb(28, 184, 65); /* this is a green */
+}
+
+.button-error {
+    background: rgb(202, 60, 60); /* this is a maroon */
+}
+
+.button-warning {
+    background: rgb(223, 117, 20); /* this is an orange */
+}
+
+.button-secondary {
+    background: rgb(66, 184, 221); /* this is a light blue */
+}
+.pure-button {
+    .drop-shadow(0, 1px, 2px, 0.2);
+}
+.message {
+    background: rgb(66, 184, 221);
+    padding: 2*@spacing;
+    color: #fff;
+    .drop-shadow(0, 1px, 2px, 0.2);
+}
+.message-warning {
+    background: rgb(223, 117, 20);
+}
