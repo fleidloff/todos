@@ -1,28 +1,18 @@
 import React from "react";
-import app from "./util/dispatcher";
-import backend from "./util/backend";
+import App from "./app/app";
 import Project from "./components/project/project";
 import Header from "./components/header";
 import Notifications from "./components/notifications";
 
 React.render(
-    <Header app={app} />,
-    document.getElementById("header")
-);
-React.render(
-    <Notifications app={app} />,
-    document.getElementById("notifications")
-);
-React.render(
-    <Project app={app} />,
+    <App render={app => {
+        // todo: remove
+        window.app = app;
+        return <div>
+            <Header app={app} /> 
+            <Notifications app={app} />  
+            <Project app={app} /> 
+        </div>
+    }}/>,
     document.getElementById("content")
 );
-
-// todo: remove
-window.app = app;
-app.trigger("show:message", "Hello, World!");
-app.on("app:error", e => {
-    // todo: remove console.log here
-    console.log(e);
-    app.trigger("show:message", "Ooops, something went wrong...", "warning");
-});

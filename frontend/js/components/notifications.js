@@ -1,30 +1,11 @@
 import React from "react";
 let id = 0;
 export default React.createClass({
-    getInitialState() {
-        const {app} = this.props;
-        app.on("show:message", (m, t) => {
-            const notification = {
-                content: m,
-                type: t || "info",
-                id: id++
-            };
-            const newNotifications = this.state.notifications;
-            newNotifications.push(notification);
-            this.setState({notifications: newNotifications});
-        });
-        return {
-            notifications: []
-        };
-    },
     onClick(id) {
-        return e => {
-            const newNotifications = this.state.notifications.filter(n => n.id !== id);
-            this.setState({notifications: newNotifications});
-        }
+        return () => this.props.app.trigger("dismiss:notification", id);
     },
     renderNotifications() {
-        return this.state.notifications
+        return this.props.app.model.notifications
             .map(m => {
                 if (m.type) {
                     if (m.type === "warning") {

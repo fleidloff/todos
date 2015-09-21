@@ -1,21 +1,19 @@
 const listeners = {
-    "load:items": [],
-    "loaded:items": [],
-    "select:item": [],
-    "load:item": [],
-    "loaded:item": [],
-    "save:item-detail": [],
-    "cancel:item-detail": [],
-    "new:item": [],
-    "delete:item-detail": [],
-    "deleted:item-detail": [],
-    "show:message": [],
     "app:error": [],
+    "cancel:item-detail": [],
+    "delete:item-detail": [],
+    "dismiss:notification": [],
+    "edit:item-detail": [],
+    "load:items": [],
+    "new:item": [],
+    "save:item-detail": [],
+    "select:item": [],
+    "show:message": [],
 };
 
 export default {
     on(evt, cb) {
-        this.off(evt, cb);
+        //this.off(evt, cb);
         if (!(evt in listeners)) {
             throw new Error(`event ${evt} does not exist.`);
         }

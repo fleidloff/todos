@@ -3,20 +3,17 @@ import React from "react";
 export default React.createClass({
     getInitialState() {
         return { 
-            data: JSON.parse(JSON.stringify(this.props.data))
+            data: JSON.parse(JSON.stringify(this.props.app.model.activeItem))
         };
     },
     onClickSave() {
-        const {app} = this.props;
         this.save();
     },
     onClickDelete() {
-        const {app} = this.props;
-        app.trigger("delete:item-detail", this.state.data.id);
+        this.props.app.trigger("delete:item-detail", this.props.app.model.activeItem.id);
     },
     onClickCancel() {
-        const {app} = this.props;
-        app.trigger("cancel:item-detail", this.state.data);
+        this.props.app.trigger("cancel:item-detail");
     },
     onChange(what) {
         return e => {
