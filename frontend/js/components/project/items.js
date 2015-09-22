@@ -19,7 +19,7 @@ export default React.createClass({
     onSort(evt) {
         const {newIndex, oldIndex} = evt;
         const {app} = this.props;
-        const item = app.model.items.filter(i => i.sort === (this.props.app.model.items.length - oldIndex - 1))[0];
+        const item = app.model.items.filter(i => i.sort === (app.model.items.length - oldIndex - 1))[0];
         if (item) {
             if (newIndex > oldIndex) {
                 item.sort = this.props.app.model.items.length - newIndex - 1 - 0.5;

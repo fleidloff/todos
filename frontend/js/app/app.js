@@ -74,7 +74,13 @@ export default React.createClass({
             })
             .catch(e => dispatcher.trigger("app:error", e));
         } else {
-            items.forEach(i => api.tasks.update(i).catch(e => dispatcher.trigger("app:error", e)));
+            items.forEach(i => api.tasks.update(i).then(res => {
+                if (res.status !== 200) {
+                    throw new Error("res.status is not OK:200 but " + res.status);
+                }
+                return res;
+            })
+            .catch(e => dispatcher.trigger("app:error", e)));
         }
     },
     editItem() {
@@ -100,8 +106,10 @@ export default React.createClass({
             .then(body => JSON.parse(body))
             .then(json => {
                 json.id = json._id;
-                dispatcher.trigger("save:item-detail", json);
-                dispatcher.trigger("select:item", json.id);
+                dispatcher.trigger("save:item-detail", json, true);
+
+                setTimeout(() => dispatcher.trigger("select:item", json.id), 0);
+                
                 this.setModel({editing: true});
             })
             .catch(e => dispatcher.trigger("dispatcher:error", e));
