@@ -154,6 +154,7 @@ export default React.createClass({
         dispatcher.trigger("show:message", "Hello, World!");
     },
     render() {
+        // todo: render this.props.children instead?
         return <div>
             {this.props.render(this.state)}
         </div>;   
