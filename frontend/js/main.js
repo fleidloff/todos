@@ -5,14 +5,10 @@ import Header from "./components/header";
 import Notifications from "./components/notifications";
 
 React.render(
-    <App render={app => {
-        // todo: remove
-        window.app = app;
-        return <div>
-            <Header app={app} /> 
-            <Notifications app={app} />  
-            <Project app={app} /> 
-        </div>
-    }}/>,
+    <App>
+        <Header key="Header" /> 
+        <Notifications key="Notifications" />  
+        <Project key="Project" />
+    </App>,
     document.getElementById("content")
 );

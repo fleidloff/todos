@@ -9,7 +9,8 @@ export default React.createClass({
 
     onSortStart(evt) {
         const {oldIndex} = evt;
-        const item = this.props.app.model.items.filter(i => i.sort === oldIndex)[0];
+        const {app} = this.props;
+        const item = app.model.items.filter(i => i.sort === oldIndex)[0];
         if (item) {
             app.trigger("select:item", item.id);
         }
@@ -17,7 +18,8 @@ export default React.createClass({
 
     onSort(evt) {
         const {newIndex, oldIndex} = evt;
-        const item = this.props.app.model.items.filter(i => i.sort === (this.props.app.model.items.length - oldIndex - 1))[0];
+        const {app} = this.props;
+        const item = app.model.items.filter(i => i.sort === (this.props.app.model.items.length - oldIndex - 1))[0];
         if (item) {
             if (newIndex > oldIndex) {
                 item.sort = this.props.app.model.items.length - newIndex - 1 - 0.5;

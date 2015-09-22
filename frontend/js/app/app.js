@@ -47,9 +47,7 @@ export default React.createClass({
     },
     selectItem(activeItemId) {
         const activeItem = this.state.model.items.filter(i => i.id === activeItemId)[0];
-        // todo: multiple model sets
-        this.setModel({editing: false});
-        this.setModel({activeItem});
+        this.setModel({activeItem, editing: false});
     },
     saveItem(item, sort) {
         const newItems = this.state.model.items.filter(i => i.id !== item.id);
@@ -76,7 +74,7 @@ export default React.createClass({
             })
             .catch(e => dispatcher.trigger("app:error", e));
         } else {
-            items.forEach(i => api.tasks.update(i));
+            items.forEach(i => api.tasks.update(i).catch(e => dispatcher.trigger("app:error", e)));
         }
     },
     editItem() {
@@ -127,8 +125,7 @@ export default React.createClass({
     },
     setModel(o) {
         const model = this.state.model;
-        const key = Object.keys(o)[0];
-        model[key] = o[key];
+        Object.keys(o).forEach(k => model[k] = o[k]);
         this.setState({model});  
     },
     getInitialState() {
@@ -145,8 +142,7 @@ export default React.createClass({
        
         return {
             model,
-            trigger: dispatcher.trigger,
-            on: e => {console.log(e + " still used")}
+            trigger: dispatcher.trigger
         };
     },
     componentDidMount() {
@@ -154,9 +150,8 @@ export default React.createClass({
         dispatcher.trigger("show:message", "Hello, World!");
     },
     render() {
-        // todo: render this.props.children instead?
         return <div>
-            {this.props.render(this.state)}
-        </div>;   
+            {this.props.children.map(r => React.cloneElement(r, {app: this.state}))} 
+        </div>; 
     }
 });

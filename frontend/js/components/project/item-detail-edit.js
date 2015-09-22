@@ -1,5 +1,6 @@
 import React from "react";
 import ConfirmButton from "../shared/confirmButton";
+import keyToColor from "../../util/keyToColor";
 
 export default React.createClass({
     getInitialState() {
@@ -24,7 +25,7 @@ export default React.createClass({
         };
     },
     save() {
-        app.trigger("save:item-detail", this.state.data);
+        this.props.app.trigger("save:item-detail", this.state.data);
     },
     onKeyDownTitle(e) {
         if (e.keyCode === 13) {
@@ -33,7 +34,8 @@ export default React.createClass({
     },
     render() {
         const {title, description} = this.state.data;
-        return <div className="item-detail">
+        const style = {"borderLeft": `4px solid ${keyToColor(this.props.app.model.activeItem.title)}`};
+        return <div className="item-detail" style={style}>
             <div className="title">
                 <input onKeyDown={this.onKeyDownTitle} onChange={this.onChange("title")} type="text" value={title} />
             </div>
