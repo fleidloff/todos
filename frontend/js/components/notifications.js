@@ -18,7 +18,7 @@ export default React.createClass({
             })
             .map((m, i) => {
                 const className = "pure-g message " + m.className;
-                return <div key={m.id} className={className}>
+                return <div key={m.content} className={className}>
                     <div className="pure-u-11-12">
                         {m.content}
                     </div>
