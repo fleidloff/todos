@@ -4,7 +4,6 @@ var methodOverride = require("method-override");
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var restify = require("express-restify-mongoose");
-var port = 8080;
 var config = require("../config");
 
 mongoose.connect(config.mongo.host + config.mongo.db, {server:{auto_reconnect:true}});
