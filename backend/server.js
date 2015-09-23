@@ -33,11 +33,11 @@ restify.defaults({
     prefix: config.app.context + config.api.context,
     version: "/" + config.api.version,
     middleware: function (req, res, next) {
-        console.log('Incoming %s request', req.method);
+        //console.log('Incoming %s request', req.method);
         next();
     },
     onError: function (err, req, res, next) {
-        next(err);
+        next("mongo error");
     }
 })
 restify.serve(router, TaskModel);

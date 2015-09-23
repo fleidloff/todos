@@ -26,6 +26,7 @@ export default React.createClass({
         dispatcher.trigger("show:message", "Ooops, something went wrong...", "warning");
     },
     loadItems() {
+        // todo: ensure model.activeProject is set
         api.tasks.all(model)
             .then(res => {
                 if (res.status !== 200) {
@@ -150,21 +151,20 @@ export default React.createClass({
         this.setModel({notifications});
     },
     selectProject(activeProject) {
-        // todo: ensure project is not null
-
         this.setModel({
             items: [],
             activeItem: null,
             activeProject,
             editing: false
         });
-        dispatcher.trigger("load:items");
+        if (activeProject) {
+            dispatcher.trigger("load:items");
+        } else {
+            dispatcher.trigger("app:error");
+        }
     },
     showProjects() {
-        dispatcher.trigger("show:message", <Projects app={{
-            model,
-            trigger: dispatcher.trigger
-        }} />);
+        dispatcher.trigger("show:message", <Projects app={this.state} />);
     },
     setModel(o) {
         const model = this.state.model;
