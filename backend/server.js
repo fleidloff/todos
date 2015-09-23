@@ -7,11 +7,18 @@ var restify = require("express-restify-mongoose");
 var config = require("../config");
 
 mongoose.connect(config.mongo.host + config.mongo.db, {server:{auto_reconnect:true}});
- 
+
+var Project = new Schema({
+    title: { type: String, required: true },
+    description: { type: String, required: false}
+});
+var ProjectModel = mongoose.model("Project", Project); 
+
 var Task = new Schema({
     title: { type: String, required: true },
     description: { type: String, required: false},
-    sort: { type: Number, required: true}
+    sort: { type: Number, required: true},
+    project: { type: mongoose.Schema.Types.ObjectId, ref: "Project", required: true }
 });
 var TaskModel = mongoose.model("Task", Task);
  
@@ -25,8 +32,16 @@ var router = express.Router();
 restify.defaults({
     prefix: config.app.context + config.api.context,
     version: "/" + config.api.version,
+    middleware: function (req, res, next) {
+        console.log('Incoming %s request', req.method);
+        next();
+    },
+    onError: function (err, req, res, next) {
+        next(err);
+    }
 })
 restify.serve(router, TaskModel);
+restify.serve(router, ProjectModel);
 app.use(router);
  
 app.listen(config.app.port, function() {

@@ -8,6 +8,7 @@ const listeners = {
     "new:item": [],
     "save:item-detail": [],
     "select:item": [],
+    "select:project": [],
     "show:message": [],
 };
 
