@@ -3,5 +3,6 @@ export default {
     activeItem: null,
     activeProject: null,
     editing: false,
-    notifications: []
+    notifications: [],
+    projects: []
 };

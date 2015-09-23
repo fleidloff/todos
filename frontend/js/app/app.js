@@ -1,6 +1,7 @@
 import dispatcher from "./dispatcher";
 import api from "./api";
 import m from "./model";
+import Projects from "../components/project/projects";
 let model = m;
 
 let id = 0;
@@ -43,6 +44,26 @@ export default React.createClass({
                 return items;
             })
             .then(items => this.setModel({items}))
+            .catch(e => dispatcher.trigger("app:error", e));
+    },
+    loadProjects() {
+        api.projects.all(model)
+            .then(res => {
+                if (res.status !== 200) {
+                    throw new Error("res.status is not OK:200 but " + res.status);
+                }
+                return res;
+            })
+            .then(res => res.text())
+            .then(body => JSON.parse(body))
+            .then(json => {
+                const projects = json.map(i => {
+                    i.id = i._id;
+                    return i;
+                })
+                return projects;
+            })
+            .then(projects => this.setModel({projects}))
             .catch(e => dispatcher.trigger("app:error", e));
     },
     selectItem(activeItemId, editing=false) {
@@ -130,7 +151,20 @@ export default React.createClass({
     },
     selectProject(activeProject) {
         // todo: ensure project is not null
-        this.setModel({activeProject});
+
+        this.setModel({
+            items: [],
+            activeItem: null,
+            activeProject,
+            editing: false
+        });
+        dispatcher.trigger("load:items");
+    },
+    showProjects() {
+        dispatcher.trigger("show:message", <Projects app={{
+            model,
+            trigger: dispatcher.trigger
+        }} />);
     },
     setModel(o) {
         const model = this.state.model;
@@ -144,6 +178,8 @@ export default React.createClass({
         dispatcher.on("dismiss:notification", this.dismissNotification);
         dispatcher.on("edit:item-detail", this.editItem);
         dispatcher.on("load:items", this.loadItems);
+        dispatcher.on("load:projects", this.loadProjects);
+        dispatcher.on("show:projects", this.showProjects);
         dispatcher.on("new:item", this.newItem);
         dispatcher.on("save:item-detail", this.saveItem);
         dispatcher.on("select:item", this.selectItem)
@@ -156,9 +192,9 @@ export default React.createClass({
         };
     },
     componentDidMount() {
-        dispatcher.trigger("select:project", "5602ff2ca0e08fdb194868df");
-        dispatcher.trigger("load:items");
-        dispatcher.trigger("show:message", "Hello, World!");
+        window.dispatcher = dispatcher;
+        dispatcher.trigger("load:projects");
+        dispatcher.trigger("show:projects");
     },
     render() {
         return <div>

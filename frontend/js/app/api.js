@@ -6,6 +6,11 @@ const base = config.app.context + config.api.context + "/" + config.api.version 
 // todo: handle errors
 
 export default {
+    projects: {
+        all(model) {
+            return fetch(`${base}Projects`);
+        }
+    },
     tasks: {
         all(model) {
             return fetch(`${base}Tasks?project=${model.activeProject}`);
