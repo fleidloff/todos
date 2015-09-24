@@ -33,6 +33,9 @@ export default {
         if (!(evt in listeners)) {
             throw new Error(`event ${evt} does not exist.`);
         }
+        if (listeners[evt].length === 0) {
+            throw new Error(`event ${evt} triggered but not catched.`);
+        }
         listeners[evt].forEach(cb => setTimeout(() => cb(...rest), 0));
     }
 };

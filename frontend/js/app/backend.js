@@ -1,8 +1,7 @@
-import dispatcher from "./dispatcher";
 import api from "./api";
-import m from "./model";
+import dispatcher from "./dispatcher";
 import Projects from "../components/project/projects";
-let model = m;
+
 
 let id = 0;
 
@@ -10,24 +9,22 @@ function sortItems(a, b) {
     return (a.sort < b.sort ? 1 : a.sort > b.sort ? -1 : 0);
 }
 
-export default React.createClass({
+export default {
     showMessage(m, t) {
-        const notification = {
-            content: m,
-            type: t || "info",
-            id: id++
-        }; 
-        const model = this.state.model;
-        model.notifications.push(notification);
-        this.setState({model});
-    },
-    appError(e) {
-        console.log(e);
-        dispatcher.trigger("show:message", "Ooops, something went wrong...", "warning");
+        return new Promise(resolve => {
+            const notification = {
+                content: m,
+                type: t || "info",
+                id: id++
+            }; 
+            const notifications = this.state.model.notifications;
+            notifications.push(notification);
+            this.setModel({notifications}); 
+        });
     },
     loadItems() {
         // todo: ensure model.activeProject is set
-        api.tasks.all(model)
+        api.tasks.all(this.state.model)
             .then(res => {
                 if (res.status !== 200) {
                     throw new Error("res.status is not OK:200 but " + res.status);
@@ -48,7 +45,7 @@ export default React.createClass({
             .catch(e => dispatcher.trigger("app:error", e));
     },
     loadProjects() {
-        api.projects.all(model)
+        api.projects.all(this.state.model)
             .then(res => {
                 if (res.status !== 200) {
                     throw new Error("res.status is not OK:200 but " + res.status);
@@ -163,42 +160,11 @@ export default React.createClass({
             dispatcher.trigger("app:error");
         }
     },
+    appError(e) {
+        console.log(e);
+        dispatcher.trigger("show:message", "Ooops, something went wrong...", "warning");
+    },
     showProjects() {
         dispatcher.trigger("show:message", <Projects app={this.state} />);
-    },
-    setModel(o) {
-        const model = this.state.model;
-        Object.keys(o).forEach(k => model[k] = o[k]);
-        this.setState({model});  
-    },
-    getInitialState() {
-        dispatcher.on("app:error", this.appError);
-        dispatcher.on("cancel:item-detail", this.cancelItem);
-        dispatcher.on("delete:item-detail", this.deleteItem);
-        dispatcher.on("dismiss:notification", this.dismissNotification);
-        dispatcher.on("edit:item-detail", this.editItem);
-        dispatcher.on("load:items", this.loadItems);
-        dispatcher.on("load:projects", this.loadProjects);
-        dispatcher.on("show:projects", this.showProjects);
-        dispatcher.on("new:item", this.newItem);
-        dispatcher.on("save:item-detail", this.saveItem);
-        dispatcher.on("select:item", this.selectItem)
-        dispatcher.on("show:message", this.showMessage);
-        dispatcher.on("select:project", this.selectProject);
-       
-        return {
-            model,
-            trigger: dispatcher.trigger
-        };
-    },
-    componentDidMount() {
-        window.dispatcher = dispatcher;
-        dispatcher.trigger("load:projects");
-        dispatcher.trigger("show:projects");
-    },
-    render() {
-        return <div>
-            {this.props.children.map(r => React.cloneElement(r, {app: this.state}))} 
-        </div>; 
     }
-});
+};
