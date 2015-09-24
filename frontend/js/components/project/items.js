@@ -35,9 +35,9 @@ export default React.createClass({
     },
 
     renderItems() {
-        const {model} = this.props.app;
-        return model.items.map(i => {
-            i.active = model.activeItem ? (model.activeItem.id === i.id) : false;
+        const {items, activeItem} = this.props.app.model;
+        return items.map(i => {
+            i.active = activeItem ? (activeItem.id === i.id) : false;
             return <Item key={i.id + "" + i.sort} data={i} app={this.props.app} />;
         });
     },

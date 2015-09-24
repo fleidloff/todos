@@ -1,7 +1,7 @@
-import dispatcher from "./dispatcher";
 import api from "./api";
-import m from "./model";
-let model = m;
+import dispatcher from "./dispatcher";
+import Projects from "../components/project/projects";
+
 
 let id = 0;
 
@@ -9,23 +9,22 @@ function sortItems(a, b) {
     return (a.sort < b.sort ? 1 : a.sort > b.sort ? -1 : 0);
 }
 
-export default React.createClass({
+export default {
     showMessage(m, t) {
-        const notification = {
-            content: m,
-            type: t || "info",
-            id: id++
-        }; 
-        const model = this.state.model;
-        model.notifications.push(notification);
-        this.setState({model});
-    },
-    appError(e) {
-        console.log(e);
-        dispatcher.trigger("show:message", "Ooops, something went wrong...", "warning");
+        return new Promise(resolve => {
+            const notification = {
+                content: m,
+                type: t || "info",
+                id: id++
+            }; 
+            const notifications = this.state.model.notifications;
+            notifications.push(notification);
+            this.setModel({notifications}); 
+        });
     },
     loadItems() {
-        api.tasks.all()
+        // todo: ensure model.activeProject is set
+        api.tasks.all(this.state.model)
             .then(res => {
                 if (res.status !== 200) {
                     throw new Error("res.status is not OK:200 but " + res.status);
@@ -45,9 +44,29 @@ export default React.createClass({
             .then(items => this.setModel({items}))
             .catch(e => dispatcher.trigger("app:error", e));
     },
-    selectItem(activeItemId) {
+    loadProjects() {
+        api.projects.all(this.state.model)
+            .then(res => {
+                if (res.status !== 200) {
+                    throw new Error("res.status is not OK:200 but " + res.status);
+                }
+                return res;
+            })
+            .then(res => res.text())
+            .then(body => JSON.parse(body))
+            .then(json => {
+                const projects = json.map(i => {
+                    i.id = i._id;
+                    return i;
+                })
+                return projects;
+            })
+            .then(projects => this.setModel({projects}))
+            .catch(e => dispatcher.trigger("app:error", e));
+    },
+    selectItem(activeItemId, editing=false) {
         const activeItem = this.state.model.items.filter(i => i.id === activeItemId)[0];
-        this.setModel({activeItem, editing: false});
+        this.setModel({activeItem, editing});
     },
     saveItem(item, sort) {
         const newItems = this.state.model.items.filter(i => i.id !== item.id);
@@ -93,9 +112,9 @@ export default React.createClass({
         const itemId = id++;
         const {items} = this.state.model;
         const sort = (items.length ? Math.max(...items.map(i => i.sort)) : 0) + 1; // todo ?= items.length
-        
-        const item = {title: "New Item", description: "", sort};
-        api.tasks.create(item)
+        const project = model.activeProject;
+        const item = {title: "New Item", description: "", sort, project};
+        api.tasks.create(item, model)
             .then(res => {
                 if (res.status !== 201) {
                     throw new Error("res.status is not OK:201 but " + res.status);
@@ -107,10 +126,7 @@ export default React.createClass({
             .then(json => {
                 json.id = json._id;
                 dispatcher.trigger("save:item-detail", json, true);
-
-                setTimeout(() => dispatcher.trigger("select:item", json.id), 0);
-                
-                this.setModel({editing: true});
+                dispatcher.trigger("select:item", json.id, true);
             })
             .catch(e => dispatcher.trigger("dispatcher:error", e));
     },
@@ -131,35 +147,24 @@ export default React.createClass({
         const notifications = this.state.model.notifications.filter(n => n.id !== id);
         this.setModel({notifications});
     },
-    setModel(o) {
-        const model = this.state.model;
-        Object.keys(o).forEach(k => model[k] = o[k]);
-        this.setState({model});  
+    selectProject(activeProject) {
+        this.setModel({
+            items: [],
+            activeItem: null,
+            activeProject,
+            editing: false
+        });
+        if (activeProject) {
+            dispatcher.trigger("load:items");
+        } else {
+            dispatcher.trigger("app:error");
+        }
     },
-    getInitialState() {
-        dispatcher.on("app:error", this.appError);
-        dispatcher.on("cancel:item-detail", this.cancelItem);
-        dispatcher.on("delete:item-detail", this.deleteItem);
-        dispatcher.on("dismiss:notification", this.dismissNotification);
-        dispatcher.on("edit:item-detail", this.editItem);
-        dispatcher.on("load:items", this.loadItems);
-        dispatcher.on("new:item", this.newItem);
-        dispatcher.on("save:item-detail", this.saveItem);
-        dispatcher.on("select:item", this.selectItem)
-        dispatcher.on("show:message", this.showMessage);
-       
-        return {
-            model,
-            trigger: dispatcher.trigger
-        };
+    appError(e) {
+        console.log(e);
+        dispatcher.trigger("show:message", "Ooops, something went wrong...", "warning");
     },
-    componentDidMount() {
-        dispatcher.trigger("load:items");
-        dispatcher.trigger("show:message", "Hello, World!");
-    },
-    render() {
-        return <div>
-            {this.props.children.map(r => React.cloneElement(r, {app: this.state}))} 
-        </div>; 
+    showProjects() {
+        dispatcher.trigger("show:message", <Projects app={this.state} />);
     }
-});
+};

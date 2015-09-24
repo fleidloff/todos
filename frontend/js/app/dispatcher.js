@@ -5,10 +5,13 @@ const listeners = {
     "dismiss:notification": [],
     "edit:item-detail": [],
     "load:items": [],
+    "load:projects": [],
     "new:item": [],
     "save:item-detail": [],
     "select:item": [],
+    "select:project": [],
     "show:message": [],
+    "show:projects": [],
 };
 
 export default {
@@ -30,6 +33,9 @@ export default {
         if (!(evt in listeners)) {
             throw new Error(`event ${evt} does not exist.`);
         }
-        listeners[evt].forEach(cb => cb(...rest));
+        if (listeners[evt].length === 0) {
+            throw new Error(`event ${evt} triggered but not catched.`);
+        }
+        listeners[evt].forEach(cb => setTimeout(() => cb(...rest), 0));
     }
 };
