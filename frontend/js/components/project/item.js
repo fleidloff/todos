@@ -7,7 +7,7 @@ export default React.createClass({
         this.props.app.trigger("select:item", this.props.data.id);
     },
     render() {
-        const {title, description, active} = this.props.data;
+        const {title, description, active, sort} = this.props.data;
         const simpleDescription = description.replace(/[^a-zA-Z .,]/g, "");
         const style = {"borderLeft": `4px solid ${keyToColor(title)}`};
         return <div onClick={this.onClick} style={style} className={"item" + (active ? " active" : "")}>
