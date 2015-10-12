@@ -110,7 +110,8 @@ export default {
     },
     newItem() {
         const itemId = id++;
-        const {items} = this.state.model;
+        const {model} = this.state;
+        const {items} = model;
         const sort = (items.length ? Math.max(...items.map(i => i.sort)) : 0) + 1; // todo ?= items.length
         const project = model.activeProject;
         const item = {title: "New Item", description: "", sort, project};
