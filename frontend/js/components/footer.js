@@ -2,6 +2,6 @@ import React from "react";
 
 export default React.createClass({
     render() {
-        return <div className="footer">footer</div>;
+        return <div className="footer">by fred</div>;
     }
 });
