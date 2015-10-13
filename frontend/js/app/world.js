@@ -15,6 +15,8 @@ export default React.createClass({
         dispatcher.on("delete:item-detail", backend.deleteItem.bind(this));
         dispatcher.on("dismiss:notification", backend.dismissNotification.bind(this));
         dispatcher.on("edit:item-detail", backend.editItem.bind(this));
+        dispatcher.on("preview:item-detail-edit", backend.previewItem.bind(this));
+        dispatcher.on("cancel-preview:item-detail-edit", backend.cancelPreviewItem.bind(this));
         dispatcher.on("load:items", backend.loadItems.bind(this));
         dispatcher.on("load:projects", backend.loadProjects.bind(this));
         dispatcher.on("new:item", backend.newItem.bind(this));
@@ -26,13 +28,15 @@ export default React.createClass({
        
         return {
             model,
-            trigger: dispatcher.trigger
+            trigger: dispatcher.trigger,
+            onTrigger: (evt, ...rest) => () => dispatcher.trigger(evt, ...rest)
         };
     },
     componentDidMount() {
         window.dispatcher = dispatcher;
         dispatcher.trigger("load:projects");
         dispatcher.trigger("show:projects");
+        dispatcher.trigger("select:project", "56031cda3e520fcb508f01ee");
     },
     render() {
         return <div>

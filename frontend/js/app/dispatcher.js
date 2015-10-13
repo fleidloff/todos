@@ -1,5 +1,6 @@
 const listeners = {
     "app:error": [],
+    "cancel-preview:item-detail-edit": [],
     "cancel:item-detail": [],
     "delete:item-detail": [],
     "dismiss:notification": [],
@@ -7,6 +8,7 @@ const listeners = {
     "load:items": [],
     "load:projects": [],
     "new:item": [],
+    "preview:item-detail-edit": [],
     "save:item-detail": [],
     "select:item": [],
     "select:project": [],

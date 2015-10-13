@@ -5,10 +5,10 @@ import keyToColor from "../../util/keyToColor";
 
 export default React.createClass({
     descriptionMarkup() {
-        return {__html: markdown.toHTML(this.props.app.model.activeItem.description) };
+        return markdown.toHTML(this.props.app.model.activeItem.description);
     },
-    onClickEdit() {
-        this.props.app.trigger("edit:item-detail");
+    editButton() {
+        return <button onClick={this.props.app.onTrigger("edit:item-detail")} className="pure-button">edit</button>;   
     },
     render() {
         const {model} = this.props.app;
@@ -20,10 +20,12 @@ export default React.createClass({
         }
         const {title, description} = model.activeItem;
         const style = {"borderLeft": `4px solid ${keyToColor(title)}`};
-        return <div className="item-detail" style={style}>
-            <div className="title">{title}</div>
-            <div className="description" dangerouslySetInnerHTML={this.descriptionMarkup()} />
-            <div className="buttons"><button onClick={this.onClickEdit} className="pure-button">edit</button></div>
+        return <div className="item-detail-wrapper">
+            <div className="buttons">{this.editButton()}</div>
+            <div className="item-detail" style={style}>
+                <div className="title">{title}</div>
+                <div className="description" dangerouslySetInnerHTML={{__html: this.descriptionMarkup()}} />
+            </div>
         </div>;
     }
 });

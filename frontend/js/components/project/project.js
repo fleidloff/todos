@@ -1,6 +1,7 @@
 import React from "react";
 import Items from "./items";
 import Item from "./item-detail";
+import Footer from "./footer";
 
 export default React.createClass({
     render() {
@@ -10,6 +11,9 @@ export default React.createClass({
             </div>
             <div className="pure-u-2-3">
                 <Item app={this.props.app} />
+            </div>
+            <div className="pure-u-1">
+                <Footer app={this.props.app} />
             </div>
         </div>;
     }

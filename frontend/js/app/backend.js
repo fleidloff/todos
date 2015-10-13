@@ -103,7 +103,13 @@ export default {
         }
     },
     editItem() {
-        this.setModel({editing: true});
+        this.setModel({editing: true, preview: false});
+    },
+    previewItem() {
+        this.setModel({preview: true});
+    },
+    cancelPreviewItem() {
+        this.setModel({preview: false});
     },
     cancelItem() {
         this.setModel({editing: false});

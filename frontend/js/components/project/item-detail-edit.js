@@ -1,6 +1,7 @@
 import React from "react";
 import ConfirmButton from "../shared/confirmButton";
 import keyToColor from "../../util/keyToColor";
+import {markdown} from "markdown";
 
 export default React.createClass({
     getInitialState() {
@@ -8,14 +9,35 @@ export default React.createClass({
             data: JSON.parse(JSON.stringify(this.props.app.model.activeItem))
         };
     },
-    onClickSave() {
-        this.save();
+    descriptionMarkup() {
+        console.log(this.state.data.description, markdown.toHTML(this.state.data.description));
+        return markdown.toHTML(this.state.data.description);
     },
-    onClickDelete() {
-        this.props.app.trigger("delete:item-detail", this.props.app.model.activeItem.id);
+    saveButton() {
+        return <button onClick={() => this.save()} className="pure-button pure-button-primary">save</button>;
     },
-    onClickCancel() {
-        this.props.app.trigger("cancel:item-detail");
+    deleteButton() {
+        return <ConfirmButton onConfirm={this.props.app.onTrigger("delete:item-detail", this.props.app.model.activeItem.id)} className="pure-button button-error" text="delete" />;
+    },
+    cancelButton() {
+        return  <button onClick={this.props.app.onTrigger("cancel:item-detail")} className="pure-button">cancel</button>;
+    },
+    previewButton() {
+        if (this.props.app.model.preview) {
+            return  <button onClick={this.props.app.onTrigger("cancel-preview:item-detail-edit")} className="pure-button">cancel preview</button>;
+        } else {
+            return  <button onClick={this.props.app.onTrigger("preview:item-detail-edit")} className="pure-button">preview</button>;
+        }
+    },
+    description(description) {
+        if (this.props.app.model.preview) {
+            return <div className="description" dangerouslySetInnerHTML={{__html: "<span></span>" + this.descriptionMarkup()}} />
+            
+        } else {
+            return <div className="description">
+                <textarea onChange={this.onChange("description")} value={description} />
+            </div>;    
+        }
     },
     onChange(what) {
         return e => {
@@ -35,17 +57,18 @@ export default React.createClass({
     render() {
         const {title, description} = this.state.data;
         const style = {"borderLeft": `4px solid ${keyToColor(this.props.app.model.activeItem.title)}`};
-        return <div className="item-detail" style={style}>
-            <div className="title">
-                <input onKeyDown={this.onKeyDownTitle} onChange={this.onChange("title")} type="text" value={title} />
-            </div>
-            <div className="description">
-                <textarea onChange={this.onChange("description")} value={description} />
-            </div>
+        return <div className="item-detail-wrapper">
             <div className="buttons">
-                <button onClick={this.onClickSave} className="pure-button pure-button-primary">save</button>
-                <ConfirmButton onConfirm={this.onClickDelete} className="pure-button button-error" text="delete" />
-                <button onClick={this.onClickCancel} className="pure-button">cancel</button>
+                {this.saveButton()}
+                {this.previewButton()}
+                {this.deleteButton()}
+                {this.cancelButton()}
+            </div>
+            <div className="item-detail" style={style}>
+                <div className="title">
+                    <input onKeyDown={this.onKeyDownTitle} onChange={this.onChange("title")} type="text" value={title} />
+                </div>
+                {this.description(description)}
             </div>
         </div>;
     }
