@@ -2,6 +2,7 @@ const listeners = {
     "app:error": [],
     "cancel-preview:item-detail-edit": [],
     "cancel:item-detail": [],
+    "check:item": [],
     "delete:item-detail": [],
     "dismiss:notification": [],
     "edit:item-detail": [],

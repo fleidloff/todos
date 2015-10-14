@@ -10,7 +10,7 @@ mongoose.connect(config.mongo.host + config.mongo.db, {server:{auto_reconnect:tr
 
 var Project = new Schema({
     title: { type: String, required: true },
-    description: { type: String, required: false}
+    description: { type: String, required: false }
 });
 var ProjectModel = mongoose.model("Project", Project); 
 
@@ -18,6 +18,7 @@ var Task = new Schema({
     title: { type: String, required: true },
     description: { type: String, required: false},
     sort: { type: Number, required: true},
+    checked: { type: Boolean, required: false },
     project: { type: mongoose.Schema.Types.ObjectId, ref: "Project", required: true }
 });
 var TaskModel = mongoose.model("Task", Task);

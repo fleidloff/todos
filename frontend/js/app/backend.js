@@ -68,6 +68,17 @@ export default {
         const activeItem = this.state.model.items.filter(i => i.id === activeItemId)[0];
         this.setModel({activeItem, editing});
     },
+    checkItem(itemId, checked) {
+
+        const items = this.state.model.items.map(i => {
+            if (i.id === itemId) {
+                i.checked = checked
+                api.tasks.update({id: i.id, checked}).catch(e => dispatcher.trigger("app:error", e));
+            }
+            return i;
+        });
+        this.setModel({items});  
+    },
     saveItem(item, sort) {
         const newItems = this.state.model.items.filter(i => i.id !== item.id);
 

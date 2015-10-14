@@ -3,6 +3,7 @@ import Edit from "./item-detail-edit";
 import {markdown} from "markdown";
 import keyToColor from "../../util/keyToColor";
 
+
 export default React.createClass({
     descriptionMarkup() {
         return markdown.toHTML(this.props.app.model.activeItem.description);
@@ -18,9 +19,9 @@ export default React.createClass({
         if (model.editing) {
             return <Edit app={this.props.app} />;
         }
-        const {title, description} = model.activeItem;
+        const {title, description, checked} = model.activeItem;
         const style = {"borderLeft": `4px solid ${keyToColor(title)}`};
-        return <div className="item-detail-wrapper">
+        return <div className={"item-detail-wrapper" + (checked ? " checked" : "")}>
             <div className="buttons">{this.editButton()}</div>
             <div className="item-detail" style={style}>
                 <div className="title">{title}</div>

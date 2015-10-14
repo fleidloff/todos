@@ -60,8 +60,8 @@ export default React.createClass({
         return <div className="item-detail-wrapper">
             <div className="buttons">
                 {this.saveButton()}
-                {this.previewButton()}
                 {this.deleteButton()}
+                {this.previewButton()}
                 {this.cancelButton()}
             </div>
             <div className="item-detail" style={style}>

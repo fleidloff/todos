@@ -20,6 +20,7 @@ export default React.createClass({
         dispatcher.on("load:items", backend.loadItems.bind(this));
         dispatcher.on("load:projects", backend.loadProjects.bind(this));
         dispatcher.on("new:item", backend.newItem.bind(this));
+        dispatcher.on("check:item", backend.checkItem.bind(this));
         dispatcher.on("save:item-detail", backend.saveItem.bind(this));
         dispatcher.on("select:item", backend.selectItem.bind(this))
         dispatcher.on("select:project", backend.selectProject.bind(this));
@@ -29,7 +30,7 @@ export default React.createClass({
         return {
             model,
             trigger: dispatcher.trigger,
-            onTrigger: (evt, ...rest) => () => dispatcher.trigger(evt, ...rest)
+            onTrigger: (evt, ...rest) => e => { e.preventDefault(); return dispatcher.trigger(evt, ...rest)}
         };
     },
     componentDidMount() {
