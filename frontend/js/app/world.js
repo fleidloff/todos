@@ -9,24 +9,32 @@ export default React.createClass({
         Object.keys(o).forEach(k => model[k] = o[k]);
         this.setState({model});  
     },
+    redux(action) {
+        return (...rest) => {
+            action(this.state, this.setModel, ...rest);
+        };
+    },
+    on(event, action) {
+        dispatcher.on(event, this.redux(action));
+    },
     getInitialState() {
-        dispatcher.on("app:error", backend.appError.bind(this));
-        dispatcher.on("cancel:item-detail", backend.cancelItem.bind(this));
-        dispatcher.on("delete:item-detail", backend.deleteItem.bind(this));
-        dispatcher.on("dismiss:notification", backend.dismissNotification.bind(this));
-        dispatcher.on("edit:item-detail", backend.editItem.bind(this));
-        dispatcher.on("preview:item-detail-edit", backend.previewItem.bind(this));
-        dispatcher.on("cancel-preview:item-detail-edit", backend.cancelPreviewItem.bind(this));
-        dispatcher.on("load:items", backend.loadItems.bind(this));
-        dispatcher.on("load:projects", backend.loadProjects.bind(this));
-        dispatcher.on("new:item", backend.newItem.bind(this));
-        dispatcher.on("check:item", backend.checkItem.bind(this));
-        dispatcher.on("save:item-detail", backend.saveItem.bind(this));
-        dispatcher.on("select:item", backend.selectItem.bind(this))
-        dispatcher.on("select:project", backend.selectProject.bind(this));
-        dispatcher.on("show:message", backend.showMessage.bind(this));
-        dispatcher.on("show:projects", backend.showProjects.bind(this));
-       
+        this.on("app:error", backend.appError);
+        this.on("cancel:item-detail", backend.cancelItem);
+        this.on("delete:item-detail", backend.deleteItem);
+        this.on("dismiss:notification", backend.dismissNotification);
+        this.on("edit:item-detail", backend.editItem);
+        this.on("preview:item-detail-edit", backend.previewItem);
+        this.on("cancel-preview:item-detail-edit", backend.cancelPreviewItem);
+        this.on("load:items", backend.loadItems);
+        this.on("load:projects", backend.loadProjects);
+        this.on("new:item", backend.newItem);
+        this.on("check:item", backend.checkItem);
+        this.on("save:item-detail", backend.saveItem);
+        this.on("select:item", backend.selectItem);
+        this.on("select:project", backend.selectProject);
+        this.on("show:projects", backend.showProjects);
+        this.on("show:message", backend.showMessage);
+
         return {
             model,
             trigger: dispatcher.trigger,

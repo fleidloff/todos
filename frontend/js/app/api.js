@@ -35,7 +35,6 @@ export default {
             });    
         },
         update(item) {
-            console.log("update", item);
             return fetch(base + "Tasks/" + item.id, {
                 method: "put",
                 headers: {
