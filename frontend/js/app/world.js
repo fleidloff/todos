@@ -30,7 +30,7 @@ export default React.createClass({
         return {
             model,
             trigger: dispatcher.trigger,
-            onTrigger: (evt, ...rest) => e => { e.preventDefault(); return dispatcher.trigger(evt, ...rest)}
+            onTrigger: (evt, ...rest) => e => { if (e) {e.preventDefault(); e.stopPropagation();} return dispatcher.trigger(evt, ...rest)}
         };
     },
     componentDidMount() {
