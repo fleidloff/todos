@@ -2,6 +2,7 @@ import React from "react";
 import Edit from "./item-detail-edit";
 import {markdown} from "markdown";
 import keyToColor from "../../util/keyToColor";
+import Icon from "react-fontawesome";
 
 
 export default React.createClass({
@@ -9,7 +10,7 @@ export default React.createClass({
         return markdown.toHTML(this.props.app.model.activeItem.description);
     },
     editButton() {
-        return <button onClick={this.props.app.onTrigger("edit:item-detail")} className="pure-button">edit</button>;   
+        return <button onClick={this.props.app.onTrigger("edit:item-detail")} className="pure-button"><Icon name="edit" title="edit" /></button>;   
     },
     render() {
         const {model} = this.props.app;
