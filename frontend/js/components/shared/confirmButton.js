@@ -11,6 +11,7 @@ export default React.createClass({
         e.stopPropagation();
         clearTimeout(this.t);
         if (this.state.clicked) {
+            this.setState({clicked: false});
             return this.props.onConfirm();
         }
         this.setState({clicked: true});

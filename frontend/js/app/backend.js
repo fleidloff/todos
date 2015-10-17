@@ -158,7 +158,26 @@ export default {
                 }
                 return res;
             })
-            .catch(e => dispatcher.trigger("dispatcher:error", e));
+            .catch(e => dispatcher.trigger("app:error", e));
+    },
+    clearChecked(state, action) {
+        state.model.items
+            .filter(i => i.checked)
+            .forEach(i => {
+                api.tasks.remove(i.id)
+                    .then(res => {
+                        if (res.status !== 204) {
+                            throw new Error("res.status is not OK:204 but " + res.status);
+                        }
+                        return res;
+                    })
+                    .catch(e => dispatcher.trigger("app:error", e));  
+            });  
+        const items = state.model.items.filter(i => !(i.checked));
+        if (state.model.activeItem && state.model.activeItem.checked) {
+            action({activeItem: null});
+        } 
+        action({items}); 
     },
     dismissNotification(state, action, id) {
         const notifications = state.model.notifications.filter(n => n.id !== id);

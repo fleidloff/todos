@@ -34,6 +34,7 @@ export default React.createClass({
         this.on("select:project", backend.selectProject);
         this.on("show:projects", backend.showProjects);
         this.on("show:message", backend.showMessage);
+        this.on("clear-checked:items", backend.clearChecked);
 
         return {
             model,
