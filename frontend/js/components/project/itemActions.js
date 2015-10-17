@@ -1,5 +1,6 @@
 import React from "react";
 import ConfirmButton from "../shared/confirmButton";
+import Icon from "react-fontawesome";
 
 export default React.createClass({
     newItemButton() {
@@ -19,6 +20,7 @@ export default React.createClass({
         return <div className="item-actions">
             {this.newItemButton()}
             {this.clearCheckedItemsButton()}
+            <Icon name="rocket" />
         </div>;
     }
 });
