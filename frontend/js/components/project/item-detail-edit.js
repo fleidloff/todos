@@ -2,6 +2,7 @@ import React from "react";
 import ConfirmButton from "../shared/confirmButton";
 import keyToColor from "../../util/keyToColor";
 import {markdown} from "markdown";
+import Icon from "react-fontawesome";
 
 export default React.createClass({
     getInitialState() {
@@ -14,19 +15,19 @@ export default React.createClass({
         return markdown.toHTML(this.state.data.description);
     },
     saveButton() {
-        return <button onClick={() => this.save()} className="pure-button pure-button-primary">save</button>;
+        return <button onClick={() => this.save()} className="pure-button pure-button-primary"><Icon name="save" title="save" /></button>;
     },
     deleteButton() {
-        return <ConfirmButton onConfirm={this.props.app.onTrigger("delete:item-detail", this.props.app.model.activeItem.id)} className="pure-button button-error" text="delete" />;
+        return <ConfirmButton onConfirm={this.props.app.onTrigger("delete:item-detail", this.props.app.model.activeItem.id)} className="pure-button button-error" text={<Icon name="trash-o" title="delete item" />} confirmText={<Icon name="trash" title="delete item" />} />;
     },
     cancelButton() {
-        return  <button onClick={this.props.app.onTrigger("cancel:item-detail")} className="pure-button">cancel</button>;
+        return  <button onClick={this.props.app.onTrigger("cancel:item-detail")} className="pure-button"><Icon name="remove" title="cancel edit" /></button>;
     },
     previewButton() {
         if (this.props.app.model.preview) {
-            return  <button onClick={this.props.app.onTrigger("cancel-preview:item-detail-edit")} className="pure-button">cancel preview</button>;
+            return  <button onClick={this.props.app.onTrigger("cancel-preview:item-detail-edit")} className="pure-button"><Icon name="eject" title="stop preview" /></button>;
         } else {
-            return  <button onClick={this.props.app.onTrigger("preview:item-detail-edit")} className="pure-button">preview</button>;
+            return  <button onClick={this.props.app.onTrigger("preview:item-detail-edit")} className="pure-button"><Icon name="play" title="preview" /></button>;
         }
     },
     description(description) {

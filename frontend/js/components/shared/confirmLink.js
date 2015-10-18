@@ -22,7 +22,7 @@ export default React.createClass({
         clearTimeout(this.t);
     },
     render() {
-        const text = this.state.clicked ? `${this.props.confirmText || ("confirm " + this.props.text)}` : this.props.text
+        const text = this.state.clicked ? (this.props.confirmText || `${("confirm " + this.props.text)}`) : this.props.text
         return <a onClick={this.onClick} className={this.props.className}>{text}</a>;
     }
 });

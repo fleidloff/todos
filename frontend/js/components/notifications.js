@@ -1,4 +1,7 @@
 import React from "react";
+import Icon from "react-fontawesome";
+
+
 let id = 0;
 export default React.createClass({
     onClick(id) {
@@ -23,7 +26,7 @@ export default React.createClass({
                         {m.content}
                     </div>
                     <div onClick={this.onClick(m.id)} className="pure-u-1-12 align-right pointer">
-                        x
+                        <Icon name="remove" />
                     </div>
                 </div>;
             })
