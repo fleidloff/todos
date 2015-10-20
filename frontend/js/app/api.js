@@ -8,7 +8,7 @@ const base = config.app.context + config.api.context + "/" + config.api.version 
 export default {
     projects: {
         all(model) {
-            return fetch(`${base}Projects`);
+            return fetch(`${base}Projects?sort=title`);
         },
         create(project) {
             return fetch(`${base}Projects`, {

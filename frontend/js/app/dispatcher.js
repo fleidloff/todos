@@ -16,7 +16,6 @@ const listeners = {
     "select:item": [],
     "select:project": [],
     "show:message": [],
-    "show:projects": [],
 };
 
 export default {

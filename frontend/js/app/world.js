@@ -32,7 +32,6 @@ export default React.createClass({
         this.on("save:item-detail", backend.saveItem);
         this.on("select:item", backend.selectItem);
         this.on("select:project", backend.selectProject);
-        this.on("show:projects", backend.showProjects);
         this.on("show:message", backend.showMessage);
         this.on("clear-checked:items", backend.clearChecked);
         this.on("create:project", backend.createProject);

@@ -1,7 +1,5 @@
 import api from "./api";
 import dispatcher from "./dispatcher";
-import Projects from "../components/project/projects";
-
 
 let id = 0;
 
@@ -137,7 +135,7 @@ export default {
             .then(body => JSON.parse(body))
             .then(json => {
                 json.id = json._id;
-                projects.push(json);
+                projects.unshift(json);
                 action({projects});
                 dispatcher.trigger("select:project", json.id);
             })
@@ -219,8 +217,5 @@ export default {
     appError(state, action, e) {
         console.log(e);
         dispatcher.trigger("show:message", "Ooops, something went wrong...", "warning");
-    },
-    showProjects(state) {
-        dispatcher.trigger("show:message", <Projects app={state} />);
     }
 };
