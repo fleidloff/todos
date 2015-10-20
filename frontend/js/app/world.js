@@ -21,6 +21,7 @@ export default React.createClass({
         this.on("app:error", backend.appError);
         this.on("cancel:item-detail", backend.cancelItem);
         this.on("delete:item-detail", backend.deleteItem);
+        this.on("delete:project", backend.deleteProject);
         this.on("dismiss:notification", backend.dismissNotification);
         this.on("edit:item-detail", backend.editItem);
         this.on("preview:item-detail-edit", backend.previewItem);

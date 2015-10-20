@@ -177,6 +177,20 @@ export default {
             })
             .catch(e => dispatcher.trigger("app:error", e));
     },
+    deleteProject(state, action, id) {
+        const projects = state.model.projects.filter(p => p.id !== id);
+        action({projects});
+        action({activeProject: null});
+        action({activeItem: null});
+        api.projects.remove(id)
+            .then(res => {
+                if (res.status !== 204) {
+                    throw new Error("res.status is not OK:204 but " + res.status);
+                }
+                return res;
+            })
+            .catch(e => dispatcher.trigger("app:error", e));
+    },
     clearChecked(state, action) {
         state.model.items
             .filter(i => i.checked)
