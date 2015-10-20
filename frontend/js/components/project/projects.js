@@ -10,8 +10,11 @@ export default React.createClass({
     },
     renderProjects() {
         const {projects, activeProject} = this.props.app.model;
+        if (!activeProject || !projects) {
+            return;
+        }
         return projects.map((p, i) => {
-            const className = "project" + ((p._id === activeProject) ? " active" : "");
+            const className = "project" + ((p._id === activeProject.id) ? " active" : "");
             return <a className={className} key={p._id} href="#" onClick={this.onClick(p._id)}>{p.title}</a>;
         });
     },

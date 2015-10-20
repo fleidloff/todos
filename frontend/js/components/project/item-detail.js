@@ -18,11 +18,11 @@ export default React.createClass({
             return <div />;
         }
         if (model.editing) {
-            return <Edit app={this.props.app} />;
+            return <Edit key={model.activeItem.id} app={this.props.app} />;
         }
         const {title, description, checked} = model.activeItem;
         const style = {"borderLeft": `4px solid ${keyToColor(title)}`};
-        return <div className={"item-detail-wrapper" + (checked ? " checked" : "")}>
+        return <div key={model.activeItem.id}  className={"item-detail-wrapper" + (checked ? " checked" : "")}>
             <div className="buttons">{this.editButton()}</div>
             <div className="item-detail" style={style}>
                 <div className="title">{title}</div>

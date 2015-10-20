@@ -4,6 +4,7 @@ const listeners = {
     "cancel:item-detail": [],
     "check:item": [],
     "clear-checked:items": [],
+    "create:project": [],
     "delete:item-detail": [],
     "dismiss:notification": [],
     "edit:item-detail": [],

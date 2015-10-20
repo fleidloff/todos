@@ -9,14 +9,33 @@ export default {
     projects: {
         all(model) {
             return fetch(`${base}Projects`);
-        }
+        },
+        create(project) {
+            return fetch(`${base}Projects`, {
+                method: "post",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(project)
+            });
+        },
+        remove(id) {
+            return fetch(base + "Projects" + "/" + id, {
+                method: "delete",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                }
+            });    
+        },
     },
     tasks: {
         all(model) {
-            return fetch(`${base}Tasks?project=${model.activeProject}`);
+            return fetch(`${base}Tasks?project=${model.activeProject.id}`);
         },
         create(item, model) {
-            return fetch(`${base}Tasks?project=${model.activeProject}`, {
+            return fetch(`${base}Tasks?project=${model.activeProject.id}`, {
                 method: "post",
                 headers: {
                     "Accept": "application/json",

@@ -124,12 +124,31 @@ export default {
     cancelItem(state, action) {
         action({editing: false});
     },
+    createProject(state, action, project) {
+        const {projects} = state.model;
+        api.projects.create(project)
+            .then(res => {
+                if (res.status !== 201) {
+                    throw new Error("res.status is not OK:201 but " + res.status);
+                }
+                return res;
+            })
+            .then(res => res.text())
+            .then(body => JSON.parse(body))
+            .then(json => {
+                json.id = json._id;
+                projects.push(json);
+                action({projects});
+                dispatcher.trigger("select:project", json.id);
+            })
+            .catch(e => dispatcher.trigger("dispatcher:error", e));
+    },
     newItem(state, action) {
         const itemId = id++;
         const {model} = state;
         const {items} = model;
         const sort = (items.length ? Math.max(...items.map(i => i.sort)) : 0) + 1; // todo ?= items.length
-        const project = model.activeProject;
+        const project = model.activeProject.id;
         const item = {title: "New Item", description: "", sort, project};
         api.tasks.create(item, model)
             .then(res => {
@@ -183,7 +202,8 @@ export default {
         const notifications = state.model.notifications.filter(n => n.id !== id);
         action({notifications});
     },
-    selectProject(state, action, activeProject) {
+    selectProject(state, action, activeProjectId) {
+        const activeProject = state.model.projects.filter(p => p.id === activeProjectId)[0];
         action({
             items: [],
             activeItem: null,

@@ -11,7 +11,6 @@ export default React.createClass({
         };
     },
     descriptionMarkup() {
-        console.log(this.state.data.description, markdown.toHTML(this.state.data.description));
         return markdown.toHTML(this.state.data.description);
     },
     saveButton() {

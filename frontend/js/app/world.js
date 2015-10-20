@@ -35,6 +35,7 @@ export default React.createClass({
         this.on("show:projects", backend.showProjects);
         this.on("show:message", backend.showMessage);
         this.on("clear-checked:items", backend.clearChecked);
+        this.on("create:project", backend.createProject);
 
         return {
             model,
@@ -45,8 +46,6 @@ export default React.createClass({
     componentDidMount() {
         window.dispatcher = dispatcher;
         dispatcher.trigger("load:projects");
-        dispatcher.trigger("show:projects");
-        dispatcher.trigger("select:project", "56031cda3e520fcb508f01ee");
     },
     render() {
         return <div>
