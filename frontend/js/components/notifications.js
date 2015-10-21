@@ -13,6 +13,8 @@ export default React.createClass({
                 if (m.type) {
                     if (m.type === "warning") {
                         m.className = "message-warning";
+                    } else if (m.type === "debug") {
+                        m.className = "message-debug";
                     }
                 } else {
                     m.className = "";

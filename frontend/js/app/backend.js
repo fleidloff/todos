@@ -1,5 +1,9 @@
 import api from "./api";
 import dispatcher from "./dispatcher";
+/*strip*/
+import preconditions from "preconditions";
+const pc = preconditions.singleton();
+/*stripped*/
 
 let id = 0;
 
@@ -8,11 +12,14 @@ function sortItems(a, b) {
 }
 
 export default {
-    showMessage(state, action, m, t) {
+    showMessage(state, action, message, type) {
+        /*strip*/
+        pc.shouldBeDefined(message, "message must be defined");
+        /*stripped*/
         return new Promise(resolve => {
             const notification = {
-                content: m,
-                type: t || "info",
+                content: message,
+                type: type || "info",
                 id: id++
             }; 
             const notifications = state.model.notifications;

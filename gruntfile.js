@@ -8,13 +8,14 @@ module.exports = function(grunt) {
         copy: require("./grunt-tasks/copy"), 
         less: require("./grunt-tasks/less"), 
         eslint: require("./grunt-tasks/eslint"), 
+        strip_code: require("./grunt-tasks/strip_code"),
     });
 
-    grunt.registerTask("lib", ["copy:react", "copy:sortablejs", "copy:fetch", "copy:markdown"]);
+    grunt.registerTask("lib", ["copy:react", "copy:sortablejs", "copy:fetch", "webpack:markdown", "webpack:preconditions"]);
     grunt.registerTask("backend", ["copy:backend"]);
     grunt.registerTask("js", ["clean:js", "eslint", "webpack:dev"]);
     grunt.registerTask("css", ["clean:less", "less"]);
-    grunt.registerTask("prod", ["clean:prod", "less", "copy:html", "lib", "webpack:prod", "copy:deploy"]);
+    grunt.registerTask("prod", ["dev", "strip_code"]);
     grunt.registerTask("dev", ["clean:all", "js", "css", "copy:html", "lib", "backend", "watch"]);
     grunt.registerTask("default", ["dev"]);
 };
