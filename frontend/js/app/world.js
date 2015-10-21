@@ -11,13 +11,21 @@ export default React.createClass({
     },
     redux(action) {
         return (...rest) => {
-            action(this.state, this.setModel, ...rest);
+            /*strip*/
+            try {
+            /*stripped*/
+                action(this.state, this.setModel, ...rest);
+            /*strip*/
+            } catch(ex) {
+                dispatcher.trigger("show:message", ex.message, "debug");
+            }
+            /*stripped*/
         };
     },
     on(event, action) {
         dispatcher.on(event, this.redux(action));
     },
-    getInitialState() {
+    getInitialState() { 
         this.on("app:error", backend.appError);
         this.on("cancel:item-detail", backend.cancelItem);
         this.on("delete:item-detail", backend.deleteItem);
