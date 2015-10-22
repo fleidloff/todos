@@ -11,15 +11,11 @@ export default React.createClass({
     },
     redux(action) {
         return (...rest) => {
-            /*strip*/
             try {
-            /*stripped*/
                 action(this.state, this.setModel, ...rest);
-            /*strip*/
             } catch(ex) {
                 dispatcher.trigger("show:message", ex.message, "debug");
             }
-            /*stripped*/
         };
     },
     on(event, action) {

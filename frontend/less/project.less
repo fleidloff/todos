@@ -11,7 +11,7 @@
             position: relative;
             background: #eeeeee;
             margin: 1px;
-            padding: 2*@spacing 4*@spacing 2*@spacing 4*@spacing;
+            padding: 2*@spacing 6*@spacing 2*@spacing 4*@spacing;
             cursor: pointer;
             .arrow {
                 display: none;
@@ -33,7 +33,7 @@
                 .arrow-right {
                     position: absolute;
                     right: -1.5*@spacing;
-                    top: 2*@spacing;
+                    top: @spacing;
                 }
             }
             &.checked {
@@ -56,13 +56,13 @@
             }
             .delete {
                 position: absolute;
-                top: -1*@spacing + 1px;
+                top: @spacing + 1px;
                 right: 0;
                 margin: @spacing;
             }
             .edit {
                 position: absolute;
-                top: -1*@spacing + 2px;
+                top: @spacing + 2px;
                 right: 2*@spacing;
                 margin: @spacing;
             }

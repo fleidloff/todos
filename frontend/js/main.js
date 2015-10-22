@@ -5,6 +5,8 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 import Notifications from "./components/notifications";
 
+window.PRECONDITIONS = true;
+
 React.render(
     <World>
         <Header key="Header" /> 
