@@ -34,7 +34,9 @@ export default {
         listeners[evt] = listeners[evt].filter(func => func !== cb);
     },
     trigger(evt, ...rest) {
-        console.log("triggered:", evt, rest);
+        if (DEBUG) {
+            console.log("triggered:", evt, rest);
+        }
         if (!(evt in listeners)) {
             throw new Error(`event ${evt} does not exist.`);
         }

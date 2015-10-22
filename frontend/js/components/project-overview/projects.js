@@ -1,15 +1,11 @@
 import React from "react";
-import ConfirmLink from "../shared/confirmLink";
-import Icon from "react-fontawesome";
+import Project from "./project";
 
 export default React.createClass({
     getInitialState() {
         return {
             title: ""
         };
-    },
-    confirmDelete(id) {
-        return <ConfirmLink onConfirm={this.props.app.onTrigger("delete:project", id)} className="delete" text={<Icon name="trash-o" title="delete project" />} confirmText={<Icon name="trash" title="delete project" />} />;
     },
     onClick(id) {
         return () => {
@@ -18,12 +14,8 @@ export default React.createClass({
         }
     },
     renderProjects() {
-        const {projects, activeProject} = this.props.app.model;
-        return projects.map(p => {
-            const active = !!(activeProject && activeProject.id === p.id);
-            const check = active ? <Icon name="check" className="icon" /> : null;
-            return <div key={p.id} onClick={this.onClick(p.id)} className={"project" + (active ? " active" : "")}>{check}{this.confirmDelete(p.id)}<div>{p.title}</div></div>
-        });
+        const {projects} = this.props.app.model;
+        return projects.map(p => <Project key={p.id} onClick={this.onClick(p.id)} app={this.props.app} data={p} />);
     },
     save() {
         const {title} = this.state;

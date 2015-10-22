@@ -6,6 +6,7 @@ import Footer from "./components/footer";
 import Notifications from "./components/notifications";
 
 window.PRECONDITIONS = true;
+window.DEBUG = true;
 
 React.render(
     <World>
