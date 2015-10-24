@@ -1,7 +1,6 @@
 import api from "./api";
 import dispatcher from "./dispatcher";
 import preconditions from "preconditions";
-const pc = preconditions.singleton();
 
 let id = 0;
 
@@ -12,7 +11,8 @@ function sortItems(a, b) {
 export default {
     showMessage(state, action, message, type) {
         if (PRECONDITIONS) {
-            pc.shouldBeDefined(message, "message must be defined");
+            preconditions.singleton()
+                .shouldBeDefined(message, "message must be defined");
         }
         return new Promise(resolve => {
             const notification = {
