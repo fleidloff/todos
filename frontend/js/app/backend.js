@@ -234,9 +234,9 @@ export default {
         }
     },
     changeFilter(state, action, filterName, filterState) {
-        const {filter, activeProject} = state.model;
+        const {filter} = state.model;
         filter[filterName] = filterState;
-        action({filter}); 
+        action({filter, activeItem: null}); 
         dispatcher.trigger("load:items");
     },
     appError(state, action, e) {
