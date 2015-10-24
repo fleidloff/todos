@@ -35,7 +35,7 @@ export default {
         listeners[evt] = listeners[evt].filter(func => func !== cb);
     },
     trigger(evt, ...rest) {
-        if (DEBUG) {
+        if (DBG) {
             console.log("triggered:", evt, rest);
         }
         if (!(evt in listeners)) {

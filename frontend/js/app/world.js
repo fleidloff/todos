@@ -14,7 +14,7 @@ export default React.createClass({
             try {
                 action(this.state, this.setModel, ...rest);
             } catch(ex) {
-                if (DEBUG) {
+                if (DBG) {
                     dispatcher.trigger("show:message", ex.message, "debug");
                 }
             }
