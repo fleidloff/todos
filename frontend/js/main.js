@@ -6,7 +6,7 @@ import Footer from "./components/footer";
 import Notifications from "./components/notifications";
 
 window.PRECONDITIONS = true;
-window.DEBUG = true;
+window.DBG = true; // todo: who reassigns DBUG when set?
 
 React.render(
     <World>
