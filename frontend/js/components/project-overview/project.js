@@ -25,6 +25,6 @@ export default React.createClass({
         const {activeProject} = this.props.app.model;
         const active = !!(activeProject && activeProject.id === id);
         const check = active ? <Icon name="check" className="icon" /> : null;
-        return <div onClick={this.props.onClick} className={"project" + (active ? " active" : "")}>{check}{this.confirmDelete(id)}<div>{title}</div></div>
+        return <div onClick={this.props.onClick} className={"option project" + (active ? " active" : "")}>{check}{this.confirmDelete(id)}<div>{title}</div></div>
     }
 });

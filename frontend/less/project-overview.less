@@ -1,40 +1,9 @@
 .project-overview {
-    position: relative;
-
     .projects {
-        z-index: 1000;
-        position: absolute;
-        left: 0;
-        top: 100%;
-        margin-top: @spacing;
-        background: #eeeeee;
-        border-radius: 3px;
-        padding: @spacing @spacing 0;
-        color: #000000;
-        .drop-shadow(0, 1px, 2px, 0.2);
-        min-width: 50%;
-
         .title {
             margin: @spacing;
         }
         .project {
-            position: relative;
-
-            margin: 0 -1*@spacing;
-            padding: @spacing @spacing @spacing 4*@spacing;
-            border-top: 1px solid #999999;
-            cursor: pointer;
-            &.active {
-                background: #ffffff;            
-            }
-            &:hover {
-                background: #42b8dd;
-            }
-            .icon {
-                position: absolute;
-                top: @spacing;
-                left: @spacing;
-            }
             .delete {
                 position: absolute;
                 top: @spacing;
