@@ -1,6 +1,7 @@
 import React from "react";
 import ConfirmButton from "../shared/confirmButton";
 import Icon from "react-fontawesome";
+import Select from "../shared/customSelect";
 
 export default React.createClass({
     newItemButton() {
@@ -13,6 +14,15 @@ export default React.createClass({
             return <ConfirmButton onConfirm={this.props.app.onTrigger("clear-checked:items")} className="pure-button button-error" text={<span><Icon name="trash-o" title="clear checked items" />&nbsp;<Icon name="check-square-o" title="clear checked items" /></span>} confirmText={<span><Icon name="trash" title="clear checked items" />&nbsp;<Icon name="check-square" title="clear checked items" /></span>} />;
         }
     },
+    filterItems() {
+        if (this.props.app.model.activeProject) {
+            return <Select key="filter" className="filter" title="filter" active={"" + this.props.app.model.filter.checked}>
+                <div className="option" activeValue="null" onClick={this.props.app.onTrigger("change:filter", "checked", null)}><Icon name="check" className="icon if-active" /> all</div>
+                <div className="option" activeValue="false" onClick={this.props.app.onTrigger("change:filter", "checked", false)}><Icon name="check" className="icon if-active" /> active</div>
+                <div className="option" activeValue="true" onClick={this.props.app.onTrigger("change:filter", "checked", true)}><Icon name="check" className="icon if-active" /> checked</div>
+            </Select>;
+        }
+    },
     onClickNew() {
         this.props.app.trigger("new:item");
     },
@@ -20,7 +30,7 @@ export default React.createClass({
         return <div className="item-actions">
             {this.newItemButton()}
             {this.clearCheckedItemsButton()}
-
+            {this.filterItems()}
         </div>;
     }
 });

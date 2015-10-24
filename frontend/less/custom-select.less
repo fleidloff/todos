@@ -20,11 +20,23 @@
             margin: 0 -1*@spacing;
             padding: @spacing @spacing @spacing 4*@spacing;
             border-top: 1px solid #999999;
+            cursor: pointer;
+            .if-active {
+                display: none;
+            }
             &.active {
-                background: #ffffff;            
+                background: #ffffff;   
+                .if-active {
+                    display: inline-block;
+                }         
             }
             &:hover {
                 background: #42b8dd;
+            }
+            .icon {
+                position: absolute;
+                top: @spacing;
+                left: @spacing;
             }
         }
     }

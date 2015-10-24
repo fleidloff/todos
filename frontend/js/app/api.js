@@ -32,7 +32,11 @@ export default {
     },
     tasks: {
         all(model) {
-            return fetch(`${base}Tasks?project=${model.activeProject.id}`);
+            let checked = "";
+            if (model.filter.checked !== null && model.filter.checked !== undefined) {
+                checked=`&checked=${!!(model.filter.checked)}`;
+            }
+            return fetch(`${base}Tasks?project=${model.activeProject.id}${checked}`);
         },
         create(item, model) {
             return fetch(`${base}Tasks?project=${model.activeProject.id}`, {

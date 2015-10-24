@@ -18,7 +18,7 @@ var Task = new Schema({
     title: { type: String, required: true },
     description: { type: String, required: false},
     sort: { type: Number, required: true},
-    checked: { type: Boolean, required: false },
+    checked: { type: Boolean, required: true, default: false },
     project: { type: mongoose.Schema.Types.ObjectId, ref: "Project", required: true }
 });
 var TaskModel = mongoose.model("Task", Task);

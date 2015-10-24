@@ -233,6 +233,12 @@ export default {
             dispatcher.trigger("app:error");
         }
     },
+    changeFilter(state, action, filterName, filterState) {
+        const {filter, activeProject} = state.model;
+        filter[filterName] = filterState;
+        action({filter}); 
+        dispatcher.trigger("load:items");
+    },
     appError(state, action, e) {
         console.log(e);
         dispatcher.trigger("show:message", "Ooops, something went wrong...", "warning");

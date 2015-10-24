@@ -5,5 +5,8 @@ export default {
     editing: false,
     preview: false,
     notifications: [],
-    projects: []
+    projects: [],
+    filter: {
+        checked: null // true, false or null
+    }
 };

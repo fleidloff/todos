@@ -9,7 +9,7 @@ export default React.createClass({
     },
     onClick(id) {
         return () => {
-            this.props.onClick();
+            this.props.onClickParent();
             this.props.app.trigger("select:project", id)   
         }
     },
@@ -20,7 +20,7 @@ export default React.createClass({
     save() {
         const {title} = this.state;
         this.props.app.trigger("create:project", {title});
-        this.props.onClick();
+        this.props.onClickParent();
     },
     onKeyDownTitle(e) {
         if (e.keyCode === 13) {
