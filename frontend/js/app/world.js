@@ -53,7 +53,7 @@ export default React.createClass({
     },
     render() {
         return <div>
-            {this.props.children.map(r => React.cloneElement(r, {app: this.state}))} 
+            {React.Children.map(this.props.children, r => React.cloneElement(r, {app: this.state}))} 
         </div>; 
     }
 });
