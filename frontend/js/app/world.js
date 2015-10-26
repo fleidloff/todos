@@ -25,24 +25,24 @@ export default React.createClass({
     },
     getInitialState() { 
         this.on("app:error", backend.appError);
+        this.on("cancel-preview:item-detail-edit", backend.cancelPreviewItem);
         this.on("cancel:item-detail", backend.cancelItem);
+        this.on("change:filter", backend.changeFilter);
+        this.on("check:item", backend.checkItem);
+        this.on("clear-checked:items", backend.clearChecked);
+        this.on("create:project", backend.createProject);
         this.on("delete:item-detail", backend.deleteItem);
         this.on("delete:project", backend.deleteProject);
         this.on("dismiss:notification", backend.dismissNotification);
         this.on("edit:item-detail", backend.editItem);
-        this.on("preview:item-detail-edit", backend.previewItem);
-        this.on("cancel-preview:item-detail-edit", backend.cancelPreviewItem);
         this.on("load:items", backend.loadItems);
         this.on("load:projects", backend.loadProjects);
         this.on("new:item", backend.newItem);
-        this.on("check:item", backend.checkItem);
+        this.on("preview:item-detail-edit", backend.previewItem);
         this.on("save:item-detail", backend.saveItem);
         this.on("select:item", backend.selectItem);
         this.on("select:project", backend.selectProject);
         this.on("show:message", backend.showMessage);
-        this.on("clear-checked:items", backend.clearChecked);
-        this.on("create:project", backend.createProject);
-        this.on("change:filter", backend.changeFilter);
 
         return {
             model,
