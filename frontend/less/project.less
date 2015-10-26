@@ -1,3 +1,5 @@
+@import "item-actions.less";
+
 .title-mixin {
     font-weight: bold;
 }
@@ -67,25 +69,6 @@
                 margin: @spacing;
             }
             .drop-shadow(0, 1px, 2px, 0.2);
-        }
-        .item-actions {
-            padding: 0 0 @spacing @spacing;
-            button {
-                margin: @spacing @spacing @spacing 0;
-            }
-            .filter {
-                float: right;
-                button {
-                    margin-right: 0;
-                }
-                .options {
-                    right: 0;
-                    left: auto;
-                    .option:first-of-type {
-                        border-top: 0;
-                    }
-                }
-            }
         }
     }
     .item-detail-wrapper {

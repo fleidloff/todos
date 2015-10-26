@@ -1,7 +1,5 @@
 import React from "react";
 import Item from "./item";
-import ItemActions from "./itemActions";
-
 
 export default React.createClass({
     initSort() {
@@ -45,7 +43,6 @@ export default React.createClass({
 
     render() {
         return <div className="items">
-            <ItemActions app={this.props.app} />
             {this.renderItems()}
         </div>;
     }
