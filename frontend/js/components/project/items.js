@@ -1,9 +1,10 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import Item from "./item";
 
 export default React.createClass({
     initSort() {
-        Sortable.create(this.getDOMNode(), {onSort: this.onSort});
+        Sortable.create(ReactDOM.findDOMNode(this), {onSort: this.onSort});
     },
 
     onSortStart(evt) {

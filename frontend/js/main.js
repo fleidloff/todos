@@ -4,11 +4,12 @@ import Project from "./components/project/project";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Notifications from "./components/notifications";
+import ReactDOM from "react-dom"; 
 
 window.PRECONDITIONS = true;
 window.DBG = true; // todo: who reassigns DBUG when set?
 
-React.render(
+ReactDOM.render(
     <World>
         <Header key="Header" /> 
         <Notifications key="Notifications" />  

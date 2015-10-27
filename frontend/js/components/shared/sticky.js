@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import Sticky from "react-sticky";
 
 export default React.createClass({
@@ -13,7 +14,7 @@ export default React.createClass({
             return;
         }
         const scrollUp = this.scrollUp(e);
-        const el = this.getDOMNode();
+        const el = ReactDOM.findDOMNode(this);
         const pos = this.getPos(el);
         const scroll = this.getScroll();
 

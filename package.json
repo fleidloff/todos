@@ -27,11 +27,11 @@
     "mongoose": "^4.1.7",
     "preconditions": "^1.0.8",
     "purecss": "^0.6.0",
-    "react": "^0.13.3",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
     "react-fontawesome": "^0.3.3",
     "sortablejs": "^1.2.1",
     "webpack": "^1.12.1",
-    "webpack-dev-server": "^1.10.1",
     "whatwg-fetch": "^0.9.0"
   }
 }
