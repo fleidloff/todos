@@ -16,10 +16,10 @@ export default React.createClass({
         if(this.state.active) {
             return <div className="options">
                 {React.Children.map(this.props.children, r => {
-                    if (this.props.active !== undefined && r.props.activeValue === this.props.active) {
-                        r.props.className += " active";
-                    }
                     let props = {onClickParent: this.onClick};
+                    if (this.props.active !== undefined && r.props.activeValue === this.props.active) {
+                        props.className = r.props.className + " active";
+                    }
                     if (r.props.onClick) {
                         props.onClick = e => {
                             r.props.onClick(e);
