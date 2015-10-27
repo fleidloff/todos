@@ -7,6 +7,7 @@ module.exports = {
         },
         externals: {
             "react": "React",
+            "react-dom": "ReactDOM",
             "whatwg-fetch": "fetch",
             "markdown": "markdown",
             "preconditions": "preconditions"
