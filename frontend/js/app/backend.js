@@ -14,16 +14,14 @@ export default {
             preconditions.singleton()
                 .shouldBeDefined(message, "message must be defined");
         }
-        return new Promise(resolve => {
-            const notification = {
-                content: message,
-                type: type || "info",
-                id: id++
-            }; 
-            const notifications = state.model.notifications;
-            notifications.push(notification);
-            action({notifications}); 
-        });
+        const notification = {
+            content: message,
+            type: type || "info",
+            id: id++
+        }; 
+        const notifications = state.model.notifications;
+        notifications.push(notification);
+        action({notifications}); 
     },
     loadItems(state, action) {
         // todo: ensure model.activeProject is set
