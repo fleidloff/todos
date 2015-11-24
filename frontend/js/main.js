@@ -5,9 +5,10 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 import Notifications from "./components/notifications";
 import ReactDOM from "react-dom"; 
+import config from "../../config";
 
 window.PRECONDITIONS = true;
-window.DBG = true; // todo: who reassigns DBUG when set?
+window.DBG = config.app.debug ? true : false; // todo: who reassigns DBUG when set?
 
 ReactDOM.render(
     <World>
