@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "grunt": "grunt",
-    "start": "forever --watchDirectory ./dist --watchIgnore web/** --watch server.js"
+    "start": "forever --watchDirectory ./dist --watchIgnore web/** --watch server.js",
+    "stop": "forever stopall"
   },
   "author": "",
   "license": "ISC",
