@@ -5,7 +5,8 @@ module.exports = {
     },
     "mongo": {
         "host": "mongodb://localhost:27017/",
-        "db": "todos"
+        "db": "todos",
+        config: {server:{auto_reconnect:true}}
     },
     "frontend": {
         "path": "dist/web"

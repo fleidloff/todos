@@ -6,7 +6,7 @@ var Schema = mongoose.Schema;
 var restify = require("express-restify-mongoose");
 var config = require("../config");
 
-mongoose.connect(config.mongo.host + config.mongo.db, {server:{auto_reconnect:true}});
+mongoose.connect(config.mongo.host + config.mongo.db, config.mongo.config);
 
 var Project = new Schema({
     title: { type: String, required: true },
