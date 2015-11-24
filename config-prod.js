@@ -1,7 +1,10 @@
 module.exports = {
     "app": {
         "port": 3100,
-        "context": "/nodejs/froodle"
+        "context": "/froodle"
+    },
+    "server": {
+        "context": "/nodejs"
     },
     "mongo": {
         "host": "mongodb://fleidlof_mongoadmin:iebeTh1ach@localhost:20811/",

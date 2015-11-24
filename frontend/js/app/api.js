@@ -1,7 +1,7 @@
 import fetch from "whatwg-fetch";
 import config from "../../../config";
 
-const base = config.app.context + config.api.context + "/" + config.api.version + "/";
+const base = config.server.context + config.app.context + config.api.context + "/" + config.api.version + "/";
 
 // todo: handle errors
 
