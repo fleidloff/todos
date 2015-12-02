@@ -15,7 +15,8 @@ module.exports = function(grunt) {
     grunt.registerTask("backend", ["copy:backend"]);
     grunt.registerTask("js", ["clean:js", "eslint", "webpack:dev"]);
     grunt.registerTask("css", ["clean:less", "less"]);
-    grunt.registerTask("prod", ["dev"]);
-    grunt.registerTask("dev", ["clean:all", "symlink", "js", "css", "copy:html", "lib", "backend", "watch"]);
+    grunt.registerTask("prod", ["build"]);
+    grunt.registerTask("build", ["clean:all", "symlink", "js", "css", "copy:html", "lib", "backend"]);
+    grunt.registerTask("dev", ["build", "watch"]);
     grunt.registerTask("default", ["dev"]);
 };
