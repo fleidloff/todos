@@ -9,27 +9,12 @@ module.exports = {
             "react": "React",
             "react-dom": "ReactDOM",
             "whatwg-fetch": "fetch",
-            "markdown": "markdown",
-            "preconditions": "preconditions"
+            "markdown": "markdown"
         },
         module: {
             loaders: [
-                { 
-                    loader: "babel-loader" 
-                }
-            ]
-        }
-    },
-    preconditions: {
-        entry: "./grunt-tasks/wrapper/preconditions.js",
-        output: {
-            path: "dist/web/lib",
-            filename: "preconditions.js",
-        },
-        module: {
-            loaders: [
-                { 
-                    loader: "babel-loader" 
+                {
+                    loader: "babel-loader"
                 }
             ]
         }
@@ -42,8 +27,8 @@ module.exports = {
         },
         module: {
             loaders: [
-                { 
-                    loader: "babel-loader" 
+                {
+                    loader: "babel-loader"
                 }
             ]
         }

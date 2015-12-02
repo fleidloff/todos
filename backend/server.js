@@ -12,7 +12,7 @@ var Project = new Schema({
     title: { type: String, required: true },
     description: { type: String, required: false }
 });
-var ProjectModel = mongoose.model("Project", Project); 
+var ProjectModel = mongoose.model("Project", Project);
 
 var Task = new Schema({
     title: { type: String, required: true },
@@ -22,13 +22,13 @@ var Task = new Schema({
     project: { type: mongoose.Schema.Types.ObjectId, ref: "Project", required: true }
 });
 var TaskModel = mongoose.model("Task", Task);
- 
+
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride());
 app.use(config.app.context, express.static(config.frontend.path));
- 
+
 var router = express.Router();
 restify.defaults({
     prefix: config.app.context + config.api.context,
@@ -44,7 +44,7 @@ restify.defaults({
 restify.serve(router, TaskModel);
 restify.serve(router, ProjectModel);
 app.use(router);
- 
+
 app.listen(config.app.port, function() {
     console.log("Express server listening on port: ", config.app.port);
 });

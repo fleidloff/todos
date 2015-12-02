@@ -1,6 +1,5 @@
 import api from "./api";
 import dispatcher from "./dispatcher";
-import preconditions from "preconditions";
 
 let id = 0;
 
@@ -10,18 +9,14 @@ function sortItems(a, b) {
 
 export default {
     showMessage(state, action, message, type) {
-        if (PRECONDITIONS) {
-            preconditions.singleton()
-                .shouldBeDefined(message, "message must be defined");
-        }
         const notification = {
             content: message,
             type: type || "info",
             id: id++
-        }; 
+        };
         const notifications = state.model.notifications;
         notifications.push(notification);
-        action({notifications}); 
+        action({notifications});
     },
     loadItems(state, action) {
         // todo: ensure model.activeProject is set
@@ -77,7 +72,7 @@ export default {
             }
             return i;
         });
-        action({items});  
+        action({items});
     },
     saveItem(state, action, item, sort) {
         const newItems = state.model.items.filter(i => i.id !== item.id);
@@ -94,7 +89,7 @@ export default {
             });
         action({items});
         if (!sort) {
-            dispatcher.trigger("select:item", item.id);   
+            dispatcher.trigger("select:item", item.id);
             api.tasks.update(item)
             .then(res => {
                 if (res.status !== 200) {
@@ -205,13 +200,13 @@ export default {
                         }
                         return res;
                     })
-                    .catch(e => dispatcher.trigger("app:error", e));  
-            });  
+                    .catch(e => dispatcher.trigger("app:error", e));
+            });
         const items = state.model.items.filter(i => !(i.checked));
         if (state.model.activeItem && state.model.activeItem.checked) {
             action({activeItem: null});
-        } 
-        action({items}); 
+        }
+        action({items});
     },
     dismissNotification(state, action, id) {
         const notifications = state.model.notifications.filter(n => n.id !== id);
@@ -234,7 +229,7 @@ export default {
     changeFilter(state, action, filterName, filterState) {
         const {filter} = state.model;
         filter[filterName] = filterState;
-        action({filter, activeItem: null}); 
+        action({filter, activeItem: null});
         dispatcher.trigger("load:items");
     },
     appError(state, action, e) {
