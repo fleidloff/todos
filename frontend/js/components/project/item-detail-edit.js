@@ -6,7 +6,7 @@ import Icon from "react-fontawesome";
 
 export default React.createClass({
     getInitialState() {
-        return { 
+        return {
             data: JSON.parse(JSON.stringify(this.props.app.model.activeItem))
         };
     },
@@ -32,18 +32,18 @@ export default React.createClass({
     description(description) {
         if (this.props.app.model.preview) {
             return <div className="description" dangerouslySetInnerHTML={{__html: "<span></span>" + this.descriptionMarkup()}} />
-            
+
         } else {
             return <div className="description">
                 <textarea onChange={this.onChange("description")} value={description} />
-            </div>;    
+            </div>;
         }
     },
     onChange(what) {
         return e => {
             const {data} = this.state;
             data[what] = e.target.value;
-            this.setState({data});    
+            this.setState({data});
         };
     },
     save() {

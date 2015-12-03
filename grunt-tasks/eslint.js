@@ -1,3 +1,8 @@
 module.exports = {
-    target: ["frontend/js/**/*.js"]
+    frontend: {
+        src: ["frontend/js/**/*.js"]
+    },
+    main: {
+        src: ["frontend/js/main.js"]
+    }
 };
