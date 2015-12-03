@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "grunt": "grunt",
+    "prod": "grunt prod",
     "start": "forever --watchDirectory ./dist --watchIgnore web/** --watch server.js",
     "stop": "forever stopall"
   },
