@@ -90,22 +90,9 @@ export default {
         action({items});
         if (!sort) {
             dispatcher.trigger("select:item", item.id);
-            api.tasks.update(item)
-            .then(res => {
-                if (res.status !== 200) {
-                    throw new Error("res.status is not OK:200 but " + res.status);
-                }
-                return res;
-            })
-            .catch(e => dispatcher.trigger("app:error", e));
+            api.tasks.updateAndThrow(item).catch(e => dispatcher.trigger("app:error", e));
         } else {
-            items.forEach(i => api.tasks.update(i).then(res => {
-                if (res.status !== 200) {
-                    throw new Error("res.status is not OK:200 but " + res.status);
-                }
-                return res;
-            })
-            .catch(e => dispatcher.trigger("app:error", e)));
+            api.tasks.updateAll(items).catch(e => dispatcher.trigger("app:error", e));
         }
     },
     editItem(state, action) {

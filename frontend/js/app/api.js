@@ -3,8 +3,6 @@ import config from "../../../config";
 
 const base = config.server.context + config.app.context + config.api.context + "/" + config.api.version + "/";
 
-// todo: handle errors
-
 export default {
     projects: {
         all(model) {
@@ -27,7 +25,7 @@ export default {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
                 }
-            });    
+            });
         },
     },
     tasks: {
@@ -55,7 +53,7 @@ export default {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
                 }
-            });    
+            });
         },
         update(item) {
             return fetch(base + "Tasks/" + item.id, {
@@ -65,7 +63,18 @@ export default {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(item)
-            }); 
+            });
+        },
+        updateAndThrow(item) {
+            return this.update(item).then(res => {
+                if (res.status !== 200) {
+                    throw new Error("res.status is not OK:200 but " + res.status);
+                }
+                return res;
+            });
+        },
+        updateAll(items) {
+            return Promise.all(items.map(i => this.updateAndThrow(i)));
         }
     }
 };
