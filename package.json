@@ -29,6 +29,8 @@
     "markdown": "^0.5.0",
     "method-override": "^2.3.5",
     "mongoose": "^4.1.7",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "preconditions": "^1.0.8",
     "purecss": "^0.6.0",
     "react": "^0.14.0",

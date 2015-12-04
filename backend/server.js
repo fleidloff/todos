@@ -5,6 +5,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var restify = require("express-restify-mongoose");
 var config = require("../config");
+var passport = require("./passport");
 
 mongoose.connect(config.mongo.host + config.mongo.db, config.mongo.config);
 
@@ -33,8 +34,9 @@ var router = express.Router();
 restify.defaults({
     prefix: config.app.context + config.api.context,
     version: "/" + config.api.version,
-    middleware: function (req, res, next) {
-        //console.log('Incoming %s request', req.method);
+    middleware: function(req, res, next) {
+        // console.log(req.body);
+        // passport.authenticate('local')
         next();
     },
     onError: function (err, req, res, next) {
