@@ -18,5 +18,8 @@ module.exports = {
     "api": {
         "version": "v1",
         "context": "/api"
+    },
+    "user": {
+        "authRequired": false
     }
 };

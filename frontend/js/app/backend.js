@@ -219,16 +219,13 @@ export default {
         action({filter, activeItem: null});
         dispatcher.trigger("load:items");
     },
-    notLoggedIn(state, action) {
-        console.log("user not logged in");
-    },
     appError(state, action, e) {
-        console.log(e);
-        if (e.message === "") {
-            console.log("do nothing");
-            return; // do nothing
+        if (e.public) {
+            return dispatcher.trigger("show:message", e.message);
         }
-        console.log("handle", e);
+        if (DBG) {
+            console.log(e);
+        }
         dispatcher.trigger("show:message", "Ooops, something went wrong...", "warning");
     }
 };

@@ -43,7 +43,6 @@ export default React.createClass({
         this.on("select:item", backend.selectItem);
         this.on("select:project", backend.selectProject);
         this.on("show:message", backend.showMessage);
-        this.on("user:notLoggedIn", backend.userNotLoggedIn);
 
         return {
             model,

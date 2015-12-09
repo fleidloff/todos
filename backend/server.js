@@ -5,9 +5,16 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var restify = require("express-restify-mongoose");
 var config = require("../config");
+var session = require("express-session");
 var passport = require("./passport");
 
 mongoose.connect(config.mongo.host + config.mongo.db, config.mongo.config);
+
+var User = new Schema({
+    name: { type: String, required: true },
+    password: { type: String, required: true }
+});
+var UserModel = mongoose.model("User", User);
 
 var Project = new Schema({
     title: { type: String, required: true },
@@ -29,12 +36,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride());
 app.use(config.app.context, express.static(config.frontend.path));
+app.use(session({ secret: "change me!!!", cookie: { maxAge: 60000 }}));
 
 var router = express.Router();
 restify.defaults({
     prefix: config.app.context + config.api.context,
     version: "/" + config.api.version,
-    middleware: passport.middleware,
+    middleware: passport.middleware(app),
     onError: function (err, req, res, next) {
         next("mongo error");
     }

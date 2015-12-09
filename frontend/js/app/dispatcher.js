@@ -18,7 +18,6 @@ const listeners = {
     "select:item": [],
     "select:project": [],
     "show:message": [],
-    "user:notLoggedIn": [],
 };
 
 export default {

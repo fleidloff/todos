@@ -11,7 +11,7 @@ module.exports = {
         "host": "mongodb://fleidlof_mongoadmin:iebeTh1ach@localhost:20811/",
         "db": "todos",
         "config": {
-            "server": {"auto_reconnect":true}, 
+            "server": {"auto_reconnect":true},
             "auth":{"authdb":"admin"}
         }
     },
@@ -21,5 +21,8 @@ module.exports = {
     "api": {
         "version": "v1",
         "context": "/api"
+    },
+    "user": {
+        "authRequired": false
     }
 };
