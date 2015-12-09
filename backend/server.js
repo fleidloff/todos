@@ -34,19 +34,7 @@ var router = express.Router();
 restify.defaults({
     prefix: config.app.context + config.api.context,
     version: "/" + config.api.version,
-    middleware: function(req, res, next) {
-        // console.log(req.body);
-        // passport.authenticate('local')
-        // passport.authenticate('local', function(err, user, info) {
-        //     if (err) { return next(err); }
-        //     if (!user) { return res.redirect('/login'); }
-        //     req.logIn(user, function(err) {
-        //         if (err) { return next(err); }
-        //         return res.redirect('/users/' + user.username);
-        //     });
-        // })(req, res, next);
-        next();
-    },
+    middleware: passport.middleware,
     onError: function (err, req, res, next) {
         next("mongo error");
     }

@@ -7,7 +7,7 @@ export default React.createClass({
     setModel(o) {
         const model = this.state.model;
         Object.keys(o).forEach(k => model[k] = o[k]);
-        this.setState({model});  
+        this.setState({model});
     },
     redux(action) {
         return (...rest) => {
@@ -23,7 +23,7 @@ export default React.createClass({
     on(event, action) {
         dispatcher.on(event, this.redux(action));
     },
-    getInitialState() { 
+    getInitialState() {
         this.on("app:error", backend.appError);
         this.on("cancel-preview:item-detail-edit", backend.cancelPreviewItem);
         this.on("cancel:item-detail", backend.cancelItem);
@@ -43,6 +43,7 @@ export default React.createClass({
         this.on("select:item", backend.selectItem);
         this.on("select:project", backend.selectProject);
         this.on("show:message", backend.showMessage);
+        this.on("user:notLoggedIn", backend.userNotLoggedIn);
 
         return {
             model,
@@ -56,7 +57,7 @@ export default React.createClass({
     },
     render() {
         return <div>
-            {React.Children.map(this.props.children, r => React.cloneElement(r, {app: this.state}))} 
-        </div>; 
+            {React.Children.map(this.props.children, r => React.cloneElement(r, {app: this.state}))}
+        </div>;
     }
 });

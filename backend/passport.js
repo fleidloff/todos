@@ -16,4 +16,24 @@ passport.use(new LocalStrategy(
   }
 ));
 
-module.exports = passport;
+module.exports = {
+    middleware: function(req, res, next) {
+        // console.log(req.body);
+        // passport.authenticate("local")
+        passport.authenticate("local", function(err, user, info) {
+            console.log(arguments);
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                //return res.status(401).send("not logged in").end();
+            }
+            next();
+            // req.logIn(user, function(err) {
+            //     if (err) {
+            //         return next(err);
+            //     }
+            // });
+        })(req, res, next);
+    }
+};

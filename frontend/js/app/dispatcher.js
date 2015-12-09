@@ -18,6 +18,7 @@ const listeners = {
     "select:item": [],
     "select:project": [],
     "show:message": [],
+    "user:notLoggedIn": [],
 };
 
 export default {
@@ -31,7 +32,7 @@ export default {
     off(evt, cb) {
         if (!(evt in listeners)) {
             throw new Error(`event ${evt} does not exist.`);
-        }    
+        }
         listeners[evt] = listeners[evt].filter(func => func !== cb);
     },
     trigger(evt, ...rest) {

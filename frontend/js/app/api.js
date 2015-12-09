@@ -1,4 +1,4 @@
-import fetch from "whatwg-fetch";
+import fetch from "./fetch";
 import config from "../../../config";
 
 const base = config.server.context + config.app.context + config.api.context + "/" + config.api.version + "/";
