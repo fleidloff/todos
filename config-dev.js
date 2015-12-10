@@ -1,6 +1,6 @@
 module.exports = {
     "app": {
-        "port": 8080,
+        "port": 1080,
         "context": "/froodle",
         "debug": true
     },
