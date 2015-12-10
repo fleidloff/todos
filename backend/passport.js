@@ -8,6 +8,7 @@ module.exports = {
     middleware: function() {
         return function(req, res, next) {
             //console.log("user", req.session.user, req.session);
+            // todo: store session in cookie
             req.session.user="foo";
             req.session.save();
             if (!config.user.authRequired) {

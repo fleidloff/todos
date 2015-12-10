@@ -6,6 +6,7 @@ var Schema = mongoose.Schema;
 var restify = require("express-restify-mongoose");
 var config = require("../config");
 var session = require("express-session");
+var MongoStore = require('connect-mongo')(session);
 var passport = require("./passport");
 
 mongoose.connect(config.mongo.host + config.mongo.db, config.mongo.config);
@@ -35,7 +36,8 @@ app.use(session({
     secret: "change me",
     cookie: {
         maxAge : new Date(Date.now() + (60 * 1000 * 30))
-    }
+    },
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
 var router = express.Router();
