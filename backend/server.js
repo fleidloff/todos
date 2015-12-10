@@ -42,7 +42,7 @@ var router = express.Router();
 restify.defaults({
     prefix: config.app.context + config.api.context,
     version: "/" + config.api.version,
-    middleware: passport.middleware(app),
+    middleware: passport.middleware(),
     onError: function (err, req, res, next) {
         next("mongo error");
     }
