@@ -1,8 +1,10 @@
 import React from "react";
 import ConfirmButton from "../shared/confirmButton";
+import kc from "../shared/keycodes";
 import keyToColor from "../../util/keyToColor";
 import {markdown} from "markdown";
 import Icon from "react-fontawesome";
+import Textarea from "react-textarea-autosize";
 
 export default React.createClass({
     getInitialState() {
@@ -35,8 +37,45 @@ export default React.createClass({
 
         } else {
             return <div className="description">
-                <textarea onChange={this.onChange("description")} value={description} />
+                <Textarea onKeyDown={this.onKeyDown("description")} onChange={this.onChange("description")} value={description} />
             </div>;
+        }
+    },
+    onKeyDown(what) {
+        return e => {
+            const {data} = this.state;
+            const target = e.target;
+
+            if (e.keyCode === kc.tab) {
+                e.preventDefault();
+                data[what] = data[what].substring(0, target.selectionStart) + "  " + data[what].substring(target.selectionEnd);
+                const pos = target.selectionStart;
+                setTimeout(() => {
+                    target.selectionStart = target.selectionEnd = pos + 2;
+                }, 0);
+            }
+
+            if (e.keyCode === kc.s && e.ctrlKey) {
+                e.preventDefault();
+                this.save();
+            }
+
+            if (e.keyCode === kc.enter) {
+                const lines = data[what].substring(0, target.selectionStart).split("\n");
+                if (lines.length > 0) {
+                    if (lines[lines.length - 1].indexOf("* ") === 0) {
+                        e.preventDefault();
+                        data[what] = data[what].substring(0, target.selectionStart) + "\n* " + data[what].substring(target.selectionEnd)    
+                        const pos = target.selectionStart;
+                        setTimeout(() => {
+                            target.selectionStart = target.selectionEnd = pos + 3;
+                        }, 0);
+                    };
+                } 
+            }
+
+
+            this.setState({data});
         }
     },
     onChange(what) {
@@ -50,7 +89,7 @@ export default React.createClass({
         this.props.app.trigger("save:item-detail", this.state.data);
     },
     onKeyDownTitle(e) {
-        if (e.keyCode === 13) {
+        if (e.keyCode === kc.enter) {
             this.save();
         }
     },

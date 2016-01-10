@@ -49,5 +49,8 @@
     "utils-merge": "^1.0.0",
     "webpack": "^1.12.1",
     "whatwg-fetch": "^0.9.0"
+  },
+  "dependencies": {
+    "react-textarea-autosize": "^3.3.0"
   }
 }
