@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "prod": "grunt prod",
+    "prod": "npm install; grunt prod; svc -d ~/service/exampleservice/; svc -u ~/service/exampleservice/",
     "start": "forever --watchDirectory ./dist --watchIgnore web/** --watch server.js",
     "stop": "forever stopall"
   },
