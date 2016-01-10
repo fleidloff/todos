@@ -7,7 +7,7 @@ export default React.createClass({
     render() {
         const {activeProject} = this.props.app.model;
         return <div className="project-overview">
-            <Select key="projectOverview" defaultActive={true} title={activeProject ? activeProject.title : "select project"}>
+            <Select key="projectOverview" defaultActive={false} title={activeProject ? activeProject.title : "select project"}>
                 <Projects app={this.props.app} />
             </Select>
         </div>;

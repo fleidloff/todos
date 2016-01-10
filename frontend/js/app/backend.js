@@ -1,5 +1,6 @@
 import api from "./api";
 import dispatcher from "./dispatcher";
+import hashParams from "./hashParams";
 
 let id = 0;
 
@@ -38,6 +39,7 @@ export default {
                 return items;
             })
             .then(items => action({items}))
+            .then(() => dispatcher.trigger("loaded:items"))
             .catch(e => dispatcher.trigger("app:error", e));
     },
     loadProjects(state, action) {
@@ -58,10 +60,12 @@ export default {
                 return projects;
             })
             .then(projects => action({projects}))
+            .then(() => dispatcher.trigger("loaded:projects"))
             .catch(e => dispatcher.trigger("app:error", e));
     },
     selectItem(state, action, activeItemId, editing=false) {
         const activeItem = state.model.items.filter(i => i.id === activeItemId)[0];
+        hashParams.set({item: activeItem.id});
         action({activeItem, editing});
     },
     checkItem(state, action, itemId, checked) {
@@ -208,6 +212,7 @@ export default {
             editing: false
         });
         if (activeProject) {
+            hashParams.set({project: activeProject.id});
             dispatcher.trigger("load:items");
         } else {
             dispatcher.trigger("app:error");
@@ -224,8 +229,10 @@ export default {
             return dispatcher.trigger("show:message", e.message);
         }
         if (DBG) {
-            console.log(e);
+            console.log((e.silent ? "Silent" : "") + e);
         }
-        dispatcher.trigger("show:message", "Ooops, something went wrong...", "warning");
+        if (!(e.silent)) {
+            dispatcher.trigger("show:message", "Ooops, something went wrong...", "warning");
+        }
     }
 };
