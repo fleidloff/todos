@@ -2,6 +2,7 @@ import dispatcher from "./dispatcher";
 import api from "./api";
 import model from "./model";
 import backend from "./backend";
+import hashParams from "./hashParams";
 
 export default React.createClass({
     setModel(o) {
@@ -52,6 +53,32 @@ export default React.createClass({
     },
     componentDidMount() {
         window.dispatcher = dispatcher;
+        const {project, item} = hashParams.get();
+        if (project) {
+            dispatcher.once("loaded:projects", () => {
+                if (model.projects.filter(it => {
+                    return it.id === project;
+                }).length) {
+                    dispatcher.trigger("select:project", project);
+                } else {
+                    dispatcher.trigger("show:message", "Selected Project does not exist.");
+                }
+            });    
+        }
+
+        if (item) {
+            dispatcher.once("loaded:items", () => {
+                if (model.items.filter(it => {
+                    return it.id === item;
+                }).length) {
+                    dispatcher.trigger("select:item", item, false);
+                } else {
+                    dispatcher.trigger("show:message", "Selected Item does not exist.");
+                }
+                
+            });   
+        }
+
         dispatcher.trigger("load:projects");
     },
     render() {

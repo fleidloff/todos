@@ -1,3 +1,5 @@
+import hashParams from "./hashParams";
+
 export default {
     items: [],
     activeItem: null,

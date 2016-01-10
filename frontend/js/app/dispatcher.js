@@ -11,7 +11,9 @@ const listeners = {
     "dismiss:notification": [],
     "edit:item-detail": [],
     "load:items": [],
+    "loaded:items": [],
     "load:projects": [],
+    "loaded:projects": [],
     "new:item": [],
     "preview:item-detail-edit": [],
     "save:item-detail": [],
@@ -20,13 +22,20 @@ const listeners = {
     "show:message": [],
 };
 
+const onceListeners = JSON.parse(JSON.stringify(listeners));
+
 export default {
     on(evt, cb) {
-        //this.off(evt, cb);
         if (!(evt in listeners)) {
             throw new Error(`event ${evt} does not exist.`);
         }
         listeners[evt].push(cb);
+    },
+    once(evt, cb) {
+        if (!(evt in listeners)) {
+            throw new Error(`event ${evt} does not exist.`);
+        }
+        onceListeners[evt].push(cb);
     },
     off(evt, cb) {
         if (!(evt in listeners)) {
@@ -37,13 +46,22 @@ export default {
     trigger(evt, ...rest) {
         if (DBG) {
             console.log("triggered:", evt, rest);
+            let err;
+
+            if (!(evt in listeners)) {
+                err = new Error(`event ${evt} does not exist.`);
+                // err.silent = true;
+                throw err;
+            }
+            if ((listeners[evt].length + onceListeners[evt].length) === 0) {
+                err = new Error(`event ${evt} triggered but not cought.`);
+                err.silent = true;
+                throw err;
+            }
         }
-        if (!(evt in listeners)) {
-            throw new Error(`event ${evt} does not exist.`);
-        }
-        if (listeners[evt].length === 0) {
-            throw new Error(`event ${evt} triggered but not catched.`);
-        }
+        
         listeners[evt].forEach(cb => setTimeout(() => cb(...rest), 0));
+        onceListeners[evt].forEach(cb => setTimeout(() => cb(...rest), 0));
+        onceListeners[evt] = [];
     }
 };
