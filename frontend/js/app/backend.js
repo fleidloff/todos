@@ -65,8 +65,12 @@ export default {
     },
     selectItem(state, action, activeItemId, editing=false) {
         const activeItem = state.model.items.filter(i => i.id === activeItemId)[0];
-        hashParams.set({item: activeItem.id});
-        action({activeItem, editing});
+        if (activeItem) {
+            hashParams.set({item: activeItem.id});
+            action({activeItem, editing});
+        } else {
+            dispatcher.trigger("app:error");
+        }
     },
     checkItem(state, action, itemId, checked) {
         const items = state.model.items.map(i => {
@@ -205,14 +209,15 @@ export default {
     },
     selectProject(state, action, activeProjectId) {
         const activeProject = state.model.projects.filter(p => p.id === activeProjectId)[0];
-        action({
-            items: [],
-            activeItem: null,
-            activeProject,
-            editing: false
-        });
+
         if (activeProject) {
-            hashParams.set({project: activeProject.id});
+            action({
+                items: [],
+                activeItem: null,
+                activeProject,
+                editing: false
+            });
+            hashParams.set({project: activeProject.id, item: null});
             dispatcher.trigger("load:items");
         } else {
             dispatcher.trigger("app:error");

@@ -1,11 +1,35 @@
+import dispatcher from "./dispatcher";
+
 const hashParams = {};
 
-export default {
+
+window.addEventListener("hashchange", e => {
+    const {project, item} = hp.get();
+
+    if (project && hashParams.project !== project) {
+        if (item && hashParams.item !== item) {
+            dispatcher.once("loaded:items", () => {
+                dispatcher.trigger("select:item", item);    
+            });
+        }
+        
+        dispatcher.trigger("select:project", project);
+    } else if (project) {
+        if (item && hashParams.item !== item) {
+            dispatcher.trigger("select:item", item);    
+        } else if (!item) {
+            dispatcher.trigger("select:project", project);        
+        }
+    }
+});
+
+const hp = {
     set(update) {
         Object.keys(update)
             .forEach(it => {
                 hashParams[it] = update[it];
-                if (it === null) {
+
+                if (update[it] === null) {
                     delete hashParams[it];
                 }
             });
@@ -15,6 +39,7 @@ export default {
             }).join("");
     },
     get() {
+        const hashParams = {};
         window.location.hash
             .split("/")
             .filter(it => it !== "#")
@@ -30,3 +55,5 @@ export default {
         return hashParams;
     }
 };
+
+export default hp;
