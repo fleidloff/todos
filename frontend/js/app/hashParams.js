@@ -5,6 +5,9 @@ export default {
         Object.keys(update)
             .forEach(it => {
                 hashParams[it] = update[it];
+                if (it === null) {
+                    delete hashParams[it];
+                }
             });
         window.location.hash = Object.keys(hashParams)
             .map(it => {
@@ -24,7 +27,6 @@ export default {
                 }
             }, null);
 
-        console.log(hashParams);
         return hashParams;
     }
 };
