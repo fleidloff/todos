@@ -17,17 +17,15 @@ export default React.createClass({
 
     onKeyDown(e) {
         if (e.keyCode === kc.enter) {
-            e.preventDefault();
             this.login();
         }
     },
 
     login() {
         if (typeof sessionStorage !== "undefined") {
-            const {user, password} = this.state;
-            const {user2, password2} = JSON.parse(JSON.stringify(this.state));
+            // todo: we run into problems because chrome replaces the state before the sessionStorage is filled up
+            const {user, password} = JSON.parse(JSON.stringify(this.state));
             sessionStorage.setItem("Authorization", btoa(user + ":" + password));
-            sessionStorage.setItem("Authorization2", btoa(user2 + ":" + password2));
             this.props.app.trigger("goto:page", null);
             dispatcher.trigger("start:app");    
         } else {
