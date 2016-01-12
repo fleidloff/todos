@@ -5,9 +5,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var restify = require("express-restify-mongoose");
 var config = require("../config");
-var session = require("express-session");
-var MongoStore = require('connect-mongo')(session);
-var passport = require("./passport");
+var routes = require("./router");
 
 mongoose.connect(config.mongo.host + config.mongo.db, config.mongo.config);
 
@@ -32,23 +30,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride());
 app.use(config.app.context, express.static(config.frontend.path));
-app.use(session({
-    secret: "change me",
-    cookie: {
-        maxAge : new Date(Date.now() + (60 * 1000 * 30))
-    },
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
-}));
 
 var router = express.Router();
 restify.defaults({
     prefix: config.app.context + config.api.context,
     version: "/" + config.api.version,
-    middleware: passport.middleware(),
+    /*middleware: null,*/
     onError: function (err, req, res, next) {
         next("mongo error");
     }
-})
+});
+
+router.use(routes.middleware());
+
 restify.serve(router, TaskModel);
 restify.serve(router, ProjectModel);
 app.use(router);
