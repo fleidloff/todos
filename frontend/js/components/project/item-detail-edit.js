@@ -43,7 +43,7 @@ export default React.createClass({
         }
     },
     onKeyDown(what) {
-        return textareaKeyHandler(what, this.state.data, this.setState.bind(this));
+        return textareaKeyHandler.bind(this)(what, this.setState.bind(this));
     },
     onChange(what) {
         return e => {

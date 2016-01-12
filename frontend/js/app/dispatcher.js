@@ -10,6 +10,7 @@ const listeners = {
     "delete:project": [],
     "dismiss:notification": [],
     "edit:item-detail": [],
+    "goto:page": [],
     "load:items": [],
     "loaded:items": [],
     "load:projects": [],
@@ -19,6 +20,7 @@ const listeners = {
     "save:item-detail": [],
     "select:item": [],
     "select:project": [],
+    "start:app": [],
     "show:message": [],
 };
 

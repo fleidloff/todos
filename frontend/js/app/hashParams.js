@@ -1,10 +1,10 @@
 import dispatcher from "./dispatcher";
 
-const hashParams = {};
+let hashParams = {};
 
 
 window.addEventListener("hashchange", e => {
-    const {project, item} = hp.get();
+    const {project, item, page} = hp.get();
 
     if (project && hashParams.project !== project) {
         if (item && hashParams.item !== item) {
@@ -21,9 +21,17 @@ window.addEventListener("hashchange", e => {
             dispatcher.trigger("select:project", project);        
         }
     }
+
+    if (page && hashParams.page !== page) {
+        dispatcher.trigger("goto:page", page);
+    }
 });
 
 const hp = {
+    removeAll() {
+        hashParams = {};
+        this.set(hashParams);
+    },
     set(update) {
         Object.keys(update)
             .forEach(it => {
