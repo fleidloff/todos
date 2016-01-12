@@ -33,9 +33,9 @@ export default React.createClass({
 
     render() {
         return <div className="login">
-            <form className="pure-form">
-                    <input type="text" placeholder="User" onChange={this.onChange("user")} onKeyDown={this.onKeyDown} value={this.state.user} />
-                    <input type="password" placeholder="Password" onChange={this.onChange("password")} onKeyDown={this.onKeyDown} value={this.state.password} />
+            <form className="pure-form" id="froodle-login">
+                    <input id="froodle-user" type="text" placeholder="User" onChange={this.onChange("user")} onKeyDown={this.onKeyDown} value={this.state.user} />
+                    <input id="froodle-password" type="password" placeholder="Password" onChange={this.onChange("password")} onKeyDown={this.onKeyDown} value={this.state.password} />
 
                     <button onClick={this.login} type="submit" className="pure-button pure-button-primary">Sign in</button>
             </form>
