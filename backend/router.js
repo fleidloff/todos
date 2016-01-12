@@ -1,9 +1,16 @@
 var passport = require("./passport").middleware();
+var md5 = require("crypto-js/md5");
 
 module.exports = {
     middleware: function() {
         return function(req, res, next) {
-            return res.status(200).send("foo: " + req.url + ", headers: " + req.headers).end();
+        	var auth = "7827d1dfa98cbb0040d7eb0d72c3448e";
+
+        	if (md5(req.headers.authorization).toString() !== auth) {
+            	return res.status(401).send("not logged in").end();
+        	} else {
+        		next();
+        	}
         }
     }
 };
