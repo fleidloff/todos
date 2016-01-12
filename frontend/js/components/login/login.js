@@ -24,10 +24,11 @@ export default React.createClass({
     login() {
         if (typeof sessionStorage !== "undefined") {
             // todo: we run into problems because chrome replaces the state before the sessionStorage is filled up
-            const {user, password} = JSON.parse(JSON.stringify(this.state));
+            const user = this.state.user + "";
+            const password = this.state.password + "";
             sessionStorage.setItem("Authorization", btoa(user + ":" + password));
             this.props.app.trigger("goto:page", null);
-            dispatcher.trigger("start:app");    
+            this.props.app.trigger("start:app");    
         } else {
             this.props.app.trigger("app:error", "cannot login because no sessionStorage is available");
         }   
