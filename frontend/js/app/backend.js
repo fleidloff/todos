@@ -229,6 +229,9 @@ export default {
         action({filter, activeItem: null});
         dispatcher.trigger("load:items");
     },
+    gotoPage(state, action, pageName) {
+        action({pageName});
+    },
     appError(state, action, e) {
         if (e.public) {
             return dispatcher.trigger("show:message", e.message);

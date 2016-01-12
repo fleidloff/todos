@@ -3,6 +3,7 @@ import api from "./api";
 import model from "./model";
 import backend from "./backend";
 import hashParams from "./hashParams";
+import React from "react";
 
 export default React.createClass({
     setModel(o) {
@@ -44,6 +45,7 @@ export default React.createClass({
         this.on("select:item", backend.selectItem);
         this.on("select:project", backend.selectProject);
         this.on("show:message", backend.showMessage);
+        this.on("goto:page", backend.gotoPage);
 
         return {
             model,
@@ -83,7 +85,7 @@ export default React.createClass({
     },
     render() {
         return <div>
-            {React.Children.map(this.props.children, r => React.cloneElement(r, {app: this.state}))}
+            {React.Children.map(this.props.children, r => React.cloneElement(r, {app: this.state, name: r.props.name}))}
         </div>;
     }
 });

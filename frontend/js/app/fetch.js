@@ -26,7 +26,8 @@ export default function(...params) {
         whatwg(...params).then(res => {
             if (res && res.status == 401) {
                 var e = new Error("user is not logged in.");
-                e.public = true;
+                e.silent = true;
+                dispatcher.trigger("goto:page", "login");
                 reject(e);
             }
 

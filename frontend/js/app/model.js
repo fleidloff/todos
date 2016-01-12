@@ -6,6 +6,7 @@ export default {
     activeProject: null,
     editing: false,
     preview: false,
+    pageName: null,
     notifications: [],
     projects: [],
     filter: {
