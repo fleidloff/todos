@@ -46,6 +46,7 @@ export default React.createClass({
         this.on("select:project", backend.selectProject);
         this.on("show:message", backend.showMessage);
         this.on("goto:page", backend.gotoPage);
+        this.on("start:app", backend.startApp);
 
         return {
             model,
@@ -55,33 +56,7 @@ export default React.createClass({
     },
     componentDidMount() {
         window.dispatcher = dispatcher;
-        const {project, item} = hashParams.get();
-        if (project) {
-            dispatcher.once("loaded:projects", () => {
-                if (model.projects.filter(it => {
-                    return it.id === project;
-                }).length) {
-                    dispatcher.trigger("select:project", project);
-                } else {
-                    dispatcher.trigger("show:message", "Selected Project does not exist.");
-                }
-            });    
-        }
-
-        if (item) {
-            dispatcher.once("loaded:items", () => {
-                if (model.items.filter(it => {
-                    return it.id === item;
-                }).length) {
-                    dispatcher.trigger("select:item", item, false);
-                } else {
-                    dispatcher.trigger("show:message", "Selected Item does not exist.");
-                }
-                
-            });   
-        }
-
-        dispatcher.trigger("load:projects");
+        dispatcher.trigger("start:app");
     },
     render() {
         return <div>

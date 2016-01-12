@@ -20,6 +20,7 @@ const listeners = {
     "save:item-detail": [],
     "select:item": [],
     "select:project": [],
+    "start:app": [],
     "show:message": [],
 };
 

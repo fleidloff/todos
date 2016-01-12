@@ -15,7 +15,10 @@ ReactDOM.render(
     <World>
     
         <Page name="login">
+            <Header key="Header" />
+            <Notifications key="Notifications" />
             <Login />
+            <Footer key="Footer" />
         </Page>
 
         <Page name="default">

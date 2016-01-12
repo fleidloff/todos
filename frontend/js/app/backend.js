@@ -9,12 +9,17 @@ function sortItems(a, b) {
 }
 
 export default {
-    showMessage(state, action, message, type) {
+    showMessage(state, action, message, type, autoDismiss) {
         const notification = {
             content: message,
             type: type || "info",
             id: id++
         };
+        if (autoDismiss) {
+            setTimeout(() => {
+                dispatcher.trigger("dismiss:notification", notification.id);
+            }, 2000);
+        }
         const notifications = state.model.notifications;
         notifications.push(notification);
         action({notifications});
@@ -230,7 +235,37 @@ export default {
         dispatcher.trigger("load:items");
     },
     gotoPage(state, action, pageName) {
+        hashParams.set({page: pageName});
         action({pageName});
+    },
+    startApp(state, action) {
+        const {project, item} = hashParams.get();
+        if (project) {
+            dispatcher.once("loaded:projects", () => {
+                if (state.model.projects.filter(it => {
+                    return it.id === project;
+                }).length) {
+                    dispatcher.trigger("select:project", project);
+                } else {
+                    dispatcher.trigger("show:message", "Selected Project does not exist.");
+                }
+            });    
+        }
+
+        if (item) {
+            dispatcher.once("loaded:items", () => {
+                if (state.model.items.filter(it => {
+                    return it.id === item;
+                }).length) {
+                    dispatcher.trigger("select:item", item, false);
+                } else {
+                    dispatcher.trigger("show:message", "Selected Item does not exist.");
+                }
+                
+            });   
+        }
+
+        dispatcher.trigger("load:projects");
     },
     appError(state, action, e) {
         if (e.public) {

@@ -13,8 +13,8 @@ export default function(...params) {
 
             };
         }
-        if (typeof localStorage !== "undefined") {
-            authHeader = localStorage.getItem("Authorization") || ""; 
+        if (typeof sessionStorage !== "undefined") {
+            authHeader = sessionStorage.getItem("Authorization") || ""; 
             if (authHeader) {
                 params[1].headers.Authorization = authHeader;
             }
