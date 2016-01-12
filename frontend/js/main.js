@@ -5,6 +5,7 @@ import Project from "./components/project/project";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Login from "./components/login/login";
+import Raw from "./components/raw/raw";
 import Notifications from "./components/notifications";
 import ReactDOM from "react-dom";
 import config from "../../config";
@@ -19,6 +20,10 @@ ReactDOM.render(
             <Notifications key="Notifications" />
             <Login />
             <Footer key="Footer" />
+        </Page>
+
+        <Page name="raw">
+            <Raw />
         </Page>
 
         <Page name="default">
