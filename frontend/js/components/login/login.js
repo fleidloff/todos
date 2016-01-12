@@ -17,6 +17,7 @@ export default React.createClass({
 
     onKeyDown(e) {
         if (e.keyCode === kc.enter) {
+            e.preventDefault();
             this.login();
         }
     },
