@@ -23,7 +23,10 @@ export default React.createClass({
 
     login() {
         if (typeof sessionStorage !== "undefined") {
-            sessionStorage.setItem("Authorization", btoa(this.state.user + ":" + this.state.password));
+            const {user, password} = this.state;
+            const {user2, password2} = JSON.parse(JSON.stringify(this.state));
+            sessionStorage.setItem("Authorization", btoa(user + ":" + password));
+            sessionStorage.setItem("Authorization2", btoa(user2 + ":" + password2));
             this.props.app.trigger("goto:page", null);
             dispatcher.trigger("start:app");    
         } else {
