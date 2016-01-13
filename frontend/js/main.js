@@ -9,12 +9,13 @@ import Raw from "./components/raw/raw";
 import Notifications from "./components/notifications";
 import ReactDOM from "react-dom";
 import config from "../../config";
+import DisablePasswordAutocomplete from "./util/disablePasswordAutocomplete";
 
 window.DBG = config.app.debug ? true : false;
 
 ReactDOM.render(
     <World>
-    
+        <DisablePasswordAutocomplete />
         <Page name="login">
             <Header key="Header" />
             <Notifications key="Notifications" />

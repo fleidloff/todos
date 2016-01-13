@@ -28,17 +28,17 @@ export default React.createClass({
             const password = this.state.password + "";
             sessionStorage.setItem("Authorization", btoa(user + ":" + password));
             this.props.app.trigger("goto:page", null);
-            this.props.app.trigger("start:app");    
+            this.props.app.trigger("start:app");
         } else {
             this.props.app.trigger("app:error", "cannot login because no sessionStorage is available");
-        }   
+        }
     },
 
     render() {
         return <div className="login">
-            <form className="pure-form" id="froodle-login">
-                    <input id="froodle-user" type="text" placeholder="User" onChange={this.onChange("user")} onKeyDown={this.onKeyDown} value={this.state.user} />
-                    <input id="froodle-password" type="password" placeholder="Password" onChange={this.onChange("password")} onKeyDown={this.onKeyDown} value={this.state.password} />
+            <form autoComplete="off" className="pure-form" id="froodle-login">
+                    <input autoComplete="off" id="user" type="text" placeholder="User" onChange={this.onChange("user")} onKeyDown={this.onKeyDown} value={this.state.user} />
+                    <input autoComplete="off" id="password" type="password" placeholder="Password" onChange={this.onChange("password")} onKeyDown={this.onKeyDown} value={this.state.password} />
 
                     <button onClick={this.login} type="submit" className="pure-button pure-button-primary">Sign in</button>
             </form>
