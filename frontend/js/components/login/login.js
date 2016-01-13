@@ -20,13 +20,16 @@ export default React.createClass({
             this.login();
         }
     },
-
+    // todo: not sure if this makes sense...
+    setItem(...params){
+        sessionStorage.setItem(...params);
+    },
     login() {
         if (typeof sessionStorage !== "undefined") {
             // todo: we run into problems because chrome replaces the state before the sessionStorage is filled up
             const user = this.state.user + "";
             const password = this.state.password + "";
-            sessionStorage.setItem("Authorization", btoa(user + ":" + password));
+            this.setItem("Authorization", btoa(user + ":" + password));
             this.props.app.trigger("goto:page", null);
             this.props.app.trigger("start:app");
         } else {

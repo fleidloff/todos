@@ -15,7 +15,7 @@ window.DBG = config.app.debug ? true : false;
 
 ReactDOM.render(
     <World>
-        <DisablePasswordAutocomplete />
+
         <Page name="login">
             <Header key="Header" />
             <Notifications key="Notifications" />
