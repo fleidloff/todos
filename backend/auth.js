@@ -1,5 +1,6 @@
 var md5 = require("crypto-js/md5");
 var uuid = require("node-uuid");
+var atob = require("atob");
 var minutes = 1000*60;
 var hours = 60*minutes;
 var sessionExpiration = 3*hours;
@@ -15,7 +16,7 @@ function deleteAfterExpiration(session) {
 }
 
 function userFromAuth(auth) {
-    return "fred";
+    return atob(auth).split(":")[0];
 }
 
 function getSession(id, auth) {
@@ -28,6 +29,7 @@ function getSession(id, auth) {
         expires: sessionExpiration,
         user: userFromAuth(auth)
     }
+
     sessions[session.id] = session;
 
     deleteAfterExpiration(session);
@@ -43,8 +45,8 @@ module.exports = {
             if ((md5(req.headers.authorization).toString() !== auth) && (typeof sessions[req.headers["session-id"]] === "undefined")) {
                 return res.status(401).send("not logged in").end();
             } else {
-                const session = getSession(req.headers["session-id"]);
-                res.setHeader("session-id", "" + session.id, req.headers.authorization);
+                const session = getSession(req.headers["session-id"], req.headers.authorization);
+                res.setHeader("session-id", "" + session.id);
                 req.session = session;
                 next();
             }
