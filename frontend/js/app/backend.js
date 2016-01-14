@@ -267,9 +267,7 @@ export default {
                 
             });   
         }
-        api.user.login().then(() => {
-            dispatcher.trigger("load:projects");
-        });
+        dispatcher.trigger("load:projects");
     },
     appError(state, action, e) {
         if (e.public) {

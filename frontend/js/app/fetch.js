@@ -16,9 +16,9 @@ export default function(...params) {
 
             };
         }
-        sessionIdHeader = session.getItem("session-id") || ""; 
+        sessionIdHeader = session.getItem("x-session-id") || ""; 
         if (sessionIdHeader && (typeof params[1].headers.Authorization === "undefined")) {
-            params[1].headers["session-id"] = sessionIdHeader;
+            params[1].headers["x-session-id"] = sessionIdHeader;
         }
         if (params[1].method === "post" || params[1].method === "delete" || params[1].method === "put") {
             params[1].headers.Accept = "application/json";
@@ -32,8 +32,8 @@ export default function(...params) {
                 reject(e);
             }
 
-            if (res.headers.get("session-id")) {
-                session.setItem("session-id", res.headers.get("session-id"));
+            if (res.headers.get("x-session-id")) {
+                session.setItem("x-session-id", res.headers.get("x-session-id"));
             }
 
             return resolve(res);

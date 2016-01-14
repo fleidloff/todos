@@ -42,11 +42,11 @@ module.exports = {
         return function(req, res, next) {
             var auth = "7827d1dfa98cbb0040d7eb0d72c3448e";
 
-            if ((md5(req.headers.authorization).toString() !== auth) && (typeof sessions[req.headers["session-id"]] === "undefined")) {
+            if ((md5(req.headers.authorization).toString() !== auth) && (typeof sessions[req.headers["x-session-id"]] === "undefined")) {
                 return res.status(401).send("not logged in").end();
             } else {
-                const session = getSession(req.headers["session-id"], req.headers.authorization);
-                res.setHeader("session-id", "" + session.id);
+                const session = getSession(req.headers["x-session-id"], req.headers.authorization);
+                res.setHeader("x-session-id", "" + session.id);
                 req.session = session;
                 next();
             }
