@@ -15,11 +15,13 @@ window.addEventListener("hashchange", e => {
         
         dispatcher.trigger("select:project", project);
     } else if (project) {
-        if (item && hashParams.item !== item) {
-            dispatcher.trigger("select:item", item);    
-        } else if (!item) {
-            dispatcher.trigger("select:project", project);        
-        }
+        if (hashParams.item !== item) {
+            if (item) {
+                dispatcher.trigger("select:item", item);    
+            } else {
+                dispatcher.trigger("select:item", null);
+            }
+        } 
     }
 
     if (page && hashParams.page !== page) {

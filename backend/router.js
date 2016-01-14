@@ -1,16 +1,25 @@
-var passport = require("./passport").middleware();
-var md5 = require("crypto-js/md5");
+var auth = require("./auth");
+var config = require("../config");
+var baseUrl = config.app.context + config.api.context + "/" + config.api.version;
+var urls = {
+    login: baseUrl + "/login",
+    logout: baseUrl + "/logout",
+}
 
 module.exports = {
     middleware: function() {
         return function(req, res, next) {
-        	var auth = "7827d1dfa98cbb0040d7eb0d72c3448e";
+        	auth.middleware()(req, res, function() {
+                if (req.url === urls.login) {
+                    return res.status(204).end();
+                }
+                if (req.url === urls.logout) {
+                    auth.logout(req.session);
+                    return res.status(401).send("not logged in").end();
+                }
 
-        	if (md5(req.headers.authorization).toString() !== auth) {
-            	return res.status(401).send("not logged in").end();
-        	} else {
-        		next();
-        	}
+                next();
+            });
         }
     }
 };

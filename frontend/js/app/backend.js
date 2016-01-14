@@ -69,6 +69,9 @@ export default {
             .catch(e => dispatcher.trigger("app:error", e));
     },
     selectItem(state, action, activeItemId, editing=false) {
+        if (!activeItemId) {
+            return action({activeItem, editing});    
+        }
         const activeItem = state.model.items.filter(i => i.id === activeItemId)[0];
         if (activeItem) {
             hashParams.set({item: activeItem.id});
@@ -264,8 +267,9 @@ export default {
                 
             });   
         }
-
-        dispatcher.trigger("load:projects");
+        api.user.login().then(() => {
+            dispatcher.trigger("load:projects");
+        });
     },
     appError(state, action, e) {
         if (e.public) {

@@ -4,6 +4,21 @@ import config from "../../../config";
 const base = config.server.context + config.app.context + config.api.context + "/" + config.api.version + "/";
 
 export default {
+    user: {
+        login(authHeader) {
+            return fetch(base + "login", {
+                method: "get",
+                headers: {
+                    "Authorization": authHeader
+                }
+            });
+        },
+        logout() {
+            return fetch(base + "logout", {
+                method: "get"
+            });
+        }
+    },
     projects: {
         all(model) {
             return fetch(`${base}Projects?sort=title`);

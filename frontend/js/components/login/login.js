@@ -1,5 +1,7 @@
 import React from "react";
 import kc from "../shared/keycodes";
+import session from "../../util/session";
+import api from "../../app/api";
 
 export default React.createClass({
     getInitialState() {
@@ -20,21 +22,15 @@ export default React.createClass({
             this.login();
         }
     },
-    // todo: not sure if this makes sense...
-    setItem(...params){
-        sessionStorage.setItem(...params);
-    },
     login() {
-        if (typeof sessionStorage !== "undefined") {
             // todo: we run into problems because chrome replaces the state before the sessionStorage is filled up
             const user = this.state.user + "";
             const password = this.state.password + "";
-            this.setItem("Authorization", btoa(user + ":" + password));
-            this.props.app.trigger("goto:page", null);
-            this.props.app.trigger("start:app");
-        } else {
-            this.props.app.trigger("app:error", "cannot login because no sessionStorage is available");
-        }
+            session.removeItem("session-id");
+            api.user.login(btoa(user + ":" + password)).then(() => {
+                this.props.app.trigger("goto:page", null);
+                this.props.app.trigger("start:app");
+            });
     },
 
     render() {

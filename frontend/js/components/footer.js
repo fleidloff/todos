@@ -1,8 +1,12 @@
 import React from "react";
+import session from "../util/session";
+import api from "../app/api";
 
 export default React.createClass({
-    logout() {
-        sessionStorage.setItem("Authorization", null);
+    logout(e) {
+        e.preventDefault();
+        api.user.logout();
+        session.removeItem("session-id");
         this.props.app.trigger("goto:page", "login");
         this.props.app.trigger("show:message", "logged out.", "info", true);
     },
