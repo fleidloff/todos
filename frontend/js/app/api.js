@@ -26,12 +26,20 @@ export default {
         create(project) {
             return fetch(`${base}Projects`, {
                 method: "post",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify(project)
             });
         },
         remove(id) {
             return fetch(base + "Projects" + "/" + id, {
-                method: "delete"
+                method: "delete",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                }
             });
         },
     },
@@ -46,17 +54,29 @@ export default {
         create(item, model) {
             return fetch(`${base}Tasks?project=${model.activeProject.id}`, {
                 method: "post",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify(item)
             });
         },
         remove(id) {
             return fetch(base + "Tasks" + "/" + id, {
-                method: "delete"
+                method: "delete",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                }
             });
         },
         update(item) {
             return fetch(base + "Tasks/" + item.id, {
                 method: "put",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify(item)
             });
         },
