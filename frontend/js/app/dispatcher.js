@@ -22,6 +22,7 @@ const listeners = {
     "select:project": [],
     "start:app": [],
     "show:message": [],
+    "user:logout":[],
 };
 
 const onceListeners = JSON.parse(JSON.stringify(listeners));
@@ -61,7 +62,7 @@ export default {
                 throw err;
             }
         }
-        
+
         listeners[evt].forEach(cb => setTimeout(() => cb(...rest), 0));
         onceListeners[evt].forEach(cb => setTimeout(() => cb(...rest), 0));
         onceListeners[evt] = [];

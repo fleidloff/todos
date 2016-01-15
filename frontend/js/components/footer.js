@@ -5,10 +5,7 @@ import api from "../app/api";
 export default React.createClass({
     logout(e) {
         e.preventDefault();
-        api.user.logout();
-        session.removeItem("session-id");
-        this.props.app.trigger("goto:page", "login");
-        this.props.app.trigger("show:message", "logged out.", "info", true);
+        this.props.app.trigger("user:logout");
     },
     renderLogout() {
         if (this.props.app.model.pageName !== "login") {

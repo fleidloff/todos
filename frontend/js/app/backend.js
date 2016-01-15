@@ -1,6 +1,7 @@
 import api from "./api";
 import dispatcher from "./dispatcher";
 import hashParams from "./hashParams";
+import session from "../util/session";
 
 let id = 0;
 
@@ -70,7 +71,7 @@ export default {
     },
     selectItem(state, action, activeItemId, editing=false) {
         if (!activeItemId) {
-            return action({activeItem, editing});    
+            return action({activeItem, editing});
         }
         const activeItem = state.model.items.filter(i => i.id === activeItemId)[0];
         if (activeItem) {
@@ -237,6 +238,12 @@ export default {
         action({filter, activeItem: null});
         dispatcher.trigger("load:items");
     },
+    logout(state, action) {
+        api.user.logout().catch(e => true);
+        session.removeItem("session-id");
+        dispatcher.trigger("goto:page", "login");
+        dispatcher.trigger("show:message", "logged out.", "info", true);
+    },
     gotoPage(state, action, pageName) {
         hashParams.set({page: pageName});
         action({pageName});
@@ -252,7 +259,7 @@ export default {
                 } else {
                     dispatcher.trigger("show:message", "Selected Project does not exist.");
                 }
-            });    
+            });
         }
 
         if (item) {
@@ -264,8 +271,8 @@ export default {
                 } else {
                     dispatcher.trigger("show:message", "Selected Item does not exist.");
                 }
-                
-            });   
+
+            });
         }
         dispatcher.trigger("load:projects");
     },

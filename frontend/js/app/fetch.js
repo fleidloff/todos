@@ -16,7 +16,7 @@ export default function(...params) {
 
             };
         }
-        sessionIdHeader = session.getItem("x-session-id") || ""; 
+        sessionIdHeader = session.getItem("x-session-id") || "";
         if (sessionIdHeader && (typeof params[1].headers.Authorization === "undefined")) {
             params[1].headers["x-session-id"] = sessionIdHeader;
         }
