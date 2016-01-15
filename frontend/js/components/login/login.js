@@ -26,7 +26,7 @@ export default React.createClass({
             // todo: we run into problems because chrome replaces the state before the sessionStorage is filled up
             const user = this.state.user + "";
             const password = this.state.password + "";
-            session.removeItem("session-id");
+            session.removeItem("x-session-id");
             api.user.login(btoa(user + ":" + password)).then(() => {
                 this.props.app.trigger("goto:page", null);
                 this.props.app.trigger("start:app");
