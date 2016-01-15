@@ -9,7 +9,7 @@ export default {
             return fetch(base + "login", {
                 method: "get",
                 headers: {
-                    "Authorization": authHeader
+                    "authorization": authHeader
                 }
             });
         },

@@ -15,7 +15,7 @@ export default function(...params) {
             params[1].headers = {};
         }
         sessionIdHeader = session.getItem("x-session-id") || "";
-        if (sessionIdHeader && (typeof params[1].headers.Authorization === "undefined")) {
+        if (sessionIdHeader && (typeof params[1].headers.authorization === "undefined")) {
             params[1].headers["x-session-id"] = sessionIdHeader;
         }
         if (params[1].method !== "post" || params[1].method !== "delete" || params[1].method !== "put") {
