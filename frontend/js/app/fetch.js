@@ -18,7 +18,7 @@ export default function(...params) {
         if (sessionIdHeader && (typeof params[1].headers.Authorization === "undefined")) {
             params[1].headers["x-session-id"] = sessionIdHeader;
         }
-        if (params[1].method === "post" || params[1].method === "delete" || params[1].method === "put") {
+        if (params[1].method !== "post" || params[1].method !== "delete" || params[1].method !== "put") {
             params[1].headers.Accept = "application/json";
             params[1].headers["Content-Type"] = "application/json";
         }
