@@ -12,9 +12,7 @@ export default function(...params) {
             params[1] = {};
         }
         if (typeof params[1].headers === "undefined") {
-            params[1].headers = {
-
-            };
+            params[1].headers = {};
         }
         sessionIdHeader = session.getItem("x-session-id") || "";
         if (sessionIdHeader && (typeof params[1].headers.Authorization === "undefined")) {
