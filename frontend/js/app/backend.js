@@ -240,7 +240,7 @@ export default {
     },
     logout(state, action) {
         api.user.logout().catch(e => true);
-        session.removeItem("session-id");
+        session.removeItem("x-session-id");
         dispatcher.trigger("goto:page", "login");
         dispatcher.trigger("show:message", "logged out.", "info", true);
     },
