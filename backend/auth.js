@@ -47,12 +47,16 @@ module.exports = {
             } else {
                 const session = getSession(req.headers["x-session-id"], req.headers.authorization);
                 res.setHeader("x-session-id", "" + session.id);
+                res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+                res.setHeader("Pragma", "no-cache");
+                res.setHeader("Expires", "0");
+
                 req.session = session;
                 next();
             }
         }
     },
     logout: function(session) {
-        delete sessions[session.id];   
+        delete sessions[session.id];
     }
 };
