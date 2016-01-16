@@ -21,7 +21,8 @@ var Task = new Schema({
     description: { type: String, required: false},
     sort: { type: Number, required: true},
     checked: { type: Boolean, required: true, default: false },
-    project: { type: mongoose.Schema.Types.ObjectId, ref: "Project", required: true }
+    project: { type: mongoose.Schema.Types.ObjectId, ref: "Project", required: true },
+    shared: { type: Boolean, required: false, default: false }
 });
 var TaskModel = mongoose.model("Task", Task);
 
@@ -37,7 +38,9 @@ restify.defaults({
     version: "/" + config.api.version,
     /*middleware: null,*/
     onError: function (err, req, res, next) {
-        next("mongo error");
+        //console.log(err, err.status);
+        //next("error");
+        res.status(err.status).send().end();
     }
 });
 

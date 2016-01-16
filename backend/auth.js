@@ -41,7 +41,9 @@ module.exports = {
     middleware: function() {
         return function(req, res, next) {
             var auth = "7827d1dfa98cbb0040d7eb0d72c3448e";
-
+            if(req.query.shared) {
+                return next();
+            };
             if ((md5(req.headers.authorization).toString() !== auth) && (typeof sessions[req.headers["x-session-id"]] === "undefined")) {
                 return res.status(401).send("not logged in").end();
             } else {
@@ -52,7 +54,7 @@ module.exports = {
                 res.setHeader("Expires", "0");
 
                 req.session = session;
-                next();
+                return next();
             }
         }
     },

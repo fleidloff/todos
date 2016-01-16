@@ -1,5 +1,6 @@
 import React from "react";
 import ConfirmButton from "../shared/confirmButton";
+import Checkbox from "../shared/checkbox";
 import kc from "../shared/keycodes";
 import keyToColor from "../../util/keyToColor";
 import {markdown} from "markdown";
@@ -61,7 +62,7 @@ export default React.createClass({
         }
     },
     render() {
-        const {title, description} = this.state.data;
+        const {title, description, shared} = this.state.data;
         const style = {"borderLeft": `4px solid ${keyToColor(this.props.app.model.activeItem.title)}`};
         return <div className="item-detail-wrapper">
             <div className="buttons">
@@ -70,9 +71,12 @@ export default React.createClass({
                 {this.previewButton()}
                 {this.cancelButton()}
             </div>
-            <div className="item-detail" style={style}>
-                <div className="title">
+            <div className="item-detail pure-g" style={style}>
+                <div className="title pure-u-md-3-5 pure-u-1-1">
                     <input onKeyDown={this.onKeyDownTitle} onChange={this.onChange("title")} type="text" value={title} />
+                </div>
+                <div className="shared pure-u-md-2-5 pure-u-1-1">
+                    <Checkbox title="Shared" onClick={this.onChange("shared")} checked={shared} />
                 </div>
                 {this.description(description)}
             </div>

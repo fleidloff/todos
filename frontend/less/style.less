@@ -4,6 +4,7 @@
 @import "header.less";
 @import "footer.less";
 @import "project.less";
+@import "item-detail.less";
 @import "project-overview.less";
 @import "login.less";
 @import "raw.less";
@@ -18,4 +19,13 @@ body {
 #content {
     min-width: @minWidth;
     background: #ddd;
+}
+
+.checkbox {
+    span {
+        padding-right: @spacing;
+    }
+    span, .checkbox {
+        cursor: pointer;
+    }
 }
