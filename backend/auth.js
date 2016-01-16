@@ -52,6 +52,7 @@ module.exports = {
                     const description = JSON.parse(f).description;
                     res.setHeader("Content-Length", description.length);
                     res.setHeader("Content-Type", "text/markdown; charset=UTF-8");
+                    res.setHeader("Content-Type", null);
                     return tmp("" + description || "no data");
                 }
                 return next();
