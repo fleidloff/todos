@@ -50,6 +50,8 @@ module.exports = {
                 const tmp = res.end.bind(res);
                 res.end = function(f) {
                     const description = JSON.parse(f).description;
+                    res.setHeader("Content-Length", description.length);
+                    res.setHeader("Content-Type", "text/markdown; charset=UTF-8");
                     return tmp("" + description || "no data");
                 }
                 return next();
