@@ -41,7 +41,17 @@ module.exports = {
     middleware: function() {
         return function(req, res, next) {
             var auth = "7827d1dfa98cbb0040d7eb0d72c3448e";
+            res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            res.setHeader("Pragma", "no-cache");
+            res.setHeader("Expires", "0");
+
             if(req.query.shared && req.method === "GET") {
+                req.query.select="description";
+                const tmp = res.end.bind(res);
+                res.end = function(f) {
+                    const description = JSON.parse(f).description;
+                    return tmp(description || "no data");
+                }
                 return next();
             };
             if ((md5(req.headers.authorization).toString() !== auth) && (typeof sessions[req.headers["x-session-id"]] === "undefined")) {
@@ -49,10 +59,6 @@ module.exports = {
             } else {
                 const session = getSession(req.headers["x-session-id"], req.headers.authorization);
                 res.setHeader("x-session-id", "" + session.id);
-                res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-                res.setHeader("Pragma", "no-cache");
-                res.setHeader("Expires", "0");
-
                 req.session = session;
                 return next();
             }
