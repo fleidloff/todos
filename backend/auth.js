@@ -50,7 +50,7 @@ module.exports = {
                 const tmp = res.end.bind(res);
                 res.end = function(f) {
                     const description = JSON.parse(f).description;
-                    return tmp(description || "no data");
+                    return tmp("" + description || "no data");
                 }
                 return next();
             };
