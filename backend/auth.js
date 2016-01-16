@@ -46,6 +46,7 @@ module.exports = {
             res.setHeader("Expires", "0");
 
             if(req.query.shared && req.method === "GET") {
+                req.url=req.url.replace(".md", "");
                 req.query.select="description";
                 const tmp = res.end.bind(res);
                 res.end = function(f) {

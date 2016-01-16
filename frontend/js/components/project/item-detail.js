@@ -17,7 +17,7 @@ export default React.createClass({
     renderSharedLink() {
         console.log()
         if (this.props.app.model.activeItem.shared) {
-            return <a href={`${baseUrl}/Tasks/${this.props.app.model.activeItem.id}?shared=true`}>shared data</a>
+            return <a href={`${baseUrl}/Tasks/${this.props.app.model.activeItem.id}.md?shared=true`}>shared data</a>
         }
     },
     render() {
