@@ -41,7 +41,7 @@ module.exports = {
     middleware: function() {
         return function(req, res, next) {
             var auth = "7827d1dfa98cbb0040d7eb0d72c3448e";
-            if(req.query.shared) {
+            if(req.query.shared && req.method === "GET") {
                 return next();
             };
             if ((md5(req.headers.authorization).toString() !== auth) && (typeof sessions[req.headers["x-session-id"]] === "undefined")) {
