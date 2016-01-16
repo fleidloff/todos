@@ -38,6 +38,17 @@
                     top: @spacing;
                 }
             }
+            &.milestone {
+                margin-left: -2*@spacing;
+                background: #666;
+                color: #fff;
+                .checkbox {
+                    display: none;
+                }
+                .arrow {
+                    border-left: 2*@spacing solid #666;
+                }
+            }
             &.checked {
                 .title {
                     text-decoration: line-through;

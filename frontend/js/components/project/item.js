@@ -21,9 +21,9 @@ export default React.createClass({
         recentlyClicked = true;
     },
     render() {
-        const {title, description, active, sort, checked, id} = this.props.data;
+        const {title, description, active, sort, checked, id, milestone} = this.props.data;
         const style = {"borderLeft": `4px solid ${keyToColor(title)}`};
-        return <div onClick={this.select} style={style} className={"item" + (active ? " active" : "") + (checked ? " checked" : "")}>
+        return <div onClick={this.select} style={style} className={"item" + (active ? " active" : "") + (checked ? " checked" : "") + (milestone ? " milestone" : "")}>
             <Checkbox onClick={this.props.app.onTrigger("check:item", id, !checked)} checked={checked} />
             {this.confirmDelete()}
             <div className="title">{title}</div>
