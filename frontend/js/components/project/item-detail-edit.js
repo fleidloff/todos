@@ -35,10 +35,10 @@ export default React.createClass({
     },
     description(description) {
         if (this.props.app.model.preview) {
-            return <div className="description" dangerouslySetInnerHTML={{__html: "<span></span>" + this.descriptionMarkup()}} />
+            return <div className="description pure-u-1-1" dangerouslySetInnerHTML={{__html: "<span></span>" + this.descriptionMarkup()}} />
 
         } else {
-            return <div className="description">
+            return <div className="description pure-u-1-1">
                 <Textarea minRows={7} onKeyDown={this.onKeyDown("description")} onChange={this.onChange("description")} value={description} />
             </div>;
         }
