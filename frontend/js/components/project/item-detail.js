@@ -4,7 +4,7 @@ import {markdown} from "markdown";
 import keyToColor from "../../util/keyToColor";
 import Icon from "react-fontawesome";
 import config from "../../../../config";
-const baseUrl = config.app.context + config.api.context + "/" + config.api.version;
+const baseUrl = config.server.context + config.app.context + config.api.context + "/" + config.api.version;
 
 
 export default React.createClass({
