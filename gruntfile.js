@@ -11,10 +11,10 @@ module.exports = function(grunt) {
         symlink: require("./grunt-tasks/symlink"),
     });
 
-    grunt.registerTask("lib", ["copy:react", "copy:reactdom", "copy:purecss", "copy:fontawesome", "copy:fonts", "copy:sortablejs", "copy:fetch", "webpack:markdown"]);
+    grunt.registerTask("lib", ["copy:react", "copy:reactdom", "copy:sortablejs", "copy:fetch", "webpack:markdown"]);
     grunt.registerTask("backend", ["copy:backend"]);
     grunt.registerTask("js", ["clean:js", "eslint", "webpack:dev"]);
-    grunt.registerTask("css", ["clean:less", "less"]);
+    grunt.registerTask("css", ["clean:less", "less", "copy:purecss", "copy:fontawesome", "copy:fonts"]);
     grunt.registerTask("prod", ["build"]);
     grunt.registerTask("build", ["clean:all", "symlink", "js", "css", "copy:html", "lib", "backend"]);
     grunt.registerTask("dev", ["build", "watch"]);

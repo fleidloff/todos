@@ -22,7 +22,8 @@ var Task = new Schema({
     sort: { type: Number, required: true},
     checked: { type: Boolean, required: true, default: false },
     project: { type: mongoose.Schema.Types.ObjectId, ref: "Project", required: true },
-    shared: { type: Boolean, required: false, default: false }
+    shared: { type: Boolean, required: false, default: false },
+    milestone: { type: Boolean, required: false, default: false }
 });
 var TaskModel = mongoose.model("Task", Task);
 
