@@ -24,7 +24,6 @@ window.addEventListener("hashchange", e => {
             }
         } 
     }
-    console.debug(page);
     if (hashParams.page !== page) {
         dispatcher.trigger("goto:page", page || "default");
     }
