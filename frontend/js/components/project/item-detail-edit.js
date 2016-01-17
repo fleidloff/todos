@@ -61,6 +61,12 @@ export default React.createClass({
             this.save();
         }
     },
+    componentDidMount: function(){
+        const valueLength = this.state.data.title.length;
+        this.refs.titleInput.focus();
+        this.refs.titleInput.selectionStart = 0;
+        this.refs.titleInput.selectionEnd = valueLength;
+    },
     render() {
         const {title, description, shared, milestone} = this.state.data;
         const style = {"borderLeft": `4px solid ${keyToColor(this.props.app.model.activeItem.title)}`};
@@ -73,7 +79,7 @@ export default React.createClass({
             </div>
             <div className="item-detail pure-g" style={style}>
                 <div className="title pure-u-md-3-5 pure-u-1-1">
-                    <input onKeyDown={this.onKeyDownTitle} onChange={this.onChange("title")} type="text" value={title} />
+                    <input ref="titleInput" onKeyDown={this.onKeyDownTitle} onChange={this.onChange("title")} type="text" value={title} />
                 </div>
                 <div className="shared pure-u-md-2-5 pure-u-1-1">
                     <Checkbox title="Shared" onClick={this.onChange("shared")} checked={shared} />
