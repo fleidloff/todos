@@ -6,10 +6,9 @@ import Icon from "react-fontawesome";
 import config from "../../../../config";
 const baseUrl = config.server.context + config.app.context + config.api.context + "/" + config.api.version;
 
-const yumlMeRoot = "http://yuml.me/diagram/scruffy/class/";
+const yumlMeRoot = "http://yuml.me/diagram/scruffy;scale:180/class/";
 function yumlMeLink(match, capture) {
-    console.debug(match, capture);
-    const b = `![yuml.me diagram](${yumlMeRoot}${encodeURIComponent(capture.replace(/(?:\r\n|\r|\n)/g, ","))}.png)`;
+    const b = `![yuml.me diagram](${yumlMeRoot}${encodeURIComponent(capture.replace(/(?:\r\n|\r|\n)/g, ",")).replace(/\(/g, "%28").replace(/\)/g, "%29")}.png)`;
     console.log(b);
     return b;
 } 
