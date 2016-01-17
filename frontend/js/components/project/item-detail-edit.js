@@ -3,7 +3,7 @@ import ConfirmButton from "../shared/confirmButton";
 import Checkbox from "../shared/checkbox";
 import kc from "../../util/keycodes";
 import keyToColor from "../../util/keyToColor";
-import {markdown} from "markdown";
+import manipulator from "../../util/manipulator";
 import Icon from "react-fontawesome";
 import Textarea from "react-textarea-autosize";
 import textareaKeyHandler from "../../app/textareaKeyHandler";
@@ -15,7 +15,11 @@ export default React.createClass({
         };
     },
     descriptionMarkup() {
-        return markdown.toHTML(this.state.data.description);
+        return manipulator
+            .input(this.props.app.model.activeItem.description)
+            .apply("yuml")
+            .apply("markdown")
+            .text();
     },
     saveButton() {
         return <button onClick={() => this.save()} className="pure-button pure-button-primary"><Icon name="save" title="save" /></button>;
