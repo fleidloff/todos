@@ -10,6 +10,7 @@ export default {
     notifications: [],
     projects: [],
     filter: {
-        checked: null // true, false or null
+        // true, false or null
+        checked: null
     }
 };

@@ -1,9 +1,14 @@
 import React from "react";
-import {markdown} from "markdown";
+import manipulator from "../../util/manipulator";
+
 
 export default React.createClass({
     descriptionMarkup() {
-        return markdown.toHTML(this.props.app.model.activeItem.description);
+        return manipulator
+            .input(this.props.app.model.activeItem.description)
+            .apply("yuml")
+            .apply("markdown")
+            .text();
     },
     render() {
         const {title, description} = this.props.app.model.activeItem;

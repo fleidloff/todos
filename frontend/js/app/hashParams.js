@@ -20,12 +20,13 @@ window.addEventListener("hashchange", e => {
                 dispatcher.trigger("select:item", item);    
             } else {
                 dispatcher.trigger("select:item", null);
+                delete hashParams.item;
             }
         } 
     }
-
-    if (page && hashParams.page !== page) {
-        dispatcher.trigger("goto:page", page);
+    console.debug(page);
+    if (hashParams.page !== page) {
+        dispatcher.trigger("goto:page", page || "default");
     }
 });
 
