@@ -12,9 +12,11 @@ import config from "../../config";
 
 window.DBG = config.app.debug ? true : false;
 if (DBG) {
-    window.console.debug = function(...params) {
+    window.console.debug = function (...params) {
         window.console.log("%c " + params.join("; "), "background: black; padding: 2px; color: white;");
-    }
+    };
+} else {
+    window.console.debug = function() {};
 }
 
 ReactDOM.render(
