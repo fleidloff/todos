@@ -11,6 +11,11 @@ import ReactDOM from "react-dom";
 import config from "../../config";
 
 window.DBG = config.app.debug ? true : false;
+if (DBG) {
+    window.console.debug = function(...params) {
+        window.console.log("%c " + params.join("; "), "background: black; padding: 2px; color: white;");
+    }
+}
 
 ReactDOM.render(
     <World>

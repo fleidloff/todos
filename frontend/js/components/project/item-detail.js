@@ -8,7 +8,7 @@ const baseUrl = config.server.context + config.app.context + config.api.context 
 
 const yumlMeRoot = "http://yuml.me/diagram/scruffy/class/";
 function yumlMeLink(match, capture) {
-    console.log(match, capture);
+    console.debug(match, capture);
     const b = `![yuml.me diagram](${yumlMeRoot}${encodeURIComponent(capture.replace(/(?:\r\n|\r|\n)/g, ","))}.png)`;
     console.log(b);
     return b;
