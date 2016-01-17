@@ -1,4 +1,4 @@
-import kc from "../components/shared/keycodes";
+import kc from "../util/keycodes";
 
 export default function onKeyDown(what) {
     return e => {

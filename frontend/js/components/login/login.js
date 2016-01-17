@@ -1,5 +1,5 @@
 import React from "react";
-import kc from "../shared/keycodes";
+import kc from "../../util/keycodes";
 import session from "../../util/session";
 import api from "../../app/api";
 

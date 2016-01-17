@@ -1,28 +1,28 @@
 import React from "react";
 import Edit from "./item-detail-edit";
-import {markdown} from "markdown";
 import keyToColor from "../../util/keyToColor";
 import Icon from "react-fontawesome";
 import config from "../../../../config";
-const baseUrl = config.server.context + config.app.context + config.api.context + "/" + config.api.version;
+import manipulator from "../../util/manipulator";
 
-const yumlMeRoot = "http://yuml.me/diagram/scruffy;scale:180/class/";
-function yumlMeLink(match, capture) {
-    const b = `![yuml.me diagram](${yumlMeRoot}${encodeURIComponent(capture.replace(/(?:\r\n|\r|\n)/g, ",")).replace(/\(/g, "%28").replace(/\)/g, "%29")}.png)`;
-    console.log(b);
-    return b;
-} 
+
+const baseUrl = config.server.context + config.app.context + config.api.context + "/" + config.api.version;
 
 export default React.createClass({
     descriptionMarkup() {
-        const yumlDescription = this.props.app.model.activeItem.description.replace(/<YUML>((<|>|\*|.|\n)*)<\/YUML>/g, yumlMeLink); 
-        return markdown.toHTML(yumlDescription);
+        return manipulator
+            .input(this.props.app.model.activeItem.description)
+            .apply("yuml")
+            .apply("markdown")
+            .text();
     },
     editButton() {
         return <button onClick={this.props.app.onTrigger("edit:item-detail")} className="pure-button"><Icon name="edit" title="edit" /></button>;   
     },
+    renderRawLink() {
+        return <a href="#" onClick={this.props.app.onTrigger("goto:page", "raw")}>raw</a>
+    },
     renderSharedLink() {
-        console.log()
         if (this.props.app.model.activeItem.shared) {
             return <a href={`${baseUrl}/Tasks/${this.props.app.model.activeItem.id}.md?shared=true`}>shared data</a>
         }
@@ -45,6 +45,7 @@ export default React.createClass({
             </div>
             <div className="meta">
                 {this.renderSharedLink()}
+                {this.renderRawLink()}
             </div>
         </div>;
     }
