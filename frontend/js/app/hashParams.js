@@ -20,6 +20,7 @@ window.addEventListener("hashchange", e => {
                 dispatcher.trigger("select:item", item);    
             } else {
                 dispatcher.trigger("select:item", null);
+                delete hashParams.item;
             }
         } 
     }

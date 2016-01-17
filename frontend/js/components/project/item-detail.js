@@ -6,10 +6,18 @@ import Icon from "react-fontawesome";
 import config from "../../../../config";
 const baseUrl = config.server.context + config.app.context + config.api.context + "/" + config.api.version;
 
+const yumlMeRoot = "http://yuml.me/diagram/scruffy/class/";
+function yumlMeLink(match, capture) {
+    console.log(match, capture);
+    const b = `![yuml.me diagram](${yumlMeRoot}${encodeURIComponent(capture.replace(/(?:\r\n|\r|\n)/g, ","))}.png)`;
+    console.log(b);
+    return b;
+} 
 
 export default React.createClass({
     descriptionMarkup() {
-        return markdown.toHTML(this.props.app.model.activeItem.description);
+        const yumlDescription = this.props.app.model.activeItem.description.replace(/<YUML>((<|>|\*|.|\n)*)<\/YUML>/g, yumlMeLink); 
+        return markdown.toHTML(yumlDescription);
     },
     editButton() {
         return <button onClick={this.props.app.onTrigger("edit:item-detail")} className="pure-button"><Icon name="edit" title="edit" /></button>;   
