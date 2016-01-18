@@ -8,6 +8,9 @@ let sessionIdHeader = "";
 
 export default function(...params) {
     return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            reject("timeout error");
+        }, 3000);
         if (typeof params[1] === "undefined") {
             params[1] = {};
         }
@@ -23,6 +26,7 @@ export default function(...params) {
             params[1].headers["Content-Type"] = "application/json";
         }
         whatwg(...params).then(res => {
+            console.debug(res.status);
             if (res && res.status == 401) {
                 var e = new Error("user is not logged in.");
                 e.silent = true;
@@ -35,6 +39,8 @@ export default function(...params) {
             }
 
             return resolve(res);
+        }).catch(e => {
+            reject(e);
         });
     });
 };
