@@ -14,12 +14,10 @@ export default React.createClass({
             data: JSON.parse(JSON.stringify(this.props.app.model.activeItem))
         };
     },
-    descriptionMarkup() {
+    descriptionMarkup(description) {
         return manipulator
-            .input(this.props.app.model.activeItem.description)
-            .apply("yuml")
-            .apply("markdown")
-            .text();
+            .input(description)
+            .applyAll();
     },
     saveButton() {
         return <button onClick={() => this.save()} className="pure-button pure-button-primary"><Icon name="save" title="save" /></button>;
@@ -39,7 +37,7 @@ export default React.createClass({
     },
     description(description) {
         if (this.props.app.model.preview) {
-            return <div className="description pure-u-1-1" dangerouslySetInnerHTML={{__html: "<span></span>" + this.descriptionMarkup()}} />
+            return <div className="description pure-u-1-1" dangerouslySetInnerHTML={{__html: "<span></span>" + this.descriptionMarkup(description)}} />
 
         } else {
             return <div className="description pure-u-1-1">

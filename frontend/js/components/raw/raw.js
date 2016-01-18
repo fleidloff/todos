@@ -6,9 +6,7 @@ export default React.createClass({
     descriptionMarkup() {
         return manipulator
             .input(this.props.app.model.activeItem.description)
-            .apply("yuml")
-            .apply("markdown")
-            .text();
+            .applyAll();
     },
     render() {
         const {title, description} = this.props.app.model.activeItem;

@@ -1,6 +1,7 @@
 var md5 = require("crypto-js/md5");
 var uuid = require("node-uuid");
 var atob = require("atob");
+var config = require("../config");
 var minutes = 1000*60;
 var hours = 60*minutes;
 var sessionExpiration = 3*hours;
@@ -16,6 +17,9 @@ function deleteAfterExpiration(session) {
 }
 
 function userFromAuth(auth) {
+    if (!config.user.authRequired) {
+        return "Hans";
+    }
     return atob(auth).split(":")[0];
 }
 
@@ -37,10 +41,18 @@ function getSession(id, auth) {
     return session;
 }
 
+var auth = "7827d1dfa98cbb0040d7eb0d72c3448e";
+function authorized(req) {
+    return (md5(req.headers.authorization).toString() === auth);
+}
+
+function sessionUndefined(req) {
+    return (typeof sessions[req.headers["x-session-id"]] === "undefined");
+}
+
 module.exports = {
     middleware: function() {
         return function(req, res, next) {
-            var auth = "7827d1dfa98cbb0040d7eb0d72c3448e";
             res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
             res.setHeader("Pragma", "no-cache");
             res.setHeader("Expires", "0");
@@ -57,7 +69,7 @@ module.exports = {
                 }
                 return next();
             };
-            if ((md5(req.headers.authorization).toString() !== auth) && (typeof sessions[req.headers["x-session-id"]] === "undefined")) {
+            if (config.user.authRequired && !authorized(req) && sessionUndefined(req)) {
                 return res.status(401).send("not logged in").end();
             } else {
                 const session = getSession(req.headers["x-session-id"], req.headers.authorization);

@@ -12,9 +12,7 @@ export default React.createClass({
     descriptionMarkup() {
         return manipulator
             .input(this.props.app.model.activeItem.description)
-            .apply("yuml")
-            .apply("markdown")
-            .text();
+            .applyAll();
     },
     editButton() {
         return <button onClick={this.props.app.onTrigger("edit:item-detail")} className="pure-button"><Icon name="edit" title="edit" /></button>;   
