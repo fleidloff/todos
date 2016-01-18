@@ -14,7 +14,7 @@ export default React.createClass({
     },
     render() {
         return <div className="footer">
-            {this.renderLogout()}
+            {this.renderLogout()} <a href="https://fortawesome.github.io/Font-Awesome/icons/">fa-icons</a>
         </div>;
     }
 });
