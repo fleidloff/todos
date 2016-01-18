@@ -9,5 +9,17 @@ export default {
 
     removeItem(key) {
         return sessionStorage.removeItem(key);
+    },
+
+    clear() {
+        return sessionStorage.clear();
+    },
+
+    setCache(key, value) {
+        this.setItem(key, JSON.stringify(value));
+    },
+
+    getCache(key, value) {
+        return JSON.parse(this.getItem(key));
     }
 };

@@ -26,6 +26,13 @@ export default {
         action({notifications});
     },
     loadItems(state, action) {
+        if (typeof state.model.activeProject === "undefined") {
+            return dispatcher.trigger("app:error", new Error("active project is not set"));
+        }
+        const cacheKey = `data.items.${state.model.activeProject.id}`;
+        if (session.getCache(cacheKey)) {
+            action(session.getCache(cacheKey));
+        }
         // todo: ensure model.activeProject is set
         api.tasks.all(state.model)
             .then(res => {
@@ -45,6 +52,7 @@ export default {
                 return items;
             })
             .then(items => action({items}))
+            .then(items => session.setCache(cacheKey, items))
             .then(() => dispatcher.trigger("loaded:items"))
             .catch(e => dispatcher.trigger("app:error", e));
     },
@@ -240,7 +248,7 @@ export default {
     },
     logout(state, action) {
         api.user.logout().catch(e => true);
-        session.removeItem("x-session-id");
+        session.clear();
         dispatcher.trigger("goto:page", "login");
         dispatcher.trigger("show:message", "logged out.", "info", true);
     },

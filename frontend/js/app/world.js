@@ -10,6 +10,7 @@ export default React.createClass({
         const model = this.state.model;
         Object.keys(o).forEach(k => model[k] = o[k]);
         this.setState({model});
+        return o;
     },
     redux(action) {
         return (...rest) => {
