@@ -14,7 +14,7 @@ export default React.createClass({
             <div className="pure-u-2-3">
                 {this.renderProjects()}
             </div>
-            <div className="pure-u-1-4 title align-right title"><Icon size="2x" name="check-square-o" /> froodle - projects</div>
+            <div className="pure-u-1-4 title align-right title"><Icon size="2x" name="check-square-o" /> froodle </div>
             <div className="pure-u-1-12 title align-right"></div>
         </div>;
     }

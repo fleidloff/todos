@@ -6,7 +6,8 @@
   "scripts": {
     "prod": "npm install; grunt prod; svc -d ~/service/exampleservice/; svc -u ~/service/exampleservice/",
     "start": "forever --watchDirectory ./dist --watchIgnore web/** --watch server.js",
-    "stop": "forever stopall"
+    "stop": "forever stopall",
+    "deploy": "ssh fleidlof@alnilam.uberspace.de \"cd node; cd todos; git pull; npm run prod\""
   },
   "repository": "https://github.com/fleidloff/todos",
   "author": "",
