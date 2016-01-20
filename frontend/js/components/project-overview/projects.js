@@ -5,8 +5,7 @@ import Icon from "react-fontawesome";
 export default React.createClass({
     getInitialState() {
         return {
-            title: "",
-            filteredProjects: this.filteredProjects("")
+            title: ""
         };
     },
     onClick(id) {
@@ -22,8 +21,9 @@ export default React.createClass({
     },
     onKeyDownTitle(e) {
         if (e.keyCode === 13) {
-            if (this.state.filteredProjects.length) {
-                this.onClick(this.state.filteredProjects[0].id)();
+            const filteredProjects = this.filteredProjects();
+            if (filteredProjects.length) {
+                this.onClick(filteredProjects[0].id)();
             } else {
                 this.createProject();
             }
@@ -33,9 +33,6 @@ export default React.createClass({
         return e => {
             const data = this.state;
             data[what] = e.target.value;
-            if (what === "title") {
-                data["filteredProjects"] = this.filteredProjects(e.target.value);
-            }
             this.setState({data});    
         };
     },
@@ -52,7 +49,7 @@ export default React.createClass({
         this.refs.titleInput.focus();
     },
     renderProjects() {
-        return this.state.filteredProjects
+        return this.filteredProjects(this.state.title)
             .map(p => <Project key={p.id} onClick={this.onClick(p.id)} app={this.props.app} data={p} />);
     },
     renderCreateProject() {
