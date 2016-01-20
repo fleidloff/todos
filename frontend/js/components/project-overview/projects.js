@@ -22,6 +22,7 @@ export default React.createClass({
     onKeyDownTitle(e) {
         if (e.keyCode === 13) {
             const filteredProjects = this.filteredProjects();
+            console.debug(filteredProjects);
             if (filteredProjects.length) {
                 this.onClick(filteredProjects[0].id)();
             } else {
@@ -37,7 +38,8 @@ export default React.createClass({
         };
     },
 
-    filteredProjects(title) {
+    filteredProjects() {
+        const {title} = this.state;
         const activeProjectId = this.props.app.model.activeProject ? this.props.app.model.activeProject.id : -1;
         return this.props.app.model.projects
             .filter(p => p.title.indexOf(title) > -1)
@@ -49,7 +51,7 @@ export default React.createClass({
         this.refs.titleInput.focus();
     },
     renderProjects() {
-        return this.filteredProjects(this.state.title)
+        return this.filteredProjects()
             .map(p => <Project key={p.id} onClick={this.onClick(p.id)} app={this.props.app} data={p} />);
     },
     renderCreateProject() {
