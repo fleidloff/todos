@@ -5,7 +5,8 @@ var config = require("../config");
 var minutes = 1000*60;
 var hours = 60*minutes;
 var sessionExpiration = 3*hours;
-
+var log4js = require("log4js");
+var logger = log4js.getLogger("auth");
 
 var sessions = {};
 

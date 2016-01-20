@@ -26,7 +26,6 @@ export default function(...params) {
             params[1].headers["Content-Type"] = "application/json";
         }
         whatwg(...params).then(res => {
-            console.debug(res.status);
             if (res && res.status == 401) {
                 var e = new Error("user is not logged in.");
                 e.silent = true;

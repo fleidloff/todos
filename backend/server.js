@@ -6,6 +6,9 @@ var Schema = mongoose.Schema;
 var restify = require("express-restify-mongoose");
 var config = require("../config");
 var routes = require("./router");
+var log4js = require("log4js");
+log4js.configure("./backend/log4js.json", {});
+var logger = log4js.getLogger("server");
 
 mongoose.connect(config.mongo.host + config.mongo.db, config.mongo.config);
 
@@ -52,5 +55,5 @@ restify.serve(router, ProjectModel);
 app.use(router);
 
 app.listen(config.app.port, function() {
-    console.log("Express server listening on port: ", config.app.port);
+    logger.info("Express server listening on port: ", config.app.port);
 });
