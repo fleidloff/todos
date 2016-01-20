@@ -47,7 +47,9 @@ export default React.createClass({
                 return b.id === this.props.app.model.activeProject.id ? 1 : a.title.toLowerCase().localeCompare(b.title.toLowerCase());;
             });
     },
-
+    componentDidMount() {
+        this.refs.titleInput.focus();
+    },
     renderProjects() {
         return this.state.filteredProjects
             .map(p => <Project key={p.id} onClick={this.onClick(p.id)} app={this.props.app} data={p} />);
@@ -60,7 +62,7 @@ export default React.createClass({
     render() {
         return <div className="projects">
             <div className="title">
-                <input onKeyDown={this.onKeyDownTitle} onChange={this.onChange("title")} type="text" value={this.state.title} />
+                <input ref="titleInput" onKeyDown={this.onKeyDownTitle} onChange={this.onChange("title")} type="text" value={this.state.title} />
             </div>
             {this.renderProjects()}
             {this.renderCreateProject()}
