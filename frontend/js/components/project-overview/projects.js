@@ -41,10 +41,11 @@ export default React.createClass({
     },
 
     filteredProjects(title) {
+        const activeProjectId = this.props.app.model.activeProject ? this.props.app.model.activeProject.id : -1;
         return this.props.app.model.projects
             .filter(p => p.title.indexOf(title) > -1)
             .sort((a, b) => {
-                return b.id === this.props.app.model.activeProject.id ? 1 : a.title.toLowerCase().localeCompare(b.title.toLowerCase());;
+                return b.id === activeProjectId ? 1 : a.title.toLowerCase().localeCompare(b.title.toLowerCase());;
             });
     },
     componentDidMount() {
