@@ -4,12 +4,6 @@ import Icon from "react-fontawesome";
 
 
 export default React.createClass({
-    getInitialState() {
-        return {
-            title: this.props.data.title,
-            id: this.props.data.id
-        }
-    },
     confirmDelete(id) {
         if (!this.props.app.model.activeProject || this.props.app.model.activeProject.id !== id) {
             return;
@@ -21,7 +15,7 @@ export default React.createClass({
         return <ConfirmLink onConfirm={this.props.app.onTrigger("delete:project", id)} className="delete" text={<Icon name="trash-o" title="delete project" />} confirmText={<Icon name="trash" title="delete project" />} />;
     },
     render() {
-        const {id, title} = this.state;
+        const {id, title} = this.props.data;
         const {activeProject} = this.props.app.model;
         const active = !!(activeProject && activeProject.id === id);
         const check = active ? <Icon name="check" className="icon" /> : null;
