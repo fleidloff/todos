@@ -39,10 +39,10 @@ export default React.createClass({
     },
 
     filteredProjects() {
-        const {title} = this.state;
+        const title = this.state.title.toLowerCase();
         const activeProjectId = this.props.app.model.activeProject ? this.props.app.model.activeProject.id : -1;
         return this.props.app.model.projects
-            .filter(p => p.title.indexOf(title) > -1)
+            .filter(p => p.title.toLowerCase().indexOf(title) > -1)
             .sort((a, b) => {
                 return b.id === activeProjectId ? 1 : a.title.toLowerCase().localeCompare(b.title.toLowerCase());;
             });
