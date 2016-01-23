@@ -1,6 +1,7 @@
 import React from "react";
 import Project from "./project";
 import Icon from "react-fontawesome";
+import kc from "../../util/keycodes";
 
 export default React.createClass({
     getInitialState() {
@@ -11,7 +12,7 @@ export default React.createClass({
     onClick(id) {
         return () => {
             this.props.onClickParent();
-            this.props.app.trigger("select:project", id)   
+            this.props.app.trigger("select:project", id);  
         }
     },
     createProject() {
@@ -20,7 +21,7 @@ export default React.createClass({
         this.props.onClickParent();
     },
     onKeyDownTitle(e) {
-        if (e.keyCode === 13) {
+        if (e.keyCode === kc.enter) {
             const filteredProjects = this.filteredProjects();
             console.debug(filteredProjects);
             if (filteredProjects.length) {
@@ -28,6 +29,10 @@ export default React.createClass({
             } else {
                 this.createProject();
             }
+        }
+
+        if (e.keyCode === kc.esc) {
+            this.props.app.trigger("click:world", e);
         }
     },
     onChange(what) {

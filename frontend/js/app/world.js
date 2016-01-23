@@ -60,8 +60,11 @@ export default React.createClass({
         window.dispatcher = dispatcher;
         dispatcher.trigger("start:app");
     },
+    onClick(e) {
+        dispatcher.trigger("click:world", e);
+    },
     render() {
-        return <div>
+        return <div onClick={this.onClick}>
             {React.Children.map(this.props.children, r => React.cloneElement(r, {app: this.state, name: r.props.name}))}
         </div>;
     }

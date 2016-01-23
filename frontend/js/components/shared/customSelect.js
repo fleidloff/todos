@@ -1,15 +1,23 @@
 import React from "react";
 import Icon from "react-fontawesome";
+import dispatcher from "../../app/dispatcher";
 
 
 export default React.createClass({
     getInitialState() {
+        dispatcher.on("click:world", e => {
+            if ((e.target !== this.refs.button) && (e.target.parentElement !== this.refs.button)) {
+                this.setState({
+                    active: false
+                });
+            }
+        });
         return {
             active: this.props.defaultActive || false,
             title: "select"
         };
     },
-    onClick() {
+    onClick(e) {        
         this.setState({active: !(this.state.active)});
     },
     renderChildren() {
@@ -33,7 +41,7 @@ export default React.createClass({
     },
     render() {
         return <div className={"custom-select " + (this.props.className ? this.props.className : "")}>
-            <button onClick={this.onClick} className="pure-button">{this.props.title || this.state.title} <Icon name={this.state.active ? "chevron-up" : "chevron-down"} /></button>
+            <button ref="button" onClick={this.onClick} className="pure-button">{this.props.title || this.state.title} <Icon name={this.state.active ? "chevron-up" : "chevron-down"} /></button>
             {this.renderChildren()}
         </div>;
     }

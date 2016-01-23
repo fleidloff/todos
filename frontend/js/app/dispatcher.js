@@ -5,6 +5,7 @@ const listeners = {
     "check:item": [],
     "change:filter": [],
     "clear-checked:items": [],
+    "click:world": [],
     "create:project": [],
     "delete:item-detail": [],
     "delete:project": [],
