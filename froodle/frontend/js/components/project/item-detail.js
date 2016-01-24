@@ -2,7 +2,7 @@ import React from "react";
 import Edit from "./item-detail-edit";
 import keyToColor from "../../util/keyToColor";
 import Icon from "react-fontawesome";
-import config from "../../../../config";
+import config from "../../../../../config";
 import manipulator from "../../util/manipulator";
 
 

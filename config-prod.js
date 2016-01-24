@@ -16,7 +16,7 @@ module.exports = {
         }
     },
     "frontend": {
-        "path": "dist/web"
+        "path": "froodle/dist/web"
     },
     "api": {
         "version": "v1",

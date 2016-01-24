@@ -4,10 +4,10 @@ var methodOverride = require("method-override");
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var restify = require("express-restify-mongoose");
-var config = require("../config");
+var config = require("../../config");
 var routes = require("./router");
 var log4js = require("log4js");
-log4js.configure("./backend/log4js.json", {});
+log4js.configure("./froodle/dist/log4js.json", {});
 var logger = log4js.getLogger("server");
 
 mongoose.connect(config.mongo.host + config.mongo.db, config.mongo.config);

@@ -13,7 +13,7 @@ module.exports = {
         "config": {server:{auto_reconnect:true}}
     },
     "frontend": {
-        "path": "dist/web"
+        "path": "froodle/dist/web"
     },
     "api": {
         "version": "v1",

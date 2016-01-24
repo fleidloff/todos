@@ -1,5 +1,4 @@
 import React from "react";
-import session from "../util/session";
 import api from "../app/api";
 
 export default React.createClass({

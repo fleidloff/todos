@@ -1,5 +1,5 @@
 import fetch from "./fetch";
-import config from "../../../config";
+import config from "../../../../config";
 
 const base = config.server.context + config.app.context + config.api.context + "/" + config.api.version + "/";
 

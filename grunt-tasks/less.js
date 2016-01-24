@@ -1,7 +1,7 @@
 module.exports = {
     less: {
         files: {
-          "dist/web/css/style.css": "frontend/less/style.less"
+          "froodle/dist/web/css/style.css": "froodle/frontend/less/style.less"
         }
     }
 };

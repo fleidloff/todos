@@ -1,1 +1,1 @@
-require("./dist/server");
+require("./froodle/dist/server");

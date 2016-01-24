@@ -1,8 +1,8 @@
 module.exports = {
     dev: {
-        entry: "./frontend/js/main.js",
+        entry: "./froodle/frontend/js/main.js",
         output: {
-            path: "dist/web/js",
+            path: "froodle/dist/web/js",
             filename: "app.js",
         },
         externals: {
@@ -22,7 +22,7 @@ module.exports = {
     markdown: {
         entry: "./grunt-tasks/wrapper/markdown.js",
         output: {
-            path: "dist/web/lib",
+            path: "froodle/dist/web/lib",
             filename: "markdown.js",
         },
         module: {

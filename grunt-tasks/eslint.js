@@ -1,8 +1,8 @@
 module.exports = {
     frontend: {
-        src: ["frontend/js/**/*.js"]
+        src: ["froodle/frontend/js/**/*.js"]
     },
     main: {
-        src: ["frontend/js/main.js"]
+        src: ["froodle/frontend/js/main.js"]
     }
 };

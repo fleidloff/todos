@@ -1,14 +1,14 @@
 module.exports = {
     all: {
-        src: ["dist/"]
+        src: ["froodle/dist/"]
     },
     js: {
-        src: ["dist/web/js"]
+        src: ["froodle/dist/web/js"]
     },
     less: {
-        src: ["dist/web/css"]
+        src: ["froodle/dist/web/css"]
     },
     prod: {
-       src:["dist/web/js/app-prod.js", "dist/web/css"] 
+       src:["froodle/dist/web/js/app-prod.js", "dist/web/css"] 
     }
 };

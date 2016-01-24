@@ -8,7 +8,7 @@ import Login from "./components/login/login";
 import Raw from "./components/raw/raw";
 import Notifications from "./components/notifications";
 import ReactDOM from "react-dom";
-import config from "../../config";
+import config from "../../../config";
 
 window.DBG = config.app.debug ? true : false;
 if (DBG) {
