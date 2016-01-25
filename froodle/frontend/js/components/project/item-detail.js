@@ -7,7 +7,7 @@ import manipulator from "../../util/manipulator";
 
 
 const baseUrl = config.server.context + config.app.context + config.api.context + "/" + config.api.version;
-const revealBaseUrl = config.server.context + config.app.context + "/reveal";
+const revealBaseUrl = config.server.context + "/reveal";
 
 export default React.createClass({
     descriptionMarkup() {
@@ -26,9 +26,9 @@ export default React.createClass({
             return <a href={`${baseUrl}/Tasks/${this.props.app.model.activeItem.id}.md?shared=true`}>shared data</a>
         }
     },
-    renderRevealLink() {
+    revealButton() {
         if (this.props.app.model.activeItem.shared) {
-            return <a href={`${revealBaseUrl}/${this.props.app.model.activeItem.id}`}>reveal</a>
+            return <button onClick={this.props.app.onTrigger("goto:url", `${revealBaseUrl}/${this.props.app.model.activeItem.id}`)} className="pure-button"><Icon name="tv" title="play reveal presentation" /></button>;   
         }
     },
     render() {
@@ -42,15 +42,13 @@ export default React.createClass({
         const {title, description, checked, id} = model.activeItem;
         const style = {"borderLeft": `4px solid ${keyToColor(title)}`};
         return <div key={model.activeItem.id}  className={"item-detail-wrapper" + (checked ? " checked" : "")}>
-            <div className="buttons">{this.editButton()}</div>
+            <div className="buttons">{this.editButton()} {this.revealButton()}</div>
             <div className="item-detail" style={style}>
                 <div className="title">{title}</div>
                 <div className="description" dangerouslySetInnerHTML={{__html: this.descriptionMarkup()}} />
             </div>
             <div className="meta">
                 {this.renderSharedLink()}
-                {this.renderRevealLink()}
-                {this.renderRawLink()}
             </div>
         </div>;
     }

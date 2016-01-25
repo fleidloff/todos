@@ -3,13 +3,15 @@ var config = require("./config");
 var log4js = require("log4js");
 log4js.configure("./log4js.json", {});
 var logger = log4js.getLogger(".");
-var app = require("./froodle/dist/server");
-var reveal = require("./reveal/server");
+var froodleApp = require("./froodle/dist/server");
+var express = require("express");
+var revealApp = require("./reveal/server");
 
-reveal(app);
-http.createServer(app);
-var server = http.createServer(app);
 
-server.listen(config.app.port, function() {
-    logger.info("server running and listening on port " + config.app.port);
-});
+var app = express();
+app
+    .use("/froodle/", froodleApp)
+    .use("/reveal/", revealApp)
+    .listen(config.app.port, function() {
+        logger.info("server running and listening on port " + config.app.port);
+    });

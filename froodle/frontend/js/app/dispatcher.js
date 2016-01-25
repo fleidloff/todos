@@ -12,6 +12,7 @@ const listeners = {
     "dismiss:notification": [],
     "edit:item-detail": [],
     "goto:page": [],
+    "goto:url": [],
     "load:items": [],
     "loaded:items": [],
     "load:projects": [],

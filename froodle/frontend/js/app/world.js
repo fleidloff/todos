@@ -47,6 +47,7 @@ export default React.createClass({
         this.on("select:project", backend.selectProject);
         this.on("show:message", backend.showMessage);
         this.on("goto:page", backend.gotoPage);
+        this.on("goto:url", backend.gotoUrl);
         this.on("start:app", backend.startApp);
         this.on("user:logout", backend.logout);
 

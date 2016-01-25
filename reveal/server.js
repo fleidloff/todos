@@ -6,7 +6,7 @@ var md = require("reveal.js/plugin/markdown/markdown");
 var config = require("../config");
 var http = require("http");
 
-var base = config.app.context + "/reveal";
+var base = "/reveal";
 var staticDir = express.static;
 var serverBasePath = path.join(__dirname);
 
@@ -33,9 +33,9 @@ var startMarkdownServer = function(options) {
     opts.verticalSeparator = options.verticalSeparator || opts.verticalSeparator;
     opts.revealOptions = options.revealOptions || {};
 
-    app.use(base + "/lib/css/" + opts.highlightTheme + ".css",
+    app.use("/lib/css/" + opts.highlightTheme + ".css",
         staticDir(path.join(serverBasePath, "node_modules", "highlight.js", "styles", opts.highlightTheme + ".css")));
-    app.get(base + "/:id", renderMarkdownAsSlides);
+    app.get("/:id", renderMarkdownAsSlides);
 };
 
 var renderMarkdownAsSlides = function(req, res) {
@@ -77,9 +77,10 @@ var render = function(res, markdown) {
     }));
 };
 
-module.exports = function start(app) {
-    ["css", "js", "images", "plugin", "lib"].forEach(function(dir) {
-        app.use(base + "/" + dir, staticDir(path.join(opts.revealBasePath, dir)));
-    });
-    startMarkdownServer({app: app});
-};
+var app = express();
+["css", "js", "images", "plugin", "lib"].forEach(function(dir) {
+    app.use("/" + dir, staticDir(path.join(opts.revealBasePath, dir)));
+});
+startMarkdownServer({app: app});
+
+module.exports = app;
