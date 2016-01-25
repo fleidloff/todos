@@ -1,7 +1,7 @@
 module.exports =    {
     backend: {
         files: [
-            {expand: true, cwd: "froodle/backend/", src: ["**/*.js", "**/*.json"], dest: "froodle/dist/"}
+            {expand: true, cwd: "froodle/backend/", src: ["**/*.js"], dest: "froodle/dist/"}
         ]
     },
     html: {

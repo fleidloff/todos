@@ -16,7 +16,7 @@ module.exports = {
         },
     },
     backend: {
-        files: ["froodle/backend/**/*.js"],
+        files: ["froodle/backend/**/*.js", "reveal/**/*.js"],
         tasks: ["backend"],
         options: {
             spawn: false,

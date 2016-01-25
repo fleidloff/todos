@@ -7,6 +7,7 @@ import manipulator from "../../util/manipulator";
 
 
 const baseUrl = config.server.context + config.app.context + config.api.context + "/" + config.api.version;
+const revealBaseUrl = config.server.context + config.app.context + "/reveal";
 
 export default React.createClass({
     descriptionMarkup() {
@@ -23,6 +24,11 @@ export default React.createClass({
     renderSharedLink() {
         if (this.props.app.model.activeItem.shared) {
             return <a href={`${baseUrl}/Tasks/${this.props.app.model.activeItem.id}.md?shared=true`}>shared data</a>
+        }
+    },
+    renderRevealLink() {
+        if (this.props.app.model.activeItem.shared) {
+            return <a href={`${revealBaseUrl}/${this.props.app.model.activeItem.id}`}>reveal</a>
         }
     },
     render() {
@@ -43,6 +49,7 @@ export default React.createClass({
             </div>
             <div className="meta">
                 {this.renderSharedLink()}
+                {this.renderRevealLink()}
                 {this.renderRawLink()}
             </div>
         </div>;
