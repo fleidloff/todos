@@ -7,7 +7,8 @@
     "prod": "npm install; grunt prod; svc -d ~/service/exampleservice/; svc -u ~/service/exampleservice/",
     "start": "forever --watchDirectory ./froodle/dist --watchIgnore web/** --watch server.js",
     "stop": "forever stopall",
-    "deploy": "ssh fleidlof@alnilam.uberspace.de \"cd node; cd todos; git pull; npm run prod\""
+    "deploy": "ssh fleidlof@alnilam.uberspace.de \"cd node; cd todos; git checkout master; git pull; npm run prod\"",
+    "deploy-reveal": "ssh fleidlof@alnilam.uberspace.de \"cd node; cd todos; git fetch --all; git checkout reveal; git pull; npm run prod;\""
   },
   "repository": "https://github.com/fleidloff/todos",
   "author": "",
