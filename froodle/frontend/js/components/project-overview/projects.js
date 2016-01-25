@@ -30,10 +30,6 @@ export default React.createClass({
                 this.createProject();
             }
         }
-
-        if (e.keyCode === kc.esc) {
-            this.props.app.trigger("click:world", e);
-        }
     },
     onChange(what) {
         return e => {
