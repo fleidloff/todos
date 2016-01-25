@@ -4,10 +4,9 @@ var methodOverride = require("method-override");
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var restify = require("express-restify-mongoose");
-var config = require("../config");
+var config = require("../../config");
 var routes = require("./router");
 var log4js = require("log4js");
-log4js.configure("./backend/log4js.json", {});
 var logger = log4js.getLogger("server");
 
 mongoose.connect(config.mongo.host + config.mongo.db, config.mongo.config);
@@ -34,11 +33,11 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride());
-app.use(config.app.context, express.static(config.frontend.path));
+app.use("/", express.static(config.frontend.path));
 
 var router = express.Router();
 restify.defaults({
-    prefix: config.app.context + config.api.context,
+    prefix: config.api.context,
     version: "/" + config.api.version,
     /*middleware: null,*/
     onError: function (err, req, res, next) {
@@ -54,6 +53,4 @@ restify.serve(router, TaskModel);
 restify.serve(router, ProjectModel);
 app.use(router);
 
-app.listen(config.app.port, function() {
-    logger.info("Express server listening on port: ", config.app.port);
-});
+module.exports = app;

@@ -2,11 +2,12 @@ import React from "react";
 import Edit from "./item-detail-edit";
 import keyToColor from "../../util/keyToColor";
 import Icon from "react-fontawesome";
-import config from "../../../../config";
+import config from "../../../../../config";
 import manipulator from "../../util/manipulator";
 
 
 const baseUrl = config.server.context + config.app.context + config.api.context + "/" + config.api.version;
+const revealBaseUrl = config.server.context + "/reveal";
 
 export default React.createClass({
     descriptionMarkup() {
@@ -25,6 +26,11 @@ export default React.createClass({
             return <a href={`${baseUrl}/Tasks/${this.props.app.model.activeItem.id}.md?shared=true`}>shared data</a>
         }
     },
+    revealButton() {
+        if (this.props.app.model.activeItem.shared) {
+            return <button onClick={this.props.app.onTrigger("goto:url", `${revealBaseUrl}/${this.props.app.model.activeItem.id}`)} className="pure-button"><Icon name="tv" title="play reveal presentation" /></button>;   
+        }
+    },
     render() {
         const {model} = this.props.app;
         if (!model.activeItem) {
@@ -36,14 +42,13 @@ export default React.createClass({
         const {title, description, checked, id} = model.activeItem;
         const style = {"borderLeft": `4px solid ${keyToColor(title)}`};
         return <div key={model.activeItem.id}  className={"item-detail-wrapper" + (checked ? " checked" : "")}>
-            <div className="buttons">{this.editButton()}</div>
+            <div className="buttons">{this.editButton()} {this.revealButton()}</div>
             <div className="item-detail" style={style}>
                 <div className="title">{title}</div>
                 <div className="description" dangerouslySetInnerHTML={{__html: this.descriptionMarkup()}} />
             </div>
             <div className="meta">
                 {this.renderSharedLink()}
-                {this.renderRawLink()}
             </div>
         </div>;
     }

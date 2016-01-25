@@ -10,10 +10,14 @@ module.exports = {
     "mongo": {
         "host": "mongodb://localhost:27017/",
         "db": "todos",
-        "config": {server:{auto_reconnect:true}}
+        "config": {
+            "server": {
+                "auto_reconnect":true
+            }
+        }
     },
     "frontend": {
-        "path": "dist/web"
+        "path": "froodle/dist/web"
     },
     "api": {
         "version": "v1",

@@ -256,6 +256,9 @@ export default {
         hashParams.set({page: pageName});
         action({pageName});
     },
+    gotoUrl(state, action, url) {
+        window.location = url;
+    },
     startApp(state, action) {
         const {project, item} = hashParams.get();
         if (project) {

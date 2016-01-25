@@ -1,6 +1,6 @@
 module.exports = {
     js: {
-        files: ["frontend/js/**/*.js"],
+        files: ["froodle/frontend/js/**/*.js"],
         tasks: ["js"],
         options: {
             spawn: false,
@@ -8,7 +8,7 @@ module.exports = {
         },
     },
     less: {
-        files: ["frontend/less/**/*.less"],
+        files: ["froodle/frontend/less/**/*.less"],
         tasks: ["css"],
         options: {
             spawn: false,
@@ -16,7 +16,7 @@ module.exports = {
         },
     },
     backend: {
-        files: ["backend/**/*.js"],
+        files: ["froodle/backend/**/*.js", "reveal/**/*.js"],
         tasks: ["backend"],
         options: {
             spawn: false,

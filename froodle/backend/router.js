@@ -1,5 +1,5 @@
 var auth = require("./auth");
-var config = require("../config");
+var config = require("../../config");
 var baseUrl = config.app.context + config.api.context + "/" + config.api.version;
 var urls = {
     login: baseUrl + "/login",

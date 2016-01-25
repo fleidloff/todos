@@ -11,12 +11,16 @@ module.exports = {
         "host": "mongodb://fleidlof_mongoadmin:iebeTh1ach@localhost:20811/",
         "db": "todos",
         "config": {
-            "server": {"auto_reconnect":true},
-            "auth":{"authdb":"admin"}
+            "server": {
+                "auto_reconnect":true
+            },
+            "auth":{
+                "authdb":"admin"
+            }
         }
     },
     "frontend": {
-        "path": "dist/web"
+        "path": "froodle/dist/web"
     },
     "api": {
         "version": "v1",
