@@ -7,9 +7,11 @@ export default React.createClass({
     getInitialState() {
         dispatcher.on("click:world", e => {
             if ((e.target !== this.refs.button) && (e.target.parentElement !== this.refs.button)) {
-                this.setState({
-                    active: false
-                });
+                if (this.isMounted()) {
+                    this.setState({
+                        active: false
+                    });
+                }
             }
         });
         return {
