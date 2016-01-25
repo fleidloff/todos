@@ -257,7 +257,7 @@ export default {
         action({pageName});
     },
     gotoUrl(state, action, url) {
-        window.location = url;
+        var win = window.open(url, "_blank").focus();
     },
     startApp(state, action) {
         const {project, item} = hashParams.get();
