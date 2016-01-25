@@ -58,6 +58,10 @@ module.exports = {
             res.setHeader("Pragma", "no-cache");
             res.setHeader("Expires", "0");
 
+            if (req.url.indexOf("/froodle/reveal/") > -1) {
+                return next();
+            }
+
             if(req.query.shared && req.method === "GET") {
                 req.url=req.url.replace(".md", "");
                 req.query.select="description";
