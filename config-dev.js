@@ -24,6 +24,6 @@ module.exports = {
         "context": "/api"
     },
     "user": {
-        "authRequired": false
+        "authRequired": true
     }
 };

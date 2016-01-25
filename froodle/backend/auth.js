@@ -69,7 +69,8 @@ module.exports = {
                     return tmp("" + description || "no data");
                 }
                 return next();
-            };
+            }
+            logger.info(req.url, config.user.authRequired, !authorized(req), sessionUndefined(req));
             if (config.user.authRequired && !authorized(req) && sessionUndefined(req)) {
                 return res.status(401).send("not logged in").end();
             } else {
