@@ -19,6 +19,7 @@ const listeners = {
     "loaded:projects": [],
     "new:item": [],
     "preview:item-detail-edit": [],
+    "rename:project": [],
     "save:item-detail": [],
     "select:item": [],
     "select:project": [],

@@ -42,6 +42,16 @@ export default {
                 }
             });
         },
+        update(project) {
+            return fetch(base + "Projects/" + project.id, {
+                method: "put",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(project)
+            });
+        },
     },
     tasks: {
         all(model) {

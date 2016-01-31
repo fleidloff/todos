@@ -132,6 +132,13 @@ export default {
     cancelItem(state, action) {
         action({editing: false});
     },
+    renameProject(state, action, title) {
+        const {activeProject} = state.model;
+        activeProject.title = title;
+        api.projects.update(activeProject)
+            .catch(e => dispatcher.trigger("dispatcher:error", e));
+        action({activeProject});
+    },
     createProject(state, action, project) {
         const {projects} = state.model;
         api.projects.create(project)

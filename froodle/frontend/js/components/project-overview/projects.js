@@ -20,6 +20,11 @@ export default React.createClass({
         this.props.app.trigger("create:project", {title});
         this.props.onClickParent();
     },
+    renameProject() {
+        const {title} = this.state;
+        this.props.app.trigger("rename:project", title);
+        this.props.onClickParent();
+    },
     onKeyDownTitle(e) {
         if (e.keyCode === kc.enter) {
             const filteredProjects = this.filteredProjects();
@@ -45,7 +50,7 @@ export default React.createClass({
         return this.props.app.model.projects
             .filter(p => p.title.toLowerCase().indexOf(title) > -1)
             .sort((a, b) => {
-                return b.id === activeProjectId ? 1 : a.title.toLowerCase().localeCompare(b.title.toLowerCase());;
+                return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
             });
     },
     componentDidMount() {
@@ -60,6 +65,11 @@ export default React.createClass({
             return <div onClick={this.createProject} className={"option project"}><Icon name="plus" className="icon" /><div>create "{this.state.title}"</div></div>
         }
     },
+    renderRenameProject() {
+        if (this.props.app.model.activeProject && this.state.title && this.props.app.model.activeProject.title !== this.state.title) {
+            return <div onClick={this.renameProject} className={"option project"}><Icon name="edit" className="icon" /><div>rename to "{this.state.title}"</div></div>
+        }
+    },
     render() {
         return <div className="projects">
             <div className="title">
@@ -67,6 +77,7 @@ export default React.createClass({
             </div>
             {this.renderProjects()}
             {this.renderCreateProject()}
+            {this.renderRenameProject()}
         </div>;
     }
 });

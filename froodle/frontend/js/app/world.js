@@ -38,16 +38,17 @@ export default React.createClass({
         this.on("delete:project", backend.deleteProject);
         this.on("dismiss:notification", backend.dismissNotification);
         this.on("edit:item-detail", backend.editItem);
+        this.on("goto:page", backend.gotoPage);
+        this.on("goto:url", backend.gotoUrl);
         this.on("load:items", backend.loadItems);
         this.on("load:projects", backend.loadProjects);
         this.on("new:item", backend.newItem);
         this.on("preview:item-detail-edit", backend.previewItem);
+        this.on("rename:project", backend.renameProject);
         this.on("save:item-detail", backend.saveItem);
         this.on("select:item", backend.selectItem);
         this.on("select:project", backend.selectProject);
         this.on("show:message", backend.showMessage);
-        this.on("goto:page", backend.gotoPage);
-        this.on("goto:url", backend.gotoUrl);
         this.on("start:app", backend.startApp);
         this.on("user:logout", backend.logout);
 
