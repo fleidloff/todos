@@ -53,7 +53,6 @@ export default {
             })
             .then(items => action({items}))
             .then(items => session.setCache(cacheKey, items))
-            .then(() => dispatcher.trigger("loaded:items"))
             .catch(e => dispatcher.trigger("app:error", e));
     },
     loadProjects(state, action) {
@@ -74,7 +73,6 @@ export default {
                 return projects;
             })
             .then(projects => action({projects}))
-            .then(() => dispatcher.trigger("loaded:projects"))
             .catch(e => dispatcher.trigger("app:error", e));
     },
     selectItem(state, action, activeItemId, editing=false) {
@@ -154,7 +152,9 @@ export default {
                 json.id = json._id;
                 projects.unshift(json);
                 action({projects});
-                dispatcher.trigger("select:project", json.id);
+                dispatcher.trigger("select:project", json.id).then(() => {
+                    dispatcher.trigger("load:items");
+                });
             })
             .catch(e => dispatcher.trigger("dispatcher:error", e));
     },
@@ -242,7 +242,6 @@ export default {
                 editing: false
             });
             hashParams.set({project: activeProject.id, item: null});
-            dispatcher.trigger("load:items");
         } else {
             dispatcher.trigger("app:error");
         }
@@ -268,31 +267,27 @@ export default {
     },
     startApp(state, action) {
         const {project, item} = hashParams.get();
-        if (project) {
-            dispatcher.once("loaded:projects", () => {
-                if (state.model.projects.filter(it => {
-                    return it.id === project;
-                }).length) {
-                    dispatcher.trigger("select:project", project);
-                } else {
-                    dispatcher.trigger("show:message", "Selected Project does not exist.");
-                }
-            });
-        }
-
-        if (item) {
-            dispatcher.once("loaded:items", () => {
-                if (state.model.items.filter(it => {
-                    return it.id === item;
-                }).length) {
-                    dispatcher.trigger("select:item", item, false);
-                } else {
-                    dispatcher.trigger("show:message", "Selected Item does not exist.");
-                }
-
-            });
-        }
-        dispatcher.trigger("load:projects");
+        dispatcher.trigger("load:projects").then(() => {
+            if (!project) { return; }
+            if (state.model.projects.filter(it => {
+                return it.id === project;
+            }).length) {
+                dispatcher.trigger("select:project", project).then(() => {
+                    return dispatcher.trigger("load:items");
+                }).then(() => {
+                    if (!item) { return; }
+                    if (state.model.items.filter(it => {
+                        return it.id === item;
+                    }).length) {
+                        dispatcher.trigger("select:item", item, false);
+                    } else {
+                        dispatcher.trigger("show:message", "Selected Item does not exist.");
+                    }
+                });
+            } else {
+                dispatcher.trigger("show:message", "Selected Project does not exist.");
+            }   
+        });
     },
     appError(state, action, e) {
         if (e.public) {
@@ -301,8 +296,6 @@ export default {
         if (DBG) {
             console.log((e.silent ? "Silent" : "") + e);
         }
-        if (!(e.silent)) {
-            dispatcher.trigger("show:message", "Ooops, something went wrong...", "warning");
-        }
+        dispatcher.trigger("show:message", "Ooops, something went wrong...", "warning");
     }
 };

@@ -5,7 +5,7 @@ import dispatcher from "../../app/dispatcher";
 
 export default React.createClass({
     getInitialState() {
-        dispatcher.on("click:world", e => {
+        dispatcher.on("click:world", (resolve, e) => {
             if ((e.target !== this.refs.button) && (e.target.parentElement !== this.refs.button)) {
                 if (this.isMounted()) {
                     this.setState({

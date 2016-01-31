@@ -12,7 +12,9 @@ export default React.createClass({
     onClick(id) {
         return () => {
             this.props.onClickParent();
-            this.props.app.trigger("select:project", id);  
+            this.props.app.trigger("select:project", id).then(() => {
+                dispatcher.trigger("load:items");
+            });  
         }
     },
     createProject() {

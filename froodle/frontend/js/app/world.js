@@ -13,9 +13,9 @@ export default React.createClass({
         return o;
     },
     redux(action) {
-        return (...rest) => {
+        return (resolve, ...rest) => {
             try {
-                action(this.state, this.setModel, ...rest);
+                action(this.state, o => {resolve(); return this.setModel(o);}, ...rest);
             } catch(ex) {
                 if (DBG) {
                     dispatcher.trigger("show:message", ex.message, "debug");

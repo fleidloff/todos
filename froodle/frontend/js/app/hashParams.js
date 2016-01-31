@@ -7,13 +7,13 @@ window.addEventListener("hashchange", e => {
     const {project, item, page} = hp.get();
 
     if (project && hashParams.project !== project) {
-        if (item && hashParams.item !== item) {
-            dispatcher.once("loaded:items", () => {
+        dispatcher.trigger("select:project", project).then(() => {
+            return dispatcher.trigger("load:items");
+        }).then(() => {
+            if (item && hashParams.item !== item) {
                 dispatcher.trigger("select:item", item);    
-            });
-        }
-        
-        dispatcher.trigger("select:project", project);
+            }    
+        });
     } else if (project) {
         if (hashParams.item !== item) {
             if (item) {

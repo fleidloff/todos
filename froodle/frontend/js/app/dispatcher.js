@@ -14,9 +14,7 @@ const listeners = {
     "goto:page": [],
     "goto:url": [],
     "load:items": [],
-    "loaded:items": [],
     "load:projects": [],
-    "loaded:projects": [],
     "new:item": [],
     "preview:item-detail-edit": [],
     "rename:project": [],
@@ -37,12 +35,6 @@ export default {
         }
         listeners[evt].push(cb);
     },
-    once(evt, cb) {
-        if (!(evt in listeners)) {
-            throw new Error(`event ${evt} does not exist.`);
-        }
-        onceListeners[evt].push(cb);
-    },
     off(evt, cb) {
         if (!(evt in listeners)) {
             throw new Error(`event ${evt} does not exist.`);
@@ -50,24 +42,24 @@ export default {
         listeners[evt] = listeners[evt].filter(func => func !== cb);
     },
     trigger(evt, ...rest) {
-        if (DBG) {
-            console.log("triggered:", evt, rest);
-            let err;
+        return new Promise((resolve, reject) => {
+            if (DBG) {
+                console.log("triggered:", evt, rest);
+                let err;
 
-            if (!(evt in listeners)) {
-                err = new Error(`event ${evt} does not exist.`);
-                // err.silent = true;
-                throw err;
+                if (!(evt in listeners)) {
+                    err = new Error(`event ${evt} does not exist.`);
+                    throw err;
+                }
+                if ((listeners[evt].length + onceListeners[evt].length) === 0) {
+                    err = new Error(`event ${evt} triggered but not cought.`);
+                    throw err;
+                }
             }
-            if ((listeners[evt].length + onceListeners[evt].length) === 0) {
-                err = new Error(`event ${evt} triggered but not cought.`);
-                err.silent = true;
-                throw err;
-            }
-        }
 
-        listeners[evt].forEach(cb => setTimeout(() => cb(...rest), 0));
-        onceListeners[evt].forEach(cb => setTimeout(() => cb(...rest), 0));
-        onceListeners[evt] = [];
+            listeners[evt].forEach(cb => setTimeout(() => cb(resolve, ...rest), 0));
+            onceListeners[evt].forEach(cb => setTimeout(() => cb(resolve, ...rest), 0));
+            onceListeners[evt] = [];
+        });
     }
 };
