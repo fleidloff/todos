@@ -296,6 +296,8 @@ export default {
         if (DBG) {
             console.log((e.silent ? "Silent" : "") + e);
         }
-        dispatcher.trigger("show:message", "Ooops, something went wrong...", "warning");
+        if (!e.silent) {
+            dispatcher.trigger("show:message", "Ooops, something went wrong...", "warning");
+        }
     }
 };
