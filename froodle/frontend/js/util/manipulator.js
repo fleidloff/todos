@@ -1,10 +1,12 @@
 import yuml from "./yuml";
 import markdown from "./markdown";
 import emoji from "./emoji"
+import lineBreaks from "./lineBreaks";
 
 const manipulators = {
     yuml,
     markdown,
+    lineBreaks,
     emoji
 }
 
@@ -14,7 +16,12 @@ var f = function(input) {
             return f(manipulators[manipulator].apply(input));
         },
         applyAll() {
-            return this.apply("yuml").apply("markdown").apply("emoji").text();
+            return this
+                .apply("yuml")
+                .apply("markdown")
+                .apply("lineBreaks")
+                .apply("emoji")
+                .text();
         },
         text() {
             return input;
