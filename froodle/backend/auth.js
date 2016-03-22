@@ -66,6 +66,7 @@ module.exports = {
                     const description = JSON.parse(f).description;
                     res.setHeader("Content-Length", description.length);
                     res.setHeader("Content-Type", "text/markdown; charset=UTF-8");
+                    res.setHeader("Access-Control-Allow-Origin", "*");
                     return tmp("" + description || "no data");
                 }
                 return next();
